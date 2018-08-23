@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class TranslationDropdown extends React.Component {
+export class TranslationDropdown extends React.Component<any> {
 	componentDidMount() {
 		// google-translate.js fetches external assets from Google, which
 		// may take a while...
@@ -19,6 +19,15 @@ export class TranslationDropdown extends React.Component {
 	}
 
 	render() {
-		return <div id="google_translate_element" />;
+		return (
+			<div
+				id="google_translate_element"
+				style={{
+					position: 'absolute',
+					right: '1vmin',
+					top: '1vmin',
+				}}
+			/>
+		);
 	}
 }
