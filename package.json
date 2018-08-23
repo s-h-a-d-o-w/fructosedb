@@ -7,6 +7,7 @@
     "@zeit/next-typescript": "^1.1.0",
     "google-translate": "2.2.0",
     "isomorphic-unfetch": "2.1.1",
+    "memoize-one": "4.0.0",
     "next": "^6.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

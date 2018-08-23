@@ -10,6 +10,31 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({dev});
 const handle = app.getRequestHandler();
 
+// TODO: Might want to cache SSR renderings at some point
+// But first check what cache-less page load performance is like!
+// https://github.com/zeit/next.js/blob/master/examples/ssr-caching/server.js
+
+// Format the data the way the frontend needs it
+const extractData = (data) =>
+	data
+		.map(({ndbno, name, weight, measure, nutrients}) => ({
+			ndbno,
+			name,
+			weight,
+			measure,
+			fructose: nutrients[2].gm,
+			sucrose: nutrients[0].gm,
+			glucose: nutrients[1].gm,
+			fructoseMeasure: nutrients[2].gm * weight * 0.01,
+			sucroseMeasure: nutrients[0].gm * weight * 0.01,
+			glucoseMeasure: nutrients[1].gm * weight * 0.01,
+		}))
+		.filter(
+			(el) =>
+				(el.fructose !== 0 && el.fructose !== '--') ||
+				(el.glucose !== 0 && el.glucose !== '--')
+		);
+
 async function getList() {
 	//const dbURL = 'https://api.github.com/repos/zeit/next.js';
 
@@ -22,7 +47,7 @@ async function getList() {
 	const res = await fetch(dbURL);
 
 	if (res.status === 200) {
-		return (await res.json()).report.foods;
+		return extractData((await res.json()).report.foods);
 	} else {
 		throw `Contacting ${dbURL} failed! (code: ${res.status}`;
 	}

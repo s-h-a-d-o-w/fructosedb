@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import memoize from 'memoize-one';
 
 const StyledName: any = styled.td`
 	text-overflow: ellipsis;
@@ -25,25 +26,36 @@ const StyledName: any = styled.td`
 `;
 
 export class Table extends React.Component<any, any> {
+	sortData = memoize(
+		(data: Array<object>, orderBy) =>
+			typeof orderBy === 'string'
+				? data.sort((a, b) => a[orderBy].localeCompare(b[orderBy]))
+				: data.sort((a, b) => a[orderBy] - b[orderBy])
+	);
+
 	render() {
+		const sortedData = this.sortData(this.props.data, 'name');
+
 		let rows = [];
-		for (let i = 0; i < this.props.data.length; i++) {
-			let el = this.props.data[i];
+		for (let i = 0; i < sortedData.length; i++) {
+			let el = sortedData[i];
 			rows.push(
 				<tr key={el.name}>
 					<StyledName>
 						{el.name}
 						<div className="tooltip">{el.name}</div>
 					</StyledName>
-					<td>{el.nutrients[0].gm}</td>
-					<td>{el.nutrients[1].gm}</td>
-					<td>{el.nutrients[2].gm}</td>
-				</tr>,
+					<td>{el.fructose}</td>
+					<td>{el.sucrose}</td>
+					<td>{el.glucose}</td>
+				</tr>
 			);
 		}
 
 		return (
-			<table style={{tableLayout: 'fixed', width: '100%'}}>
+			<table
+				style={{tableLayout: 'fixed', width: '100%', marginBottom: '4vmin'}}
+			>
 				<thead>
 					<tr>
 						<th style={{textAlign: 'left'}}>Name</th>
