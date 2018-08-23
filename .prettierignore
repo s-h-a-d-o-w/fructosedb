@@ -1,0 +1,6 @@
+.next
+.babelrc
+*.json
+
+.gitignore
+.prettierignore
