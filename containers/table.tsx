@@ -2,6 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import memoize from 'memoize-one';
 
+const StyledTable = styled.table`
+	table-layout: fixed;
+	width: 100%;
+	margin-bottom: 4vmin;
+
+	background-color: mediumpurple;
+
+	th:first-child {
+		text-align: left;
+	}
+`;
+
 const StyledName: any = styled.td`
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -53,19 +65,17 @@ export class Table extends React.Component<any, any> {
 		}
 
 		return (
-			<table
-				style={{tableLayout: 'fixed', width: '100%', marginBottom: '4vmin'}}
-			>
+			<StyledTable>
 				<thead>
 					<tr>
-						<th style={{textAlign: 'left'}}>Name</th>
+						<th>Name</th>
 						<th>Fructose (per 100g)</th>
 						<th>Sucrose (per 100g)</th>
 						<th>Glucose (per 100g)</th>
 					</tr>
 				</thead>
 				<tbody>{rows}</tbody>
-			</table>
+			</StyledTable>
 		);
 	}
 }

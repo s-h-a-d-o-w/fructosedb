@@ -10,7 +10,7 @@ import {TranslationDropdown} from '../containers/translation-dropdown'; // only 
 
 const PageLayout = styled.div`
 	display: flex;
-	background-color: bisque;
+	background-color: rebeccapurple;
 
 	/* height: 100vh; */
 	flex-direction: column;
