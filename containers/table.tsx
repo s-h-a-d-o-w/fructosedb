@@ -2,13 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledRow: any = styled.tr`
-	.first {
+	.foodname {
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
+
+		text-align: left;
 	}
 
-	.first .tooltip {
+	.foodname .tooltip {
 		background-color: aliceblue;
 		position: absolute;
 		/* TODO: Use viewport units */
@@ -16,27 +18,23 @@ const StyledRow: any = styled.tr`
 		visibility: hidden;
 	}
 
-	.first:hover .tooltip {
+	.foodname:hover .tooltip {
 		visibility: visible;
 	}
 `;
 
 export class Table extends React.Component<any, any> {
-	// render() {
-	// 	return <textarea defaultValue={this.props.data} />;
-	// }
-
 	render() {
 		let rows = [];
 		for (let i = 0; i < this.props.data.length; i++) {
 			let el = this.props.data[i];
 			rows.push(
 				<StyledRow key={el.name} tooltip={el.name}>
-					<td className="first" style={{textAlign: 'left'}}>
+					<td className="foodname">
 						{el.name}
 						<div className="tooltip">{el.name}</div>
 					</td>
-					<td className="second">{el.nutrients[0].gm}</td>
+					<td>{el.nutrients[0].gm}</td>
 					<td>{el.nutrients[1].gm}</td>
 					<td>{el.nutrients[2].gm}</td>
 				</StyledRow>,

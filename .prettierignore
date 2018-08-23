@@ -4,3 +4,5 @@
 
 .gitignore
 .prettierignore
+
+utils/google-translate.js
