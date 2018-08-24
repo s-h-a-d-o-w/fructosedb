@@ -14,12 +14,21 @@ const handle = app.getRequestHandler();
 // But first check what cache-less page load performance is like!
 // https://github.com/zeit/next.js/blob/master/examples/ssr-caching/server.js
 
-const nutrientPerServing = (gm, weight) =>
-	gm === '--' ? gm : gm * weight * 0.01;
+const nutrientPerServing = (gm, weight) => gm * weight * 0.01;
+
+const fructoseGlucoseRatio = (fructose, sucrose, glucose) =>
+	Math.round(((fructose + 0.5 * sucrose) / (glucose + 0.5 * sucrose)) * 100) /
+	100;
 
 // Format the data the way the frontend needs it
 const extractData = (data) =>
 	data
+		.filter(
+			(el) =>
+				el.nutrients[2].gm !== '--' &&
+				el.nutrients[0].gm !== '--' &&
+				el.nutrients[1].gm !== '--'
+		)
 		.map(({ndbno, name, weight, measure, nutrients}) => ({
 			ndbno,
 			name,
@@ -31,12 +40,12 @@ const extractData = (data) =>
 			fructoseServing: nutrientPerServing(nutrients[2].gm, weight),
 			sucroseServing: nutrientPerServing(nutrients[0].gm, weight),
 			glucoseServing: nutrientPerServing(nutrients[1].gm, weight),
-		}))
-		.filter(
-			(el) =>
-				(el.fructose !== 0 && el.fructose !== '--') ||
-				(el.glucose !== 0 && el.glucose !== '--')
-		);
+			ratio: fructoseGlucoseRatio(
+				nutrients[2].gm,
+				nutrients[0].gm,
+				nutrients[1].gm
+			),
+		}));
 
 async function getList() {
 	//const dbURL = 'https://api.github.com/repos/zeit/next.js';
@@ -45,6 +54,7 @@ async function getList() {
 	const query = querystring.stringify({
 		api_key: 'ZQx4MlSQ3W8PeWVDfS5YxwLjVV1huzf7gz0rdIsV',
 		nutrients: [210, 211, 212],
+		max: 1500, // number of elements to return. default: 50
 	});
 	const dbURL = `http://api.nal.usda.gov/ndb/nutrients/?${query}`;
 	const res = await fetch(dbURL);

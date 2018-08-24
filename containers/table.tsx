@@ -2,6 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import memoize from 'memoize-one';
 
+/*
+// See: https://github.com/styled-components/styled-components/issues/630#issuecomment-411542050
+const component: <Props>(
+	Tag: string
+) => React.SFC<Props & {className?: string}> = (Tag) => (props) => (
+	<Tag className={props.className}>{props.children}</Tag>
+);
+
+interface ITableHeader {
+	sortAsc: boolean;
+	onClick: any;
+}
+*/
+
 const StyledTable = styled.table`
 	table-layout: fixed;
 	width: 100%;
@@ -15,6 +29,7 @@ const StyledTable = styled.table`
 
 	th:first-child {
 		text-align: left;
+		width: 55%;
 	}
 `;
 
@@ -41,10 +56,24 @@ const StyledName: any = styled.td`
 	}
 `;
 
+const StyledHeader: any = styled.th`
+	&::after {
+		content: '${(props: any) =>
+			props.sortAsc !== null ? (props.sortAsc ? ' ^' : ' v') : ''}';
+	}
+`;
+
 export class Table extends React.Component<any, any> {
 	state = {
 		sortBy: 'name',
 		sortAsc: true,
+		headers: [
+			{name: 'name', description: 'Name'},
+			{name: 'fructose', description: 'Fructose per 100g'},
+			{name: 'sucrose', description: 'Sucrose per 100g'},
+			{name: 'glucose', description: 'Glucose per 100g'},
+			{name: 'ratio', description: 'F/C ratio'},
+		],
 	};
 
 	changeSorting(sortBy) {
@@ -83,25 +112,30 @@ export class Table extends React.Component<any, any> {
 					<td>{el.fructose}</td>
 					<td>{el.sucrose}</td>
 					<td>{el.glucose}</td>
+					<td>{el.ratio}</td>
 				</tr>
 			);
 		}
 
+		let headers = [];
+		for (let header of this.state.headers) {
+			headers.push(
+				<StyledHeader
+					sortAsc={
+						header.name === this.state.sortBy ? this.state.sortAsc : null
+					}
+					key={header.name}
+					onClick={this.changeSorting.bind(this, header.name)}
+				>
+					{header.description}
+				</StyledHeader>
+			);
+		}
+
 		return (
-			<StyledTable>
+			<StyledTable {...this.state}>
 				<thead>
-					<tr>
-						<th onClick={this.changeSorting.bind(this, 'name')}>Name</th>
-						<th onClick={this.changeSorting.bind(this, 'fructose')}>
-							Fructose (per 100g)
-						</th>
-						<th onClick={this.changeSorting.bind(this, 'sucrose')}>
-							Sucrose (per 100g)
-						</th>
-						<th onClick={this.changeSorting.bind(this, 'glucose')}>
-							Glucose (per 100g)
-						</th>
-					</tr>
+					<tr>{headers}</tr>
 				</thead>
 				<tbody>{rows}</tbody>
 			</StyledTable>

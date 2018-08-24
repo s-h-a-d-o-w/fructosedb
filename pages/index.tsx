@@ -6,7 +6,8 @@ import {Logo} from '../components/logo';
 import {Table} from '../containers/table';
 
 import 'react-virtualized/styles.css';
-import {TranslationDropdown} from '../containers/translation-dropdown'; // only needs to be imported once
+import {TranslationDropdown} from '../containers/translation-dropdown';
+import {NextSFC} from 'next'; // only needs to be imported once
 
 const PageLayout = styled.div`
 	display: flex;
@@ -17,9 +18,15 @@ const PageLayout = styled.div`
 
 	padding: 0vw 10vw;
 	text-align: center;
+
+	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 `;
 
-const Index: any = (props) => (
+interface IProps {
+	data: object[];
+}
+
+const Index: NextSFC<IProps> = (props) => (
 	<PageLayout>
 		<Logo />
 		<p>This is gonna be great.</p>

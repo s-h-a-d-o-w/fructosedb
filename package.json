@@ -20,6 +20,7 @@
     "start": "cross-env NODE_ENV=production && node server.js"
   },
   "devDependencies": {
+    "@types/next": "6.1.2",
     "@types/node": "10.7.1",
     "@types/react": "^16.4.11",
     "@types/react-dom": "^16.0.7",
