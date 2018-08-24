@@ -14,7 +14,7 @@ const handle = app.getRequestHandler();
 // But first check what cache-less page load performance is like!
 // https://github.com/zeit/next.js/blob/master/examples/ssr-caching/server.js
 
-const nutrientPerMeasure = (gm, weight) =>
+const nutrientPerServing = (gm, weight) =>
 	gm === '--' ? gm : gm * weight * 0.01;
 
 // Format the data the way the frontend needs it
@@ -28,9 +28,9 @@ const extractData = (data) =>
 			fructose: nutrients[2].gm,
 			sucrose: nutrients[0].gm,
 			glucose: nutrients[1].gm,
-			fructoseMeasure: nutrientPerMeasure(nutrients[2].gm, weight),
-			sucroseMeasure: nutrientPerMeasure(nutrients[0].gm, weight),
-			glucoseMeasure: nutrientPerMeasure(nutrients[1].gm, weight),
+			fructoseServing: nutrientPerServing(nutrients[2].gm, weight),
+			sucroseServing: nutrientPerServing(nutrients[0].gm, weight),
+			glucoseServing: nutrientPerServing(nutrients[1].gm, weight),
 		}))
 		.filter(
 			(el) =>
