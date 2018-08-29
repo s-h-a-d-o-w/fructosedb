@@ -2,6 +2,7 @@ require('./env-config.js');
 
 const next = require('next');
 const express = require('express');
+const compression = require('compression');
 const querystring = require('querystring');
 const fetch = require('isomorphic-unfetch');
 
@@ -68,6 +69,7 @@ async function getList() {
 
 app.prepare().then(() => {
 	const server = express();
+	server.use(compression());
 
 	let cache = {};
 	const updateCache = async () => {

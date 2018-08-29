@@ -5,19 +5,22 @@
   "license": "MIT",
   "dependencies": {
     "@zeit/next-typescript": "^1.1.0",
+    "compression": "1.7.3",
     "google-translate": "2.2.0",
     "isomorphic-unfetch": "2.1.1",
     "memoize-one": "4.0.0",
     "next": "^6.1.1",
     "react": "^16.4.2",
+    "react-burger-menu": "2.5.2",
     "react-dom": "^16.4.2",
+    "react-sidebar": "3.0.2",
     "react-virtualized": "9.20.1",
     "styled-components": "3.4.4"
   },
   "scripts": {
     "dev": "cross-env BACKEND_URL=http://localhost:3000 node server.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production && node server.js"
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "devDependencies": {
     "@types/next": "6.1.2",
