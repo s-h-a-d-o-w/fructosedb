@@ -6,7 +6,6 @@ import {Logo} from '../components/logo';
 import {Table} from '../containers/table';
 
 import 'react-virtualized/styles.css';
-import {TranslationDropdown} from '../containers/translation-dropdown';
 import {NextSFC} from 'next'; // only needs to be imported once
 
 const PageLayout = styled.div`
@@ -30,7 +29,6 @@ const Index: NextSFC<IProps> = (props) => (
 	<PageLayout>
 		<Logo />
 		<p>This is gonna be great.</p>
-		<TranslationDropdown />
 		<div>
 			<input type="checkbox" name="duplicates" />
 			<label htmlFor="duplicates">Filter likely duplicates</label>
