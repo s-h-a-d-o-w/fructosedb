@@ -48,6 +48,52 @@ const extractData = (data) =>
 			),
 		}));
 
+// TODO: Do this in frontend instead, so that the user can choose?
+const removeDuplicates = (data) => {
+	let thresholdRatio = 0.1;
+	// threshold of 5 e.g. removes apple juice, possibly of similar ratios for
+	// raw apples or another apple product
+	let thresholdName = 7; // number of characters that have to match
+	let similar = {};
+
+	// Find similar F/G ratios
+	data = data.sort((a, b) => a.ratio - b.ratio);
+	for (let i = 0; i < data.length - 1; i++) {
+		let j = i + 1;
+
+		// could also create on demand in loop below - memory use vs. runtime perf
+		similar[i] = [];
+
+		while (j < data.length && data[j].ratio - data[i].ratio < thresholdRatio) {
+			similar[i].push(j);
+			j++;
+		}
+	}
+
+	// Find similar names among similar ratios
+	let elementsToRemove = {};
+	for (let key of Reflect.ownKeys(similar)) {
+		if (similar[key].length > 1) {
+			let firstName = data[similar[key][0]].name.substr(0, thresholdName);
+			for (let i = 1; i < similar[key].length; i++) {
+				if (firstName === data[similar[key][i]].name.substr(0, thresholdName))
+					elementsToRemove[similar[key][i]] = null;
+			}
+		}
+	}
+
+	let sortedIndices = Reflect.ownKeys(elementsToRemove)
+		.map((idx) => parseInt(idx, 10))
+		.sort((a, b) => a - b);
+	console.log(`Removing ${sortedIndices.length} of ${data.length} items`);
+	for (let i = sortedIndices.length - 1; i >= 0; i--) {
+		data.splice(sortedIndices[i], 1);
+	}
+	console.log(sortedIndices);
+
+	return data;
+};
+
 async function getList() {
 	//const dbURL = 'https://api.github.com/repos/zeit/next.js';
 
@@ -61,7 +107,8 @@ async function getList() {
 	const res = await fetch(dbURL);
 
 	if (res.status === 200) {
-		return extractData((await res.json()).report.foods);
+		//return extractData((await res.json()).report.foods);
+		return removeDuplicates(extractData((await res.json()).report.foods));
 	} else {
 		throw `Contacting ${dbURL} failed! (code: ${res.status}`;
 	}

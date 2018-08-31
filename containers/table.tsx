@@ -17,6 +17,8 @@ interface ITableHeader {
 */
 
 const StyledTable = styled.table`
+	color: black;
+
 	table-layout: fixed;
 	width: 100%;
 	margin-bottom: 4vmin;
@@ -133,12 +135,14 @@ export class Table extends React.Component<any, any> {
 		}
 
 		return (
-			<StyledTable {...this.state}>
-				<thead>
-					<tr>{headers}</tr>
-				</thead>
-				<tbody>{rows}</tbody>
-			</StyledTable>
+			<div style={{flexGrow: 1}}>
+				<StyledTable {...this.state}>
+					<thead>
+						<tr>{headers}</tr>
+					</thead>
+					<tbody>{rows}</tbody>
+				</StyledTable>
+			</div>
 		);
 	}
 }
