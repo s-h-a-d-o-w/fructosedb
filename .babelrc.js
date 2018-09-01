@@ -8,7 +8,6 @@ module.exports = {
 			{
 				ssr: true,
 				displayName: true,
-				preprocess: false,
 			},
 		],
 		['transform-define', env],

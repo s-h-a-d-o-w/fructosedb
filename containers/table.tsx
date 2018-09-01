@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import memoize from 'memoize-one';
+import {connect} from 'react-redux';
+
+import {actions} from '../store/store.js';
 
 /*
 // See: https://github.com/styled-components/styled-components/issues/630#issuecomment-411542050
@@ -65,7 +68,7 @@ const StyledHeader: any = styled.th`
 	}
 `;
 
-export class Table extends React.Component<any, any> {
+class Table extends React.Component<any, any> {
 	state = {
 		sortBy: 'name',
 		sortAsc: true,
@@ -78,7 +81,13 @@ export class Table extends React.Component<any, any> {
 		],
 	};
 
-	changeSorting(sortBy) {
+	changeSorting(sortBy, dispatch) {
+		dispatch(
+			actions.changeSort(
+				sortBy,
+				this.state.sortBy === sortBy ? !this.state.sortAsc : true
+			)
+		);
 		this.setState({
 			sortBy,
 			sortAsc: this.state.sortBy === sortBy ? !this.state.sortAsc : true,
@@ -100,7 +109,7 @@ export class Table extends React.Component<any, any> {
 	);
 
 	render() {
-		const sortedData = this.sortData(this.state.sortBy, this.state.sortAsc);
+		const sortedData = this.sortData(this.props.sortBy, this.props.sortAsc);
 
 		let rows = [];
 		for (let i = 0; i < sortedData.length; i++) {
@@ -124,10 +133,14 @@ export class Table extends React.Component<any, any> {
 			headers.push(
 				<StyledHeader
 					sortAsc={
-						header.name === this.state.sortBy ? this.state.sortAsc : null
+						header.name === this.props.sortBy ? this.props.sortAsc : null
 					}
 					key={header.name}
-					onClick={this.changeSorting.bind(this, header.name)}
+					onClick={this.changeSorting.bind(
+						this,
+						header.name,
+						this.props.dispatch
+					)}
 				>
 					{header.description}
 				</StyledHeader>
@@ -146,3 +159,10 @@ export class Table extends React.Component<any, any> {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	sortBy: state.sortBy,
+	sortAsc: state.sortAsc,
+});
+
+export default connect(mapStateToProps)(Table);

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import fetch from 'isomorphic-unfetch';
 
 import {Logo} from '../components/logo';
-import {Table} from '../containers/table';
+import Table from '../containers/table';
 import {Menu} from '../components/menu';
 
 import 'react-virtualized/styles.css';
@@ -17,7 +17,7 @@ const PageLayout = styled.div`
 	height: 100vh;
 	flex-direction: column;
 
-	padding: 0vw 10vw;
+	padding: 0 10vw;
 	text-align: center;
 
 	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
