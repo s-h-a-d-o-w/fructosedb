@@ -7,6 +7,7 @@ import withPersistence from '../lib/with-persistence.js';
 export const actionTypes = {
 	CHANGE_SORT: 'CHANGE_SORT',
 	REHYDRATE: 'REHYDRATE',
+	TOGGLE_MENU: 'TOGGLE_MENU',
 };
 
 // REDUCERS
@@ -21,6 +22,10 @@ export const reducer = (state = exampleInitialState, action) => {
 			return localStorage.getItem('state') === null
 				? state
 				: JSON.parse(localStorage.getItem('state'));
+		case actionTypes.TOGGLE_MENU:
+			return Object.assign({}, state, {
+				showMenu: !state.showMenu,
+			});
 		default:
 			return state;
 	}
@@ -38,6 +43,9 @@ export const actions = {
 	rehydrate: () => ({
 		type: actionTypes.REHYDRATE,
 	}),
+	toggleMenu: () => ({
+		type: actionTypes.TOGGLE_MENU,
+	}),
 };
 
 // INITIALIZATION
@@ -51,6 +59,7 @@ const exampleInitialState = {
 
 export const initializeStore = (initialState = exampleInitialState) =>
 	createStore(
+		// No persistence for SSR
 		typeof window === 'undefined' ? reducer : withPersistence(reducer),
 		initialState,
 		composeWithDevTools(applyMiddleware(thunkMiddleware))

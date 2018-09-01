@@ -4,7 +4,7 @@ import fetch from 'isomorphic-unfetch';
 
 import {Logo} from '../components/logo';
 import Table from '../containers/table';
-import {Menu} from '../components/menu';
+import Menu from '../components/menu';
 
 import 'react-virtualized/styles.css';
 import {NextSFC} from 'next';
@@ -30,7 +30,6 @@ interface IProps {
 const Index: NextSFC<IProps> = (props) => (
 	<PageLayout>
 		<nav>
-			<div style={{float: 'left'}}>☰</div>
 			<Logo />
 			<div style={{float: 'right'}}>Support us</div>
 			<Menu>
