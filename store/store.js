@@ -2,6 +2,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 
+import {loadState} from './local-storage.js';
 import withPersistence from '../lib/with-persistence.js';
 
 export const actionTypes = {
@@ -19,9 +20,7 @@ export const reducer = (state = exampleInitialState, action) => {
 				sortAsc: action.sortAsc,
 			});
 		case actionTypes.REHYDRATE:
-			return localStorage.getItem('state') === null
-				? state
-				: JSON.parse(localStorage.getItem('state'));
+			return loadState(state);
 		case actionTypes.TOGGLE_MENU:
 			return Object.assign({}, state, {
 				showMenu: !state.showMenu,
@@ -59,7 +58,9 @@ const exampleInitialState = {
 
 export const initializeStore = (initialState = exampleInitialState) =>
 	createStore(
-		// No persistence for SSR
+		// No persistence for SSR.
+		// Also: Could provide a blacklist or whitelist to withPersistence for which
+		// keys of the state to store.
 		typeof window === 'undefined' ? reducer : withPersistence(reducer),
 		initialState,
 		composeWithDevTools(applyMiddleware(thunkMiddleware))
