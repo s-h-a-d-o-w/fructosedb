@@ -1,8 +1,12 @@
-const dev = process.env.NODE_ENV !== 'production';
+require('dotenv').config();
 
-process.env.BACKEND_URL = dev
-	? 'http://localhost:3000'
-	: 'https://api.example.com';
+const dev = process.env.NODE_ENV !== 'production';
+const port = parseInt(process.env.PORT, 10) || 3000;
+
+process.env.BACKEND_URL =
+	dev || !process.env.BACKEND_URL
+		? `http://localhost:${port}`
+		: process.env.BACKEND_URL;
 
 // Exported values are provided to frontend via transform-define
 module.exports = {

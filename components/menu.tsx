@@ -7,8 +7,9 @@ const MobileMenu = styled.div`
 
 	position: absolute;
 	left: 0;
-	width: 200px;
-	height: 100%;
+	top: 0;
+	width: 60vw;
+	height: 100vh;
 
 	flex-direction: column;
 
@@ -19,12 +20,15 @@ const MobileMenu = styled.div`
 `;
 
 const HeaderMenu = styled.div`
-	color: lightgreen;
 	float: right;
 
 	display: none;
 	@media all and (min-width: 45em) {
 		display: flex;
+	}
+
+	& > a {
+		margin-right: 1rem;
 	}
 `;
 

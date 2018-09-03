@@ -1,6 +1,8 @@
+.env
 .next
 .babelrc
 *.json
+*.bat
 
 .gitignore
 .prettierignore

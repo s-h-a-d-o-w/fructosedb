@@ -2,9 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledLogo = styled.div`
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
+	display: inline-block;
+
+	font-size: 2rem;
 `;
 
-export const Logo = () => <StyledLogo>fructose.db</StyledLogo>;
+const Fructose = styled.span`
+	color: #d7c3eb;
+`;
+
+const DB = styled.span`
+	color: #210340;
+`;
+
+export const Logo = () => (
+	<StyledLogo>
+		<Fructose>fructose</Fructose>
+		<DB>db</DB>
+	</StyledLogo>
+);

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import fetch from 'isomorphic-unfetch';
+import fetch from '../lib/fetch-with-timeout.js';
+import Link from 'next/link';
 
 import {Logo} from '../components/logo';
 import Table from '../containers/table';
@@ -31,16 +32,18 @@ const Index: NextSFC<IProps> = (props) => (
 	<PageLayout>
 		<nav>
 			<Logo />
-			<div style={{float: 'right'}}>Support us</div>
+			<div style={{float: 'right'}}>♡ Support us</div>
 			<Menu>
-				<div>Sources</div>
-				<div>About Us</div>
+				<Link prefetch href="/sources">
+					<a>Sources</a>
+				</Link>
+				<Link prefetch href="/about">
+					<a>About Us</a>
+				</Link>
 			</Menu>
 		</nav>
 		<div style={{width: '100%'}}>
 			<div style={{float: 'left'}}>
-				<input type="checkbox" name="duplicates" />
-				<label htmlFor="duplicates">Filter likely duplicates</label>
 				<input type="checkbox" name="measureToUse" />
 				<label htmlFor="duplicates">Per serving</label>
 			</div>

@@ -4,7 +4,7 @@ const next = require('next');
 const express = require('express');
 const compression = require('compression');
 const querystring = require('querystring');
-const fetch = require('isomorphic-unfetch');
+const fetch = require('./lib/fetch-with-timeout.js');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -82,14 +82,19 @@ const removeDuplicates = (data) => {
 		}
 	}
 
+	// Actually remove the likely duplicates
 	let sortedIndices = Reflect.ownKeys(elementsToRemove)
 		.map((idx) => parseInt(idx, 10))
 		.sort((a, b) => a - b);
-	console.log(`Removing ${sortedIndices.length} of ${data.length} items`);
-	for (let i = sortedIndices.length - 1; i >= 0; i--) {
+
+	console.log(
+		`Removing ${sortedIndices.length} likely duplicates from ${
+			data.length
+		} items`
+	);
+
+	for (let i = sortedIndices.length - 1; i >= 0; i--)
 		data.splice(sortedIndices[i], 1);
-	}
-	console.log(sortedIndices);
 
 	return data;
 };
@@ -99,7 +104,7 @@ async function getList() {
 
 	// TODO: Put api key into some file that won't be committed!
 	const query = querystring.stringify({
-		api_key: 'ZQx4MlSQ3W8PeWVDfS5YxwLjVV1huzf7gz0rdIsV',
+		api_key: process.env.USDA_KEY,
 		nutrients: [210, 211, 212],
 		max: 1500, // number of elements to return. default: 50
 	});
@@ -137,7 +142,9 @@ app.prepare().then(() => {
 	updateCache().then(() => {
 		server.listen(port, (err) => {
 			if (err) throw err;
-			console.log(`> Ready on http://localhost:${port}`);
+			console.log(
+				`> ${dev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
+			);
 		});
 	});
 });

@@ -26,7 +26,7 @@ const StyledTable = styled.table`
 	width: 100%;
 	margin-bottom: 4vmin;
 
-	background-color: mediumpurple;
+	background-color: #d7c3eb;
 
 	th {
 		cursor: pointer;
@@ -39,9 +39,15 @@ const StyledTable = styled.table`
 `;
 
 const StyledName: any = styled.td`
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
+	@media all and (min-width: 45em) {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+
+		&:hover .tooltip {
+			visibility: visible;
+		}
+	}
 
 	text-align: left;
 
@@ -55,16 +61,12 @@ const StyledName: any = styled.td`
 
 		visibility: hidden;
 	}
-
-	&:hover .tooltip {
-		visibility: visible;
-	}
 `;
 
 const StyledHeader: any = styled.th`
 	&::after {
 		content: '${(props: any) =>
-			props.sortAsc !== null ? (props.sortAsc ? ' ^' : ' v') : ''}';
+			props.sortAsc !== null ? (props.sortAsc ? ' ▲' : ' ▼') : ''}';
 	}
 `;
 
