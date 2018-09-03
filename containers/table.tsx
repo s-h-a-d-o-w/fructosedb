@@ -30,11 +30,12 @@ const StyledTable = styled.table`
 
 	th {
 		cursor: pointer;
+		width: 2.5rem;
 	}
 
 	th:first-child {
 		text-align: left;
-		width: 55%;
+		width: auto;
 	}
 `;
 
@@ -76,10 +77,10 @@ class Table extends React.Component<any, any> {
 		sortAsc: true,
 		headers: [
 			{name: 'name', description: 'Name'},
-			{name: 'fructose', description: 'Fructose per 100g'},
-			{name: 'sucrose', description: 'Sucrose per 100g'},
-			{name: 'glucose', description: 'Glucose per 100g'},
-			{name: 'ratio', description: 'F/C ratio'},
+			{name: 'fructose', description: 'Fruct. per 100g'},
+			{name: 'sucrose', description: 'Sucr. per 100g'},
+			{name: 'glucose', description: 'Gluc. per 100g'},
+			{name: 'ratio', description: 'F/G ratio'},
 		],
 	};
 

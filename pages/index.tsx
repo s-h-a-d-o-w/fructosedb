@@ -22,6 +22,12 @@ const PageLayout = styled.div`
 	text-align: center;
 
 	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+	font-size: 0.9rem;
+
+	input {
+		min-width: 0.4rem;
+		min-height: 0.4rem;
+	}
 `;
 
 interface IProps {
