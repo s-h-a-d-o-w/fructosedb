@@ -12,22 +12,11 @@ import {NextSFC} from 'next';
 
 const PageLayout = styled.div`
 	display: flex;
-	background-color: rebeccapurple;
-	color: white;
-
 	height: 100vh;
 	flex-direction: column;
 
 	padding: 0 10vw;
 	text-align: center;
-
-	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
-	font-size: 0.9rem;
-
-	input {
-		min-width: 0.4rem;
-		min-height: 0.4rem;
-	}
 `;
 
 interface IProps {
@@ -36,15 +25,17 @@ interface IProps {
 
 const Index: NextSFC<IProps> = (props) => (
 	<PageLayout>
-		<nav>
-			<Logo />
-			<div style={{float: 'right'}}>♡ Support us</div>
+		<Logo />
+		<nav style={{marginTop: '0.5rem', marginBottom: '0.5rem'}}>
 			<Menu>
 				<Link prefetch href="/sources">
 					<a>Sources</a>
 				</Link>
 				<Link prefetch href="/about">
 					<a>About Us</a>
+				</Link>
+				<Link prefetch href="/support">
+					<a>♡ Support us</a>
 				</Link>
 			</Menu>
 		</nav>

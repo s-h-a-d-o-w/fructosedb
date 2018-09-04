@@ -20,11 +20,10 @@ const MobileMenu = styled.div`
 `;
 
 const HeaderMenu = styled.div`
-	float: right;
-
 	display: none;
 	@media all and (min-width: 45em) {
-		display: flex;
+		display: inline-block;
+		float: right;
 	}
 
 	& > a {
