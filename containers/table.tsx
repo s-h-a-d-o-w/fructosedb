@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import memoize from 'memoize-one';
 import {connect} from 'react-redux';
+import sort from 'fast-sort';
 
 import {actions} from '../store/store.js';
 
@@ -30,7 +31,7 @@ const StyledTable = styled.table`
 
 	th {
 		cursor: pointer;
-		width: 2.5rem;
+		width: auto;
 	}
 
 	th:first-child {
@@ -73,9 +74,10 @@ const StyledHeader: any = styled.th`
 
 class Table extends React.Component<any, any> {
 	state = {
-		sortBy: 'name',
-		sortAsc: true,
+		sortBy: 'ratio',
+		sortAsc: false,
 		headers: [
+			{name: 'avoid', description: '🔒'},
 			{name: 'name', description: 'Name'},
 			{name: 'fructose', description: 'Fruct. per 100g'},
 			{name: 'sucrose', description: 'Sucr. per 100g'},
@@ -88,37 +90,51 @@ class Table extends React.Component<any, any> {
 		dispatch(
 			actions.changeSort(
 				sortBy,
-				this.state.sortBy === sortBy ? !this.state.sortAsc : true
+				this.props.sortBy === sortBy ? !this.props.sortAsc : true
 			)
 		);
-		this.setState({
-			sortBy,
-			sortAsc: this.state.sortBy === sortBy ? !this.state.sortAsc : true,
-		});
 	}
 
-	sortData = memoize(
-		(sortBy, sortAsc) =>
-			sortBy === 'name'
-				? this.props.data.sort(
-						(a, b) =>
-							sortAsc
-								? a[sortBy].localeCompare(b[sortBy])
-								: b[sortBy].localeCompare(a[sortBy])
-				  )
-				: this.props.data.sort(
-						(a, b) => (sortAsc ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy])
-				  )
-	);
+	sortData = memoize((sortBy, sortAsc, lockedAvoid) => {
+		return lockedAvoid
+			? sort(this.props.data).by([
+					{desc: 'avoid'},
+					sortAsc ? {asc: sortBy} : {desc: sortBy},
+			  ])
+			: sort(this.props.data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}]);
+	});
 
 	render() {
-		const sortedData = this.sortData(this.props.sortBy, this.props.sortAsc);
+		const sortedData = this.sortData(
+			this.props.sortBy,
+			this.props.sortAsc,
+			true
+		);
 
 		let rows = [];
 		for (let i = 0; i < sortedData.length; i++) {
 			let el = sortedData[i];
 			rows.push(
 				<tr key={el.name}>
+					<td>
+						{el.avoid ? (
+							<div
+								style={{width: '1rem', height: '1rem', backgroundColor: 'red'}}
+							>
+								&nbsp;
+							</div>
+						) : (
+							<div
+								style={{
+									width: '1rem',
+									height: '1rem',
+									backgroundColor: 'green',
+								}}
+							>
+								&nbsp;
+							</div>
+						)}
+					</td>
 					<StyledName>
 						{el.name}
 						<div className="tooltip">{el.name}</div>
@@ -151,8 +167,8 @@ class Table extends React.Component<any, any> {
 		}
 
 		return (
-			<div style={{flexGrow: 1}}>
-				<StyledTable {...this.state}>
+			<div style={{gridArea: 'table', padding: '1vmin 2vmin'}}>
+				<StyledTable>
 					<thead>
 						<tr>{headers}</tr>
 					</thead>

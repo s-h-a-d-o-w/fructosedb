@@ -21,7 +21,18 @@ const fructoseGlucoseRatio = (fructose, sucrose, glucose) =>
 	Math.round(((fructose + 0.5 * sucrose) / (glucose + 0.5 * sucrose)) * 100) /
 	100;
 
-// Format the data the way the frontend needs it
+// See: https://www.foodsmatter.com/miscellaneous_articles/sugar_sweeteners/articles/fructose-intol-joneja-09-14.html
+const avoid = (serving, fructose, sucrose, glucose) => {
+	// Fructose should not exceed glucose by more than 0.5/100g
+	let relative = fructose + 0.5 * sucrose - (glucose + 0.5 * sucrose) > 0.5;
+	// No more than 3g per serving (we of course have to estimate based on what
+	// the USDA says the serving size is)
+	let absolute = (serving / 100) * fructose > 3;
+
+	return relative || absolute;
+};
+
+// Format the data the way the frontend needs it.
 const extractData = (data) =>
 	data
 		.filter(
@@ -46,12 +57,13 @@ const extractData = (data) =>
 				nutrients[0].gm,
 				nutrients[1].gm
 			),
+			avoid: avoid(weight, nutrients[2].gm, nutrients[0].gm, nutrients[1].gm),
 		}));
 
 // TODO: Do this in frontend instead, so that the user can choose?
 const removeDuplicates = (data) => {
 	let thresholdRatio = 0.1;
-	// threshold of 5 e.g. removes apple juice, possibly of similar ratios for
+	// Threshold of 5 e.g. removes apple juice, possibly of similar ratios for
 	// raw apples or another apple product
 	let thresholdName = 7; // number of characters that have to match
 	let similar = {};
@@ -61,7 +73,7 @@ const removeDuplicates = (data) => {
 	for (let i = 0; i < data.length - 1; i++) {
 		let j = i + 1;
 
-		// could also create on demand in loop below - memory use vs. runtime perf
+		// Could also create on demand in loop below - memory use vs. runtime perf
 		similar[i] = [];
 
 		while (j < data.length && data[j].ratio - data[i].ratio < thresholdRatio) {

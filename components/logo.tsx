@@ -1,14 +1,11 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const StyledLogo = styled.div`
-	display: inline-block;
-	position: absolute;
-	top: 1rem;
-	left: 50%;
-	transform: translateX(-50%);
+	grid-area: logo;
 
+	display: inline-block;
 	font-size: 2rem;
+	margin-top: 1rem;
 `;
 
 const Fructose = styled.span`
@@ -16,7 +13,7 @@ const Fructose = styled.span`
 `;
 
 const DB = styled.span`
-	color: #210340;
+	color: #ffe27f;
 `;
 
 export const Logo = () => (

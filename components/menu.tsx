@@ -19,11 +19,15 @@ const MobileMenu = styled.div`
 	}
 `;
 
-const HeaderMenu = styled.div`
+const HeaderMenu = styled.nav`
+	grid-area: nav;
+
 	display: none;
 	@media all and (min-width: 45em) {
 		display: inline-block;
-		float: right;
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+		justify-self: end;
 	}
 
 	& > a {

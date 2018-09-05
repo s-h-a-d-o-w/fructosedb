@@ -4,21 +4,6 @@ import styled from 'styled-components';
 
 // TODO: Add metadata to header
 
-const Body = styled.body`
-	margin: 0;
-
-	background-color: rebeccapurple;
-	color: white;
-
-	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
-	font-size: 0.9rem;
-
-	input {
-		min-width: 0.4rem;
-		min-height: 0.4rem;
-	}
-`;
-
 export default class MyDocument extends Document {
 	static getInitialProps({renderPage}) {
 		const sheet = new ServerStyleSheet();
@@ -37,10 +22,10 @@ export default class MyDocument extends Document {
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 					{this.props.styleTags}
 				</Head>
-				<Body>
+				<body style={{margin: 0}}>
 					<Main />
 					<NextScript />
-				</Body>
+				</body>
 			</html>
 		);
 	}

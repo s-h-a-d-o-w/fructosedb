@@ -1,22 +1,25 @@
-import React from 'react';
 import styled from 'styled-components';
 import fetch from '../lib/fetch-with-timeout.js';
-import Link from 'next/link';
 
+import BaseLayout from '../layouts/base';
 import {Logo} from '../components/logo';
-import Table from '../containers/table';
+import Link from '../components/link';
 import Menu from '../components/menu';
+import Table from '../containers/table';
 
 import 'react-virtualized/styles.css';
 import {NextSFC} from 'next';
 
 const PageLayout = styled.div`
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	grid-template-rows: auto auto 1fr;
 	height: 100vh;
-	flex-direction: column;
 
-	padding: 0 10vw;
-	text-align: center;
+	grid-template-areas:
+		'. logo nav'
+		'options options options'
+		'table table table';
 `;
 
 interface IProps {
@@ -24,29 +27,21 @@ interface IProps {
 }
 
 const Index: NextSFC<IProps> = (props) => (
-	<PageLayout>
-		<Logo />
-		<nav style={{marginTop: '0.5rem', marginBottom: '0.5rem'}}>
+	<BaseLayout>
+		<PageLayout>
+			<Logo />
 			<Menu>
-				<Link prefetch href="/sources">
-					<a>Sources</a>
-				</Link>
-				<Link prefetch href="/about">
-					<a>About Us</a>
-				</Link>
-				<Link prefetch href="/support">
-					<a>♡ Support us</a>
-				</Link>
+				<Link href="/sources">How We Calculate</Link>
+				<Link href="/about">About Us</Link>
+				<Link href="/support">♡ Support us</Link>
 			</Menu>
-		</nav>
-		<div style={{width: '100%'}}>
-			<div style={{float: 'left'}}>
+			<div style={{gridArea: 'options'}}>
 				<input type="checkbox" name="measureToUse" />
 				<label htmlFor="duplicates">Per serving</label>
 			</div>
-		</div>
-		<Table {...props} />
-	</PageLayout>
+			<Table {...props} />
+		</PageLayout>
+	</BaseLayout>
 );
 
 Index.getInitialProps = async () => {
