@@ -6,11 +6,11 @@ const Options = (props) => (
 	<CenteredContent gridArea="options">
 		<input
 			type="checkbox"
-			name="measureToUse"
+			id="showServing"
 			checked={props.showServing}
-			onClick={props.dispatchServing}
+			onChange={props.dispatchServing}
 		/>
-		<label htmlFor="duplicates">Per serving</label>
+		<label htmlFor="showServing">Per serving</label>
 	</CenteredContent>
 );
 

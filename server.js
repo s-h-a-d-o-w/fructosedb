@@ -15,7 +15,7 @@ const handle = app.getRequestHandler();
 // But first check what cache-less page load performance is like!
 // https://github.com/zeit/next.js/blob/master/examples/ssr-caching/server.js
 
-const nutrientPerServing = (gm, weight) => gm * weight * 0.01;
+const nutrientPerServing = (gm, weight) => Math.round(gm * weight) / 100;
 
 const fructoseGlucoseRatio = (fructose, sucrose, glucose) =>
 	Math.round(((fructose + 0.5 * sucrose) / (glucose + 0.5 * sucrose)) * 100) /

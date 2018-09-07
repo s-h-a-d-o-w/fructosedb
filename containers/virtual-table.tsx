@@ -1,6 +1,12 @@
+import React from 'react';
+import memoize from 'memoize-one';
+import {connect} from 'react-redux';
+import sort from 'fast-sort';
 import {AutoSizer, Table, Column, SortDirection} from 'react-virtualized';
 import styled from 'styled-components';
+
 import CenteredContent from '../components/centered-content';
+import {actions} from '../store/store.js';
 
 const TableWrapper = styled.div`
 	/* Required for AutoSizer to expand correctly */
@@ -24,7 +30,8 @@ const TableWrapper = styled.div`
 		text-align: center;
 	}
 
-	.ReactVirtualized__Table__rowColumn {
+	.ReactVirtualized__Table__rowColumn,
+	.ReactVirtualized__Table__rowColumn > div {
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
@@ -47,7 +54,7 @@ const TableWrapper = styled.div`
 	}
 `;
 
-const AvoidIndicator = styled.div`
+const AvoidIndicator: any = styled.div`
 	display: inline-block;
 	width: 0.75rem;
 	height: 0.75rem;
@@ -55,50 +62,7 @@ const AvoidIndicator = styled.div`
 		props.avoid ? 'indianred' : 'darkolivegreen'};
 `;
 
-/*
-export default (props) => (
-	<TableWrapper>
-		<AutoSizer disableHeight>
-			{({width}) => (
-				<Table
-					headerHeight={30}
-					height={300}
-					rowHeight={20}
-					rowGetter={({index}) => props.data[index]}
-					rowCount={props.data.length}
-					width={width}
-				>
-					<Column dataKey="name" label="Name" width={300} />
-					<Column dataKey="fructose" label="Fruct. per 100g" width={200} />
-				</Table>
-			)}
-		</AutoSizer>
-	</TableWrapper>
-);
-*/
-import React from 'react';
-//import styled from 'styled-components';
-import memoize from 'memoize-one';
-import {connect} from 'react-redux';
-import sort from 'fast-sort';
-
-import {actions} from '../store/store.js';
-
-/*
-// See: https://github.com/styled-components/styled-components/issues/630#issuecomment-411542050
-const component: <Props>(
-	Tag: string
-) => React.SFC<Props & {className?: string}> = (Tag) => (props) => (
-	<Tag className={props.className}>{props.children}</Tag>
-);
-
-interface ITableHeader {
-	sortAsc: boolean;
-	onClick: any;
-}
-*/
-
-class MyTable extends React.Component<any, any> {
+class VirtualTable extends React.Component<any, any> {
 	state = {
 		sortBy: 'ratio',
 		sortAsc: false,
@@ -116,17 +80,17 @@ class MyTable extends React.Component<any, any> {
 			{name: 'measure', description: 'Serving Size', defaultWidth: 70},
 			{
 				name: 'fructoseServing',
-				description: 'Fruct. per Serving',
+				description: 'Fruct. p. Serving',
 				defaultWidth: 70,
 			},
 			{
 				name: 'sucroseServing',
-				description: 'Sucr. per Serving',
+				description: 'Sucr. p. Serving',
 				defaultWidth: 70,
 			},
 			{
 				name: 'glucoseServing',
-				description: 'Gluc. per Serving',
+				description: 'Gluc. p. Serving',
 				defaultWidth: 70,
 			},
 			{name: 'ratio', description: 'F/G ratio', defaultWidth: 70},
@@ -142,6 +106,22 @@ class MyTable extends React.Component<any, any> {
 		);
 	}
 
+	avoidRenderer({cellData}) {
+		return <AvoidIndicator avoid={cellData} />;
+	}
+
+	nameRenderer = ({cellData}) => {
+		return (
+			<div
+				onClick={this.props.dispatchShowFloat.bind(this, cellData)}
+				onMouseOver={this.props.dispatchShowFloat.bind(this, cellData)}
+				onMouseLeave={this.props.dispatchKillFloat}
+			>
+				{cellData}
+			</div>
+		);
+	};
+
 	sortData = memoize((sortBy, sortAsc, lockedAvoid) => {
 		return lockedAvoid
 			? sort(this.props.data).by([
@@ -150,10 +130,6 @@ class MyTable extends React.Component<any, any> {
 			  ])
 			: sort(this.props.data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}]);
 	});
-
-	avoidRenderer({cellData}) {
-		return <AvoidIndicator avoid={cellData} />;
-	}
 
 	render() {
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
@@ -165,7 +141,6 @@ class MyTable extends React.Component<any, any> {
 			true
 		);
 
-		console.log('showServing:', this.props.showServing);
 		const headers = this.props.showServing
 			? this.state.headersServing
 			: this.state.headers;
@@ -173,16 +148,22 @@ class MyTable extends React.Component<any, any> {
 			<Column
 				key={column.name}
 				dataKey={column.name}
-				defaultSortDirection={SortDirection.DESC}
+				defaultSortDirection={
+					column.name === 'name' ? SortDirection.ASC : SortDirection.DESC
+				}
 				label={column.description}
 				width={column.defaultWidth}
 				flexGrow={column.name === 'name' ? 1 : 0}
 				{...(column.name === 'avoid' ? {cellRenderer: this.avoidRenderer} : {})}
+				{...(column.name === 'name' ? {cellRenderer: this.nameRenderer} : {})}
 			/>
 		));
 
 		return (
-			<CenteredContent gridArea="table">
+			<CenteredContent
+				gridArea="table"
+				onMouseLeave={this.props.dispatchKillFloat}
+			>
 				<TableWrapper>
 					<AutoSizer>
 						{({width, height}) => (
@@ -192,7 +173,7 @@ class MyTable extends React.Component<any, any> {
 								rowHeight={20}
 								rowGetter={({index}) => sortedData[index]}
 								rowCount={sortedData.length}
-								sort={this.changeSorting.bind(this, this.props.dispatch)}
+								sort={this.props.dispatchChangeSort}
 								sortBy={this.props.sortBy}
 								sortDirection={
 									this.props.sortAsc ? SortDirection.ASC : SortDirection.DESC
@@ -215,4 +196,19 @@ const mapStateToProps = (state) => ({
 	sortAsc: state.sortAsc,
 });
 
-export default connect(mapStateToProps)(MyTable);
+const mapDispatchToProps = (dispatch) => ({
+	dispatchChangeSort: ({sortBy, sortDirection}) =>
+		dispatch(actions.changeSort(sortBy, sortDirection === SortDirection.ASC)),
+	dispatchKillFloat: () => dispatch(actions.killFloat()),
+	dispatchShowFloat: (name, e) => {
+		if (e.target.scrollWidth > e.target.clientWidth) {
+			e.stopPropagation();
+			dispatch(actions.showFloat(name, e.pageX, e.pageY));
+		}
+	},
+});
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(VirtualTable);

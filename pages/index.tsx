@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import fetch from '../lib/fetch-with-timeout.js';
+import {connect} from 'react-redux';
 
 import BaseLayout from '../layouts/base';
 import {Logo} from '../components/logo';
@@ -7,9 +8,11 @@ import Options from '../containers/options';
 import Link from '../components/link';
 import Menu from '../components/menu';
 import Table from '../containers/virtual-table';
+import FloatingInfo from '../containers/floating-info';
 
 import 'react-virtualized/styles.css';
 import {NextSFC} from 'next';
+import {actions} from '../store/store';
 
 const PageLayout = styled.div`
 	display: grid;
@@ -27,9 +30,9 @@ interface IProps {
 	data: object[];
 }
 
-const Index: NextSFC<IProps> = (props) => (
+const Index: NextSFC<IProps> = (props: any) => (
 	<BaseLayout>
-		<PageLayout>
+		<PageLayout onClick={props.dispatchKillFloat}>
 			<Logo />
 			<Menu>
 				<Link href="/sources">How We Calculate</Link>
@@ -39,6 +42,7 @@ const Index: NextSFC<IProps> = (props) => (
 			<Options />
 			<Table {...props} />
 		</PageLayout>
+		<FloatingInfo />
 	</BaseLayout>
 );
 
@@ -47,4 +51,11 @@ Index.getInitialProps = async () => {
 	return {data: await res.json()};
 };
 
-export default Index;
+const mapDispatchToProps = (dispatch) => ({
+	dispatchKillFloat: () => dispatch(actions.killFloat()),
+});
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(Index);

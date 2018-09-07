@@ -7,7 +7,9 @@ import withPersistence from '../lib/with-persistence.js';
 
 export const actionTypes = {
 	CHANGE_SORT: 'CHANGE_SORT',
+	KILL_FLOAT: 'KILL_FLOAT',
 	REHYDRATE: 'REHYDRATE',
+	SHOW_FLOAT: 'SHOW_FLOAT',
 	TOGGLE_SERVING: 'TOGGLE_SERVING',
 };
 
@@ -19,8 +21,20 @@ export const reducer = (state = exampleInitialState, action) => {
 				sortBy: action.sortBy,
 				sortAsc: action.sortAsc,
 			});
+		case actionTypes.KILL_FLOAT:
+			return Object.assign({}, state, {
+				float: {},
+			});
 		case actionTypes.REHYDRATE:
 			return loadState(state);
+		case actionTypes.SHOW_FLOAT:
+			return Object.assign({}, state, {
+				float: {
+					content: action.content,
+					x: action.x,
+					y: action.y,
+				},
+			});
 		case actionTypes.TOGGLE_SERVING:
 			return Object.assign({}, state, {
 				showServing: !state.showServing,
@@ -39,8 +53,17 @@ export const actions = {
 			sortAsc,
 		};
 	},
+	killFloat: () => ({
+		type: actionTypes.KILL_FLOAT,
+	}),
 	rehydrate: () => ({
 		type: actionTypes.REHYDRATE,
+	}),
+	showFloat: (content, x, y) => ({
+		type: actionTypes.SHOW_FLOAT,
+		content,
+		x,
+		y,
 	}),
 	toggleServing: () => ({
 		type: actionTypes.TOGGLE_SERVING,
@@ -55,6 +78,7 @@ const exampleInitialState = {
 	lastUpdate: 0,
 	light: false,
 	count: 0,
+	float: {},
 };
 
 export const initializeStore = (initialState = exampleInitialState) =>
