@@ -669,6 +669,12 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/styled-jsx@2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@types/styled-jsx/-/styled-jsx-2.2.5.tgz#49a332f9c68d916660466b1f7ed1710ac63a3e1f"
+  dependencies:
+    "@types/react" "*"
+
 "@zeit/next-css@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@zeit/next-css/-/next-css-0.2.0.tgz#35da071256397b509b86ac7726ce0f7d3593e62b"

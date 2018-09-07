@@ -9,11 +9,11 @@ const StyledLogo = styled.div`
 `;
 
 const Fructose = styled.span`
-	color: #d7c3eb;
+	color: ${(props) => props.theme.primaryLight};
 `;
 
 const DB = styled.span`
-	color: #ffe27f;
+	color: white;
 `;
 
 export const Logo = () => (

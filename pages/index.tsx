@@ -3,9 +3,10 @@ import fetch from '../lib/fetch-with-timeout.js';
 
 import BaseLayout from '../layouts/base';
 import {Logo} from '../components/logo';
+import Options from '../containers/options';
 import Link from '../components/link';
 import Menu from '../components/menu';
-import Table from '../containers/table';
+import Table from '../containers/virtual-table';
 
 import 'react-virtualized/styles.css';
 import {NextSFC} from 'next';
@@ -33,12 +34,9 @@ const Index: NextSFC<IProps> = (props) => (
 			<Menu>
 				<Link href="/sources">How We Calculate</Link>
 				<Link href="/about">About Us</Link>
-				<Link href="/support">♡ Support us</Link>
+				<Link href="/support">❤️Support Us</Link>
 			</Menu>
-			<div style={{gridArea: 'options'}}>
-				<input type="checkbox" name="measureToUse" />
-				<label htmlFor="duplicates">Per serving</label>
-			</div>
+			<Options />
 			<Table {...props} />
 		</PageLayout>
 	</BaseLayout>

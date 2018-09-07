@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledBase = styled.div`
 	background-color: ${(props: any) => props.theme.primary};
-	color: ${(props: any) => props.theme.secondaryLight};
+	color: white;
 
 	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 	font-size: 0.9rem;

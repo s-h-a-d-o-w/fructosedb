@@ -2,14 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const MobileMenu = styled.div`
-	background-color: white;
+	background-color: ${(props) => props.theme.primary};
 	color: black;
 
 	position: absolute;
 	left: 0;
 	top: 0;
+	z-index: 1001;
 	width: 60vw;
 	height: 100vh;
+	padding: 2%;
 
 	flex-direction: column;
 
@@ -39,10 +41,17 @@ const Burger = styled.div`
 	position: absolute;
 	left: 0;
 	top: 0;
+	width: 3rem;
+	height: 3rem;
 
 	font-size: 2rem;
+	font-weight: bold;
+	background-color: ${(props) => props.theme.primaryLight};
+	color: ${(props) => props.theme.primaryDark};
 
-	display: inline-block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	@media all and (min-width: 45em) {
 		display: none;
 	}
@@ -52,6 +61,7 @@ const Lightbox = styled.div`
 	position: absolute;
 	left: 0;
 	top: 0;
+	z-index: 1000;
 
 	background-color: black;
 	opacity: 0.5;

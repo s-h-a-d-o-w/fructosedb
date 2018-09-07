@@ -8,7 +8,7 @@ import withPersistence from '../lib/with-persistence.js';
 export const actionTypes = {
 	CHANGE_SORT: 'CHANGE_SORT',
 	REHYDRATE: 'REHYDRATE',
-	TOGGLE_MENU: 'TOGGLE_MENU',
+	TOGGLE_SERVING: 'TOGGLE_SERVING',
 };
 
 // REDUCERS
@@ -21,9 +21,9 @@ export const reducer = (state = exampleInitialState, action) => {
 			});
 		case actionTypes.REHYDRATE:
 			return loadState(state);
-		case actionTypes.TOGGLE_MENU:
+		case actionTypes.TOGGLE_SERVING:
 			return Object.assign({}, state, {
-				showMenu: !state.showMenu,
+				showServing: !state.showServing,
 			});
 		default:
 			return state;
@@ -42,13 +42,14 @@ export const actions = {
 	rehydrate: () => ({
 		type: actionTypes.REHYDRATE,
 	}),
-	toggleMenu: () => ({
-		type: actionTypes.TOGGLE_MENU,
+	toggleServing: () => ({
+		type: actionTypes.TOGGLE_SERVING,
 	}),
 };
 
 // INITIALIZATION
 const exampleInitialState = {
+	showServing: false,
 	sortBy: 'name',
 	sortAsc: true,
 	lastUpdate: 0,

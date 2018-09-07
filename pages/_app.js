@@ -11,9 +11,9 @@ const theme = {
 	primary: '#653399', // almost rebeccapurple
 	primaryDark: '#210340',
 
-	secondaryLight: '#FFF4D0',
-	secondary: '#E3BE3F',
-	secondaryDark: '#5E4900',
+	// secondaryLight: '#FFF4D0',
+	// secondary: '#E3BE3F',
+	// secondaryDark: '#5E4900',
 };
 
 class MyApp extends App {
