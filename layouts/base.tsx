@@ -5,7 +5,7 @@ const StyledBase = styled.div`
 	background-color: ${(props: any) => props.theme.primary};
 	color: white;
 
-	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+	font-family: 'Roboto Slab', serif;
 	font-size: 0.9rem;
 
 	input {

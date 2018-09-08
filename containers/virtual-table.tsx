@@ -9,6 +9,8 @@ import CenteredContent from '../components/centered-content';
 import {actions} from '../store/store.js';
 
 const TableWrapper = styled.div`
+	font-family: 'Roboto Condensed', sans-serif;
+
 	/* Required for AutoSizer to expand correctly */
 	width: 100%;
 	height: 100%;
@@ -134,6 +136,8 @@ class VirtualTable extends React.Component<any, any> {
 	render() {
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
 		// my own? Resize event handler, get computed width and height of parent.
+
+		//if (!this.props.data) return <div />;
 
 		const sortedData = this.sortData(
 			this.props.sortBy,

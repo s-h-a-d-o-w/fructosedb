@@ -9,6 +9,8 @@ const StyledFloat: any = styled.div.attrs({
 		top: `${props.float ? props.float.y - 30 : 0}px`,
 	}),
 })`
+	font-family: 'Roboto Condensed', sans-serif;
+
 	position: absolute;
 	z-index: 10000;
 	max-width: 30vw;

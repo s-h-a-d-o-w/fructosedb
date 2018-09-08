@@ -11,8 +11,8 @@ import Table from '../containers/virtual-table';
 import FloatingInfo from '../containers/floating-info';
 
 import 'react-virtualized/styles.css';
-import {NextSFC} from 'next';
 import {actions} from '../store/store';
+import React from 'react';
 
 const PageLayout = styled.div`
 	display: grid;
@@ -26,30 +26,46 @@ const PageLayout = styled.div`
 		'table table table';
 `;
 
-interface IProps {
-	data: object[];
+// interface IProps {
+// 	data: object[];
+// }
+
+class Index extends React.Component<any, any> {
+	state = {
+		hasMounted: false,
+	};
+
+	componentDidMount() {
+		// Options are meaningless if the user can't do anything with them.
+		// But they'd still show long before the table due to SSR.
+		this.setState({
+			hasMounted: true,
+		});
+	}
+
+	static async getInitialProps() {
+		const res = await fetch(`${process.env.BACKEND_URL}/list`);
+		return {data: await res.json()};
+	}
+
+	render() {
+		return (
+			<BaseLayout>
+				<PageLayout onClick={this.props.dispatchKillFloat}>
+					<Logo />
+					<Menu>
+						<Link href="/sources">How We Calculate</Link>
+						<Link href="/about">About Us</Link>
+						<Link href="/support">❤️Support Us</Link>
+					</Menu>
+					{this.state.hasMounted ? <Options /> : ''}
+					<Table {...this.props} />
+				</PageLayout>
+				<FloatingInfo />
+			</BaseLayout>
+		);
+	}
 }
-
-const Index: NextSFC<IProps> = (props: any) => (
-	<BaseLayout>
-		<PageLayout onClick={props.dispatchKillFloat}>
-			<Logo />
-			<Menu>
-				<Link href="/sources">How We Calculate</Link>
-				<Link href="/about">About Us</Link>
-				<Link href="/support">❤️Support Us</Link>
-			</Menu>
-			<Options />
-			<Table {...props} />
-		</PageLayout>
-		<FloatingInfo />
-	</BaseLayout>
-);
-
-Index.getInitialProps = async () => {
-	const res = await fetch(`${process.env.BACKEND_URL}/list`);
-	return {data: await res.json()};
-};
 
 const mapDispatchToProps = (dispatch) => ({
 	dispatchKillFloat: () => dispatch(actions.killFloat()),

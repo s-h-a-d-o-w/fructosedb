@@ -1,3 +1,4 @@
+import React from 'react';
 import {connect} from 'react-redux';
 import {actions} from '../store/store.js';
 import CenteredContent from '../components/centered-content';

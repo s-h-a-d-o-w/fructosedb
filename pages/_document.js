@@ -19,8 +19,23 @@ export default class MyDocument extends Document {
 				<Head>
 					<title>fructose.db</title>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
-					{this.props.styleTags}
-					<style>{`
+					<link
+						rel="preload"
+						href="/static/fonts/roboto-slab.woff"
+						as="font"
+						type="font/woff"
+						crossOrigin="crossorigin"
+					/>
+					<link
+						rel="preload"
+						href="/static/fonts/roboto-condensed.woff"
+						as="font"
+						type="font/woff"
+						crossOrigin="crossorigin"
+					/>
+					<style
+						dangerouslySetInnerHTML={{
+							__html: `
 						/* Required for border to work within table */
 						html {
 							box-sizing: border-box;
@@ -32,7 +47,24 @@ export default class MyDocument extends Document {
 						body {
 							margin: 0;
 						}
-					`}</style>
+
+						@font-face {
+							font-family: 'Roboto Slab';
+							src: url('/static/fonts/roboto-slab.woff') format('woff'),
+								url('/static/fonts/roboto-slab.woff2') format('woff2');
+							font-display: block;
+						}
+
+						@font-face {
+							font-family: 'Roboto Condensed';
+							src: url('/static/fonts/roboto-condensed.woff') format('woff'),
+								url('/static/fonts/roboto-condensed.woff2') format('woff2');
+							font-display: block;
+						}
+					`,
+						}}
+					/>
+					{this.props.styleTags}
 				</Head>
 				<body>
 					<Main />
