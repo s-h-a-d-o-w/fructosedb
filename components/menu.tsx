@@ -16,7 +16,7 @@ const MobileMenu = styled.div`
 	flex-direction: column;
 
 	display: flex;
-	@media all and (min-width: 45em) {
+	${(props) => props.theme.largeDevices} {
 		display: none;
 	}
 `;
@@ -25,10 +25,9 @@ const HeaderMenu = styled.nav`
 	grid-area: nav;
 
 	display: none;
-	@media all and (min-width: 45em) {
+	${(props) => props.theme.largeDevices} {
 		display: inline-block;
 		margin-top: 0.5rem;
-		margin-bottom: 0.5rem;
 		justify-self: end;
 	}
 
