@@ -18,7 +18,15 @@ const StyledIcon = styled.div`
 	}
 `;
 
-export default class FullscreenButton extends React.Component<any> {
+interface IProps {
+	target: React.RefObject<HTMLElement>;
+}
+
+interface IState {
+	fullscreen: boolean;
+}
+
+export default class FullscreenButton extends React.Component<IProps, IState> {
 	state = {
 		fullscreen: false,
 	};
@@ -82,14 +90,12 @@ export default class FullscreenButton extends React.Component<any> {
 
 declare global {
 	interface Document {
-		exitFullscreen: () => void;
 		msExitFullscreen: () => void;
 		mozCancelFullScreen: () => void;
-		webkitExitFullscreen: () => void;
 	}
 
 	interface HTMLElement {
-		msRequestFullscreen: any;
-		mozRequestFullScreen: any;
+		msRequestFullscreen: () => void;
+		mozRequestFullScreen: () => void;
 	}
 }
