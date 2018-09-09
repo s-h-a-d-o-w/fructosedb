@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import CenteredContent from '../components/centered-content';
 import {actions} from '../store/store.js';
+import FullScreenButton from '../components/fullscreen-button';
 
 const TableWrapper = styled.div`
 	font-family: 'Roboto Condensed', sans-serif;
@@ -64,24 +65,10 @@ const AvoidIndicator: any = styled.div`
 		props.avoid ? 'indianred' : 'darkolivegreen'};
 `;
 
-const FullScreenIcon = styled.div`
-	display: block;
-	position: fixed;
-	right: 0;
-	bottom: 0;
-
-	background-color: ${(props) => props.theme.primary};
-	color: white;
-	font-size: 1.5rem;
-
-	${(props) => props.theme.largeDevices} {
-		display: none;
-	}
-`;
-
 class VirtualTable extends React.Component<any, any> {
-	tableRef = React.createRef();
+	tableRef = React.createRef<HTMLElement>();
 	state = {
+		fullscreen: false,
 		sortBy: 'ratio',
 		sortAsc: false,
 		headers: [
@@ -149,30 +136,6 @@ class VirtualTable extends React.Component<any, any> {
 			: sort(this.props.data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}]);
 	});
 
-	toggleFullScreen = () => {
-		if (this.state.fullscreen) {
-			if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-			else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-			else if (document.msExitFullscreen) document.msExitFullscreen();
-			else if (document.exitFullscreen) document.exitFullscreen();
-
-			this.setState({fullscreen: false});
-		} else {
-			let elem = this.tableRef.current;
-			if (elem.requestFullscreen) {
-				elem.requestFullscreen();
-			} else if (elem.msRequestFullscreen) {
-				elem.msRequestFullscreen();
-			} else if (elem.mozRequestFullScreen) {
-				elem.mozRequestFullScreen();
-			} else if (elem.webkitRequestFullscreen) {
-				elem.webkitRequestFullscreen();
-			}
-
-			this.setState({fullscreen: true});
-		}
-	};
-
 	render() {
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
 		// my own? Resize event handler, get computed width and height of parent.
@@ -228,14 +191,7 @@ class VirtualTable extends React.Component<any, any> {
 							</Table>
 						)}
 					</AutoSizer>
-					<FullScreenIcon
-						onClick={this.toggleFullScreen}
-						className={
-							this.state.fullscreen
-								? 'icon-resize-small-alt'
-								: 'icon-resize-full-alt'
-						}
-					/>
+					<FullScreenButton target={this.tableRef} />
 				</TableWrapper>
 			</CenteredContent>
 		);

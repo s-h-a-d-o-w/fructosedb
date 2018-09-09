@@ -20,11 +20,6 @@ export default class MyDocument extends Document {
 					<title>fructose.db</title>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 					<link
-						rel="stylesheet"
-						type="text/css"
-						href="/static/fontello/css/fontello.css"
-					/>
-					<link
 						rel="preload"
 						href="/static/fonts/roboto-slab.woff"
 						as="font"
