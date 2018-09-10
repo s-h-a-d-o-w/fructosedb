@@ -8,6 +8,7 @@ import withPersistence from '../lib/with-persistence.js';
 export const actionTypes = {
 	CHANGE_SORT: 'CHANGE_SORT',
 	KILL_FLOAT: 'KILL_FLOAT',
+	TOGGLE_LOCK_AVOID: 'TOGGLE_LOCK_AVOID',
 	REHYDRATE: 'REHYDRATE',
 	SHOW_FLOAT: 'SHOW_FLOAT',
 	TOGGLE_SERVING: 'TOGGLE_SERVING',
@@ -34,6 +35,10 @@ export const reducer = (state = exampleInitialState, action) => {
 					x: action.x,
 					y: action.y,
 				},
+			});
+		case actionTypes.TOGGLE_LOCK_AVOID:
+			return Object.assign({}, state, {
+				lockedAvoid: !state.lockedAvoid,
 			});
 		case actionTypes.TOGGLE_SERVING:
 			return Object.assign({}, state, {
@@ -73,6 +78,7 @@ export const actions = {
 // INITIALIZATION
 const exampleInitialState = {
 	showServing: false,
+	lockedAvoid: true,
 	sortBy: 'name',
 	sortAsc: true,
 	lastUpdate: 0,
