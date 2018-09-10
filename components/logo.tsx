@@ -5,7 +5,7 @@ const StyledLogo = styled.div`
 
 	display: inline-block;
 	font-size: 2rem;
-	margin-top: 1rem;
+	margin-top: 2rem;
 `;
 
 const Fructose = styled.span`

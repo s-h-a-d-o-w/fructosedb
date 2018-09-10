@@ -7,6 +7,7 @@ import {ThemeProvider} from 'styled-components';
 
 // http://paletton.com/#uid=34y0u0kn5sr5XTpg7ACsGlQGgbR
 const theme = {
+	largeThreshold: 45, // em
 	largeDevices: '@media all and (min-width: 45em)',
 
 	primaryLight: '#D7C3EB',

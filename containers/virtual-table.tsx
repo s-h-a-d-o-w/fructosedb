@@ -4,13 +4,16 @@ import {connect} from 'react-redux';
 import sort from 'fast-sort';
 import {AutoSizer, Table, Column, SortDirection} from 'react-virtualized';
 import styled from 'styled-components';
+import toPX from 'to-px';
+import {withTheme} from 'styled-components';
 
-import CenteredContent from '../components/centered-content';
 import {actions} from '../store/store.js';
-import FullScreenButton from '../components/fullscreen-button';
 
 const TableWrapper = styled.div`
 	font-family: 'Roboto Condensed', sans-serif;
+	${(props) => props.theme.largeDevices} {
+		font-size: 1.1rem;
+	}
 
 	/* Required for AutoSizer to expand correctly */
 	width: 100%;
@@ -59,8 +62,8 @@ const TableWrapper = styled.div`
 
 const AvoidIndicator: any = styled.div`
 	display: inline-block;
-	width: 0.75rem;
-	height: 0.75rem;
+	width: 0.75em;
+	height: 0.75em;
 	background-color: ${(props: any) =>
 		props.avoid ? 'indianred' : 'darkolivegreen'};
 `;
@@ -71,34 +74,69 @@ class VirtualTable extends React.Component<any, any> {
 		fullscreen: false,
 		sortBy: 'ratio',
 		sortAsc: false,
+		// TODO: headers and headersServing should share common values (maybe even
+		// generate those values based on em-size (toPX)?)
 		headers: [
-			{name: 'avoid', description: '🔒', defaultWidth: 30},
-			{name: 'name', description: 'Name', defaultWidth: 70},
-			{name: 'fructose', description: 'Fruct. per 100g', defaultWidth: 70},
-			{name: 'sucrose', description: 'Sucr. per 100g', defaultWidth: 70},
-			{name: 'glucose', description: 'Gluc. per 100g', defaultWidth: 70},
-			{name: 'ratio', description: 'F/G ratio', defaultWidth: 70},
+			{name: 'avoid', description: '🔒', defaultWidth: 25, largeWidth: 30},
+			{name: 'name', description: 'Name', defaultWidth: 0, largeWidth: 0},
+			{
+				name: 'fructose',
+				description: 'Fruct. per 100g',
+				defaultWidth: 60,
+				largeWidth: 80,
+			},
+			{
+				name: 'sucrose',
+				description: 'Sucr. per 100g',
+				defaultWidth: 60,
+				largeWidth: 80,
+			},
+			{
+				name: 'glucose',
+				description: 'Gluc. per 100g',
+				defaultWidth: 60,
+				largeWidth: 80,
+			},
+			{
+				name: 'ratio',
+				description: 'F/G ratio',
+				defaultWidth: 40,
+				largeWidth: 60,
+			},
 		],
 		headersServing: [
-			{name: 'avoid', description: '🔒', defaultWidth: 30},
-			{name: 'name', description: 'Name', defaultWidth: 70},
-			{name: 'measure', description: 'Serving Size', defaultWidth: 70},
+			{name: 'avoid', description: '🔒', defaultWidth: 25, largeWidth: 30},
+			{name: 'name', description: 'Name', defaultWidth: 0, largeWidth: 0},
+			{
+				name: 'measure',
+				description: 'Serving Size',
+				defaultWidth: 60,
+				largeWidth: 80,
+			},
 			{
 				name: 'fructoseServing',
 				description: 'Fruct. p. Serving',
-				defaultWidth: 70,
+				defaultWidth: 50,
+				largeWidth: 70,
 			},
 			{
 				name: 'sucroseServing',
 				description: 'Sucr. p. Serving',
-				defaultWidth: 70,
+				defaultWidth: 50,
+				largeWidth: 70,
 			},
 			{
 				name: 'glucoseServing',
 				description: 'Gluc. p. Serving',
-				defaultWidth: 70,
+				defaultWidth: 50,
+				largeWidth: 70,
 			},
-			{name: 'ratio', description: 'F/G ratio', defaultWidth: 70},
+			{
+				name: 'ratio',
+				description: 'F/G ratio',
+				defaultWidth: 40,
+				largeWidth: 60,
+			},
 		],
 	};
 
@@ -151,33 +189,40 @@ class VirtualTable extends React.Component<any, any> {
 		const headers = this.props.showServing
 			? this.state.headersServing
 			: this.state.headers;
-		const columns: any = headers.map((column) => (
-			<Column
-				key={column.name}
-				dataKey={column.name}
-				defaultSortDirection={
-					column.name === 'name' ? SortDirection.ASC : SortDirection.DESC
-				}
-				label={column.description}
-				width={column.defaultWidth}
-				flexGrow={column.name === 'name' ? 1 : 0}
-				{...(column.name === 'avoid' ? {cellRenderer: this.avoidRenderer} : {})}
-				{...(column.name === 'name' ? {cellRenderer: this.nameRenderer} : {})}
-			/>
-		));
+		const columns: any = (width) =>
+			headers.map((column) => (
+				<Column
+					key={column.name}
+					dataKey={column.name}
+					defaultSortDirection={
+						column.name === 'name' ? SortDirection.ASC : SortDirection.DESC
+					}
+					label={column.description}
+					width={
+						width < this.props.theme.largeThreshold * toPX('em')
+							? column.defaultWidth
+							: column.largeWidth
+					}
+					flexGrow={column.name === 'name' ? 1 : 0}
+					{...(column.name === 'avoid'
+						? {cellRenderer: this.avoidRenderer}
+						: {})}
+					{...(column.name === 'name' ? {cellRenderer: this.nameRenderer} : {})}
+				/>
+			));
 
 		return (
-			<CenteredContent
-				gridArea="table"
+			<TableWrapper
+				innerRef={this.tableRef}
 				onMouseLeave={this.props.dispatchKillFloat}
 			>
-				<TableWrapper innerRef={this.tableRef}>
-					<AutoSizer>
-						{({width, height}) => (
+				<AutoSizer>
+					{({width, height}) => {
+						return (
 							<Table
-								headerHeight={45}
+								headerHeight={3.0 * toPX('em', this.tableRef.current)}
 								height={height}
-								rowHeight={20}
+								rowHeight={1.5 * toPX('em', this.tableRef.current)}
 								rowGetter={({index}) => sortedData[index]}
 								rowCount={sortedData.length}
 								sort={this.props.dispatchChangeSort}
@@ -187,13 +232,12 @@ class VirtualTable extends React.Component<any, any> {
 								}
 								width={width}
 							>
-								{columns}
+								{columns(width)}
 							</Table>
-						)}
-					</AutoSizer>
-					<FullScreenButton target={this.tableRef} />
-				</TableWrapper>
-			</CenteredContent>
+						);
+					}}
+				</AutoSizer>
+			</TableWrapper>
 		);
 	}
 }
@@ -219,4 +263,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(VirtualTable);
+)(withTheme(VirtualTable));

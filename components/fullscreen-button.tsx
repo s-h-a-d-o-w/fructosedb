@@ -6,12 +6,12 @@ const StyledIcon = styled.div`
 	position: fixed;
 	right: 0;
 	bottom: 0;
-	width: 2rem;
-	height: 2rem;
+	width: 2.5rem;
+	height: 2.5rem;
 
 	background-color: ${(props) => props.theme.primary};
 	fill: white;
-	padding: 0.3rem;
+	padding: 0.5rem;
 
 	${(props) => props.theme.largeDevices} {
 		display: none;
@@ -31,7 +31,8 @@ export default class FullscreenButton extends React.Component<IProps, IState> {
 		fullscreen: false,
 	};
 
-	toggleFullScreen = () => {
+	toggleFullScreen = (e) => {
+		e.preventDefault();
 		if (this.state.fullscreen) {
 			if (document.webkitExitFullscreen) document.webkitExitFullscreen();
 			else if (document.mozCancelFullScreen) document.mozCancelFullScreen();

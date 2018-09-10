@@ -6,7 +6,7 @@ const StyledBase = styled.div`
 	color: white;
 
 	font-family: 'Roboto Slab', serif;
-	font-size: 0.9rem;
+	font-size: 1rem;
 
 	input {
 		min-width: 0.4rem;

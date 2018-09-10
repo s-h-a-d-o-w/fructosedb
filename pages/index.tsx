@@ -13,24 +13,43 @@ import FloatingInfo from '../containers/floating-info';
 import 'react-virtualized/styles.css';
 import {actions} from '../store/store';
 import React from 'react';
+import CenteredContent from '../components/centered-content';
+import FullScreenButton from '../components/fullscreen-button';
 
 const PageLayout = styled.div`
 	display: grid;
 	grid-template-columns: 1fr auto 1fr;
-	grid-template-rows: auto auto 1fr;
+	grid-template-rows: auto 1fr;
 	height: 100vh;
+	grid-gap: 1rem;
 
 	grid-template-areas:
 		'. logo nav'
-		'options options options'
-		'table table table';
+		'content content content';
 `;
 
-// interface IProps {
-// 	data: object[];
-// }
+const FullScreenContainer = styled.div`
+	/* If background-color isn't set, :-webkit-full-screen (default: white) will be aplied */
+	background-color: ${(props) => props.theme.primary};
+	width: 100%;
+	height: 100%;
 
-class Index extends React.Component<any, any> {
+	/* Make it possible for table to use 100% height without overflowing this container */
+	display: flex;
+	flex-direction: column;
+`;
+
+interface IProps {
+	data: object[];
+	dispatchKillFloat: () => void;
+}
+
+interface IState {
+	hasMounted: boolean;
+}
+
+class Index extends React.Component<IProps, IState> {
+	refContent = React.createRef<HTMLElement>();
 	state = {
 		hasMounted: false,
 	};
@@ -58,10 +77,17 @@ class Index extends React.Component<any, any> {
 						<Link href="/about">About Us</Link>
 						<Link href="/support">❤️Support Us</Link>
 					</Menu>
-					{this.state.hasMounted ? <Options /> : ''}
-					<Table {...this.props} />
+					<CenteredContent gridArea="content">
+						{/* Containers that use gridArea can't be made to use fullscreen as expected,
+							a nested container is required. */}
+						<FullScreenContainer innerRef={this.refContent}>
+							{this.state.hasMounted ? <Options /> : ''}
+							<Table {...this.props} />
+							<FullScreenButton target={this.refContent} />
+							<FloatingInfo />
+						</FullScreenContainer>
+					</CenteredContent>
 				</PageLayout>
-				<FloatingInfo />
 			</BaseLayout>
 		);
 	}

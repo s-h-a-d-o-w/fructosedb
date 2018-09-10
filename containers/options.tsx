@@ -1,10 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {actions} from '../store/store.js';
-import CenteredContent from '../components/centered-content';
+import styled from 'styled-components';
+
+const StyledOptions = styled.div`
+	margin-bottom: 0.5rem;
+`;
 
 const Options = (props) => (
-	<CenteredContent gridArea="options">
+	<StyledOptions>
 		<input
 			type="checkbox"
 			id="showServing"
@@ -12,7 +16,7 @@ const Options = (props) => (
 			onChange={props.dispatchServing}
 		/>
 		<label htmlFor="showServing">Per serving</label>
-	</CenteredContent>
+	</StyledOptions>
 );
 
 const mapStateToProps = (state) => ({
