@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const StyledOptions = styled.div`
 	margin-bottom: 0.3rem;
+	margin-top: 0.3rem;
 `;
 
 const StyledTextBox = styled.input`

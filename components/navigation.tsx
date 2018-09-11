@@ -35,6 +35,11 @@ const StyledNav = styled.nav`
 	}
 `;
 
+const StyledSupport = styled.nav`
+	font-size: 1.5rem;
+	text-align: right;
+`;
+
 const DesktopMenu = styled.div`
 	display: none;
 	${(props) => props.theme.largeDevices} {
@@ -112,9 +117,9 @@ class Navigation extends React.Component<any> {
 			)}
 			<StyledNav>
 				<DesktopMenu>{this.menu()}</DesktopMenu>
-				<div style={{fontSize: '1.5rem'}}>
+				<StyledSupport>
 					<Link href="/support">❤️Support Us</Link>
-				</div>
+				</StyledSupport>
 			</StyledNav>
 		</>
 	);

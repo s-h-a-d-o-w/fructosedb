@@ -6,8 +6,8 @@ const StyledIcon = styled.div`
 	position: fixed;
 	right: 0;
 	bottom: 0;
-	width: 2.5rem;
-	height: 2.5rem;
+	width: 3rem;
+	height: 3rem;
 
 	background-color: ${(props) => props.theme.primary};
 	fill: white;

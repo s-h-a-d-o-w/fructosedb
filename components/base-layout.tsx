@@ -10,7 +10,7 @@ const StyledBase = styled.div`
 
 	grid-template-columns: 1fr auto 1fr;
 	grid-template-rows: auto 1fr;
-	grid-column-gap: 1rem;
+	grid-gap: 0.5rem 1rem;
 	grid-template-areas:
 		'. logo nav'
 		'content content content';
@@ -19,7 +19,6 @@ const StyledBase = styled.div`
 	color: white;
 
 	font-family: 'Roboto Slab', serif;
-	font-size: 1rem;
 
 	input {
 		min-width: 0.4rem;
