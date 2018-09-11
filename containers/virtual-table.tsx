@@ -9,9 +9,6 @@ import {withTheme} from 'styled-components';
 
 import {actions, actionTypes} from '../store/store.js';
 
-const toPX = (unit, el?) =>
-	typeof document !== 'undefined' ? toPXOriginal(unit, el) : 16;
-
 const TableWrapper = styled.div`
 	font-family: 'Roboto Condensed', sans-serif;
 
@@ -69,54 +66,53 @@ const AvoidIndicator: any = styled.div`
 `;
 
 class VirtualTable extends React.Component<any, any> {
+	state = {
+		hasMounted: false,
+	};
 	tableRef = React.createRef<HTMLElement>();
 	headerData = {
-		name: {description: 'Name', smallWidth: 0, largeWidth: 0},
-		avoid: {description: '🔒', smallWidth: 25, largeWidth: 30},
+		name: {description: 'Name', remWidth: 0},
+		avoid: {description: '🔒', remWidth: 1.5},
 		measure: {
 			description: 'Serving Size',
-			smallWidth: 60,
-			largeWidth: 70,
+			remWidth: 5,
 		},
 		fructose: {
 			description: 'Fruct. per 100g',
-			smallWidth: 65,
-			largeWidth: 80,
+			remWidth: 4.5,
 		},
 		sucrose: {
 			description: 'Sucr. per 100g',
-			smallWidth: 60,
-			largeWidth: 80,
+			remWidth: 4.5,
 		},
 		glucose: {
 			description: 'Gluc. per 100g',
-			smallWidth: 60,
-			largeWidth: 80,
+			remWidth: 4.5,
 		},
 		fructoseServing: {
 			description: 'Fruct. p. Serving',
-			smallWidth: 65,
-			largeWidth: 70,
+			remWidth: 3,
 		},
 		sucroseServing: {
 			description: 'Sucr. p. Serving',
-			smallWidth: 65,
-			largeWidth: 70,
+			remWidth: 3,
 		},
 		glucoseServing: {
 			description: 'Gluc. p. Serving',
-			smallWidth: 65,
-			largeWidth: 70,
+			remWidth: 3,
 		},
 		ratio: {
 			description: 'F/G ratio',
-			smallWidth: 50,
-			largeWidth: 55,
+			remWidth: 3.5,
 		},
 	};
 
 	avoidRenderer({cellData}) {
 		return <AvoidIndicator avoid={cellData} />;
+	}
+
+	componentDidMount() {
+		this.setState({hasMounted: true});
 	}
 
 	generateHeaders = (cols) =>
@@ -133,26 +129,30 @@ class VirtualTable extends React.Component<any, any> {
 			)
 		);
 
-	nameRenderer = ({cellData}) => {
-		return (
-			<div
-				onClick={this.props.dispatchShowFloat.bind(this, cellData)}
-				onMouseOver={this.props.dispatchShowFloat.bind(this, cellData)}
-				onMouseLeave={this.props.dispatchKillFloat}
-			>
-				{cellData}
-			</div>
-		);
-	};
+	nameRenderer = ({cellData}) => (
+		<div
+			onClick={this.props.dispatchShowFloat.bind(this, cellData)}
+			onMouseOver={this.props.dispatchShowFloat.bind(this, cellData)}
+			onMouseLeave={this.props.dispatchKillFloat}
+		>
+			{cellData}
+		</div>
+	);
 
-	sortData = memoize((sortBy, sortAsc, lockedAvoid) => {
-		return lockedAvoid
-			? sort(this.props.data).by([
-					{desc: 'avoid'},
-					sortAsc ? {asc: sortBy} : {desc: sortBy},
-			  ])
-			: sort(this.props.data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}]);
-	});
+	sortData = memoize(
+		(sortBy, sortAsc, lockedAvoid) =>
+			lockedAvoid
+				? sort(this.props.data).by([
+						{desc: 'avoid'},
+						sortAsc ? {asc: sortBy} : {desc: sortBy},
+				  ])
+				: sort(this.props.data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}])
+	);
+
+	// Styles have to be consistent on server/client after first load (SSR).
+	// Plus, toPX() can only be used in a browser anyway.
+	toPX = (...args) =>
+		this.state.hasMounted ? toPXOriginal.apply(null, args) : 16;
 
 	render() {
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
@@ -184,27 +184,20 @@ class VirtualTable extends React.Component<any, any> {
 					'glucose',
 					'ratio',
 			  ]);
-		const columns: any = (width) =>
-			headers.map((column) => (
-				<Column
-					key={column.name}
-					dataKey={column.name}
-					defaultSortDirection={
-						column.name === 'name' ? SortDirection.ASC : SortDirection.DESC
-					}
-					label={column.description}
-					width={
-						width < this.props.theme.largeThreshold * toPX('em')
-							? column.smallWidth
-							: column.largeWidth
-					}
-					flexGrow={column.name === 'name' ? 1 : 0}
-					{...(column.name === 'avoid'
-						? {cellRenderer: this.avoidRenderer}
-						: {})}
-					{...(column.name === 'name' ? {cellRenderer: this.nameRenderer} : {})}
-				/>
-			));
+		const columns = headers.map((column) => (
+			<Column
+				key={column.name}
+				dataKey={column.name}
+				defaultSortDirection={
+					column.name === 'name' ? SortDirection.ASC : SortDirection.DESC
+				}
+				label={column.description}
+				width={column.remWidth * this.toPX('rem')}
+				flexGrow={column.name === 'name' ? 1 : 0}
+				{...(column.name === 'avoid' ? {cellRenderer: this.avoidRenderer} : {})}
+				{...(column.name === 'name' ? {cellRenderer: this.nameRenderer} : {})}
+			/>
+		));
 
 		return (
 			<TableWrapper
@@ -215,9 +208,9 @@ class VirtualTable extends React.Component<any, any> {
 					{({width, height}) => {
 						return (
 							<Table
-								headerHeight={3.0 * toPX('em', this.tableRef.current)}
+								headerHeight={3.0 * this.toPX('em', this.tableRef.current)}
 								height={height}
-								rowHeight={1.5 * toPX('em', this.tableRef.current)}
+								rowHeight={1.5 * this.toPX('em', this.tableRef.current)}
 								rowGetter={({index}) => sortedData[index]}
 								rowCount={sortedData.length}
 								sort={this.props.dispatchColAction}
@@ -227,7 +220,7 @@ class VirtualTable extends React.Component<any, any> {
 								}
 								width={width}
 							>
-								{columns(width)}
+								{columns}
 							</Table>
 						);
 					}}
