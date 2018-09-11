@@ -66,9 +66,14 @@ const AvoidIndicator: any = styled.div`
 `;
 
 class VirtualTable extends React.Component<any, any> {
+	static defaultProps = {
+		filter: '',
+	};
+
 	state = {
 		hasMounted: false,
 	};
+
 	tableRef = React.createRef<HTMLElement>();
 	headerData = {
 		name: {description: 'Name', remWidth: 0},
@@ -158,11 +163,12 @@ class VirtualTable extends React.Component<any, any> {
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
 		// my own? Resize event handler, get computed width and height of parent.
 
+		let filter = this.props.filter.toLowerCase();
 		const sortedData = this.sortData(
 			this.props.sortBy,
 			this.props.sortAsc,
 			this.props.lockedAvoid
-		).filter((el) => el.name.toLowerCase().indexOf(this.props.filter) >= 0);
+		).filter((el) => el.name.toLowerCase().indexOf(filter) >= 0);
 
 		const headers = this.props.showServing
 			? this.generateHeaders([
