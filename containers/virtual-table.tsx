@@ -158,13 +158,11 @@ class VirtualTable extends React.Component<any, any> {
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
 		// my own? Resize event handler, get computed width and height of parent.
 
-		//if (!this.props.data) return <div />;
-
 		const sortedData = this.sortData(
 			this.props.sortBy,
 			this.props.sortAsc,
 			this.props.lockedAvoid
-		);
+		).filter((el) => el.name.toLowerCase().indexOf(this.props.filter) >= 0);
 
 		const headers = this.props.showServing
 			? this.generateHeaders([
@@ -231,6 +229,7 @@ class VirtualTable extends React.Component<any, any> {
 }
 
 const mapStateToProps = (state) => ({
+	filter: state.filter,
 	showServing: state.showServing,
 	sortBy: state.sortBy,
 	sortAsc: state.sortAsc,

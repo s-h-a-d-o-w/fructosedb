@@ -93,20 +93,20 @@ class Navigation extends React.Component<any> {
 	};
 
 	menu = () => (
-		<React.Fragment>
+		<>
 			<Link href="/sources">How We Calculate</Link>
 			<Link href="/about">About Us</Link>
-		</React.Fragment>
+		</>
 	);
 
 	render = () => (
-		<React.Fragment>
+		<>
 			<Burger onClick={this.openMenu}>☰</Burger>
 			{this.state.showMenu ? (
-				<React.Fragment>
+				<>
 					<Lightbox onClick={this.closeMenu} />
 					<MobileMenu>{this.menu()}</MobileMenu>
-				</React.Fragment>
+				</>
 			) : (
 				''
 			)}
@@ -116,7 +116,7 @@ class Navigation extends React.Component<any> {
 					<Link href="/support">❤️Support Us</Link>
 				</div>
 			</StyledNav>
-		</React.Fragment>
+		</>
 	);
 }
 

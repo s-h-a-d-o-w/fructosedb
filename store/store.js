@@ -7,6 +7,7 @@ import withPersistence from '../lib/with-persistence.js';
 
 export const actionTypes = {
 	CHANGE_SORT: 'CHANGE_SORT',
+	CHANGE_FILTER: 'CHANGE_FILTER',
 	KILL_FLOAT: 'KILL_FLOAT',
 	TOGGLE_LOCK_AVOID: 'TOGGLE_LOCK_AVOID',
 	REHYDRATE: 'REHYDRATE',
@@ -17,6 +18,8 @@ export const actionTypes = {
 // REDUCERS
 export const reducer = (state = exampleInitialState, action) => {
 	switch (action.type) {
+		case actionTypes.CHANGE_FILTER:
+			return Object.assign({}, state, {filter: action.value});
 		case actionTypes.CHANGE_SORT:
 			return Object.assign({}, state, {
 				sortBy: action.sortBy,
@@ -51,13 +54,12 @@ export const reducer = (state = exampleInitialState, action) => {
 
 // ACTIONS
 export const actions = {
-	changeSort: (sortBy, sortAsc) => {
-		return {
-			type: actionTypes.CHANGE_SORT,
-			sortBy,
-			sortAsc,
-		};
-	},
+	changeFilter: (value) => ({type: actionTypes.CHANGE_FILTER, value}),
+	changeSort: (sortBy, sortAsc) => ({
+		type: actionTypes.CHANGE_SORT,
+		sortBy,
+		sortAsc,
+	}),
 	killFloat: () => ({
 		type: actionTypes.KILL_FLOAT,
 	}),
