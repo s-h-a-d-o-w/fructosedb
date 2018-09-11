@@ -40,6 +40,7 @@ class Options extends React.Component<any> {
 				placeholder="Filter"
 				onChange={this.handleFilter}
 				value={this.state.filter}
+				size={15}
 			/>
 		</StyledOptions>
 	);

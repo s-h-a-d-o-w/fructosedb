@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from './link';
+import theme from '../lib/theme';
 
 const MobileMenu = styled.div`
-	background-color: ${(props) => props.theme.primary};
+	background-color: ${theme.primary};
 	color: black;
 
 	position: absolute;
@@ -17,7 +18,7 @@ const MobileMenu = styled.div`
 	flex-direction: column;
 
 	display: flex;
-	${(props) => props.theme.largeDevices} {
+	${theme.largeDevices} {
 		display: none;
 	}
 `;
@@ -36,13 +37,13 @@ const StyledNav = styled.nav`
 `;
 
 const StyledSupport = styled.nav`
-	font-size: 1.5rem;
+	font-size: 1rem;
 	text-align: right;
 `;
 
 const DesktopMenu = styled.div`
 	display: none;
-	${(props) => props.theme.largeDevices} {
+	${theme.largeDevices} {
 		display: inline-block;
 	}
 `;
@@ -56,8 +57,8 @@ const Burger = styled.div`
 
 	font-size: 2rem;
 	font-weight: bold;
-	background-color: ${(props) => props.theme.primaryLight};
-	color: ${(props) => props.theme.primaryDark};
+	background-color: ${theme.primaryLight};
+	color: ${theme.primaryDark};
 
 	display: flex;
 	justify-content: center;

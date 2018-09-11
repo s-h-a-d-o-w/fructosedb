@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import {Logo} from './logo';
 import Navigation from './navigation';
-import Link from './link';
 import React from 'react';
+import theme from '../lib/theme';
 
-const StyledBase = styled.div`
+interface IProps {
+	hasMounted: boolean;
+}
+
+const StyledBase = styled<IProps, any>('div')`
 	display: grid;
 	height: 100vh;
 
@@ -15,7 +19,7 @@ const StyledBase = styled.div`
 		'. logo nav'
 		'content content content';
 
-	background-color: ${(props: any) => props.theme.primary};
+	background-color: ${theme.primary};
 	color: white;
 
 	font-family: 'Roboto Slab', serif;
@@ -23,10 +27,6 @@ const StyledBase = styled.div`
 	input {
 		min-width: 0.4rem;
 		min-height: 0.4rem;
-	}
-
-	& > * {
-		animation: fadeIn 250ms ease-in;
 	}
 
 	@keyframes fadeIn {
@@ -37,16 +37,27 @@ const StyledBase = styled.div`
 			opacity: 1;
 		}
 	}
+
+	${(props: IProps) =>
+		props.hasMounted ? '' : '& > * {animation: fadeIn 250ms ease-in;}'};
 `;
 
-export default (props) => (
-	<StyledBase>
-		<Logo />
-		<Navigation>
-			<Link href="/sources">How We Calculate</Link>
-			<Link href="/about">About Us</Link>
-			<Link href="/support">❤️Support Us</Link>
-		</Navigation>
-		{props.children}
-	</StyledBase>
-);
+export default class BaseLayout extends React.Component<any> {
+	state = {
+		hasMounted: false,
+	};
+
+	componentDidMount() {
+		this.setState({
+			hasMounted: true,
+		});
+	}
+
+	render = () => (
+		<StyledBase hasMounted={this.state.hasMounted}>
+			<Logo />
+			<Navigation />
+			{this.props.children}
+		</StyledBase>
+	);
+}

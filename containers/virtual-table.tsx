@@ -5,7 +5,7 @@ import sort from 'fast-sort';
 import {AutoSizer, Table, Column, SortDirection} from 'react-virtualized';
 import styled from 'styled-components';
 import toPXOriginal from 'to-px';
-import {withTheme} from 'styled-components';
+import theme from '../lib/theme';
 
 import {actions, actionTypes} from '../store/store.js';
 
@@ -43,7 +43,7 @@ const TableWrapper = styled.div`
 	.ReactVirtualized__Table__headerRow {
 		display: flex;
 		align-items: center;
-		background-color: ${(props) => props.theme.primaryLight};
+		background-color: ${theme.primaryLight};
 		border-bottom: whitesmoke 2px solid;
 
 		cursor: pointer;
@@ -52,7 +52,7 @@ const TableWrapper = styled.div`
 	.ReactVirtualized__Table__row {
 		display: flex;
 		align-items: center;
-		background-color: ${(props) => props.theme.primaryLight};
+		background-color: ${theme.primaryLight};
 		border-bottom: whitesmoke 1px solid;
 	}
 `;
@@ -80,7 +80,7 @@ class VirtualTable extends React.Component<any, any> {
 		avoid: {description: '🔒', remWidth: 1.5},
 		measure: {
 			description: 'Serving Size',
-			remWidth: 5,
+			remWidth: 4,
 		},
 		fructose: {
 			description: 'Fruct. per 100g',
@@ -96,15 +96,15 @@ class VirtualTable extends React.Component<any, any> {
 		},
 		fructoseServing: {
 			description: 'Fruct. p. Serving',
-			remWidth: 3,
+			remWidth: 4.5,
 		},
 		sucroseServing: {
 			description: 'Sucr. p. Serving',
-			remWidth: 3,
+			remWidth: 4.5,
 		},
 		glucoseServing: {
 			description: 'Gluc. p. Serving',
-			remWidth: 3,
+			remWidth: 4.5,
 		},
 		ratio: {
 			description: 'F/G ratio',
@@ -112,9 +112,7 @@ class VirtualTable extends React.Component<any, any> {
 		},
 	};
 
-	avoidRenderer({cellData}) {
-		return <AvoidIndicator avoid={cellData} />;
-	}
+	avoidRenderer = ({cellData}) => <AvoidIndicator avoid={cellData} />;
 
 	componentDidMount() {
 		this.setState({hasMounted: true});
@@ -259,4 +257,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(withTheme(VirtualTable));
+)(VirtualTable);

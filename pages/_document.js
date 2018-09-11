@@ -1,6 +1,5 @@
 import Document, {Head, Main, NextScript} from 'next/document';
 import {ServerStyleSheet} from 'styled-components';
-import theme from '../lib/theme.js';
 
 // TODO: Add metadata to header
 
@@ -40,15 +39,10 @@ export default class MyDocument extends Document {
 						/* box-sizing required for border to work within table */
 						html {
 							box-sizing: border-box;
-							font-size: 80%;
+							font-size: 100%;
 						}
 						*, *:before, *:after {
 							box-sizing: inherit;
-						}
-						@media all and (min-width: 45em) {
-							html {
-								font-size: 100%;
-							}
 						}
 
 						body {

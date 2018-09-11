@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import theme from '../lib/theme';
 
 const StyledA = styled.a`
 	color: white;
 	text-decoration: none;
 	&:hover {
-		color: ${(props) => props.theme.primaryLight};
+		color: ${theme.primaryLight};
 		cursor: pointer;
 	}
 `;

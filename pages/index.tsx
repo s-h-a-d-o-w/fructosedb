@@ -12,10 +12,11 @@ import {actions} from '../store/store';
 import React from 'react';
 import CenteredContent from '../components/centered-content';
 import FullScreenButton from '../components/fullscreen-button';
+import theme from '../lib/theme';
 
 const FullScreenContainer = styled.div`
 	/* If background-color isn't set, :-webkit-full-screen (default: white) will be aplied */
-	background-color: ${(props) => props.theme.primary};
+	background-color: ${theme.primary};
 	width: 100%;
 	height: 100%;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../lib/theme';
 
 const StyledIcon = styled.div`
 	display: block;
@@ -9,11 +10,11 @@ const StyledIcon = styled.div`
 	width: 3rem;
 	height: 3rem;
 
-	background-color: ${(props) => props.theme.primary};
+	background-color: ${theme.primary};
 	fill: white;
 	padding: 0.5rem;
 
-	${(props) => props.theme.largeDevices} {
+	${theme.largeDevices} {
 		display: none;
 	}
 `;
