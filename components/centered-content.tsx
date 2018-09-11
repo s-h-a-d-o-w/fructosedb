@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const CenteredContent: any = styled.div`
-	grid-area: ${(props: any) => props.gridArea};
+	grid-area: content;
 	width: 100vw;
 	max-width: 1000px;
 	justify-self: center;

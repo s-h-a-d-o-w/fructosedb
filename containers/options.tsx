@@ -4,7 +4,7 @@ import {actions} from '../store/store.js';
 import styled from 'styled-components';
 
 const StyledOptions = styled.div`
-	margin: 0.3rem;
+	margin-bottom: 0.3rem;
 `;
 
 const Options = (props) => (

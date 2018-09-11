@@ -1,5 +1,8 @@
-import {NextSFC} from 'next';
+import BaseLayout from '../components/base-layout';
+import CenteredContent from '../components/centered-content';
 
-const About: NextSFC<any> = () => <div>About</div>;
-
-export default About;
+export default () => (
+	<BaseLayout>
+		<CenteredContent>About</CenteredContent>
+	</BaseLayout>
+);

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import Link from './link';
 
 const StyledLogo = styled.div`
 	grid-area: logo;
 
 	display: inline-block;
-	font-size: 2rem;
-	margin-top: 2rem;
+	font-size: 2.5rem;
+	margin-top: 1.5rem;
 `;
 
 const Fructose = styled.span`
@@ -18,7 +19,9 @@ const DB = styled.span`
 
 export const Logo = () => (
 	<StyledLogo>
-		<Fructose>fructose</Fructose>
-		<DB>db</DB>
+		<Link href="/">
+			<Fructose>fructose</Fructose>
+			<DB>db</DB>
+		</Link>
 	</StyledLogo>
 );

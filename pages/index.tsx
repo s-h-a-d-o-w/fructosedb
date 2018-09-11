@@ -2,11 +2,8 @@ import styled from 'styled-components';
 import fetch from '../lib/fetch-with-timeout.js';
 import {connect} from 'react-redux';
 
-import BaseLayout from '../layouts/base';
-import {Logo} from '../components/logo';
+import BaseLayout from '../components/base-layout';
 import Options from '../containers/options';
-import Link from '../components/link';
-import Menu from '../components/menu';
 import Table from '../containers/virtual-table';
 import FloatingInfo from '../containers/floating-info';
 
@@ -15,18 +12,6 @@ import {actions} from '../store/store';
 import React from 'react';
 import CenteredContent from '../components/centered-content';
 import FullScreenButton from '../components/fullscreen-button';
-
-const PageLayout = styled.div`
-	display: grid;
-	grid-template-columns: 1fr auto 1fr;
-	grid-template-rows: auto 1fr;
-	height: 100vh;
-	grid-gap: 1rem;
-
-	grid-template-areas:
-		'. logo nav'
-		'content content content';
-`;
 
 const FullScreenContainer = styled.div`
 	/* If background-color isn't set, :-webkit-full-screen (default: white) will be aplied */
@@ -69,25 +54,17 @@ class Index extends React.Component<IProps, IState> {
 
 	render() {
 		return (
-			<BaseLayout>
-				<PageLayout onClick={this.props.dispatchKillFloat}>
-					<Logo />
-					<Menu>
-						<Link href="/sources">How We Calculate</Link>
-						<Link href="/about">About Us</Link>
-						<Link href="/support">❤️Support Us</Link>
-					</Menu>
-					<CenteredContent gridArea="content">
-						{/* Containers that use gridArea can't be made to use fullscreen as expected,
+			<BaseLayout onClick={this.props.dispatchKillFloat}>
+				<CenteredContent>
+					{/* Containers that use gridArea can't be made to use fullscreen as expected,
 							a nested container is required. */}
-						<FullScreenContainer innerRef={this.refContent}>
-							{this.state.hasMounted ? <Options /> : ''}
-							<Table {...this.props} />
-							<FullScreenButton target={this.refContent} />
-							<FloatingInfo />
-						</FullScreenContainer>
-					</CenteredContent>
-				</PageLayout>
+					<FullScreenContainer innerRef={this.refContent}>
+						{this.state.hasMounted ? <Options /> : ''}
+						<Table {...this.props} />
+						<FullScreenButton target={this.refContent} />
+						<FloatingInfo />
+					</FullScreenContainer>
+				</CenteredContent>
 			</BaseLayout>
 		);
 	}

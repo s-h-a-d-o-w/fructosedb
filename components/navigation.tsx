@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from './link';
 
 const MobileMenu = styled.div`
 	background-color: ${(props) => props.theme.primary};
@@ -21,18 +22,23 @@ const MobileMenu = styled.div`
 	}
 `;
 
-const HeaderMenu = styled.nav`
+const StyledNav = styled.nav`
 	grid-area: nav;
 
+	display: grid;
+	justify-items: end;
+	grid-template-rows: auto auto 1fr;
+
+	& * {
+		margin-top: 0.5rem;
+		margin-right: 0.5rem;
+	}
+`;
+
+const DesktopMenu = styled.div`
 	display: none;
 	${(props) => props.theme.largeDevices} {
 		display: inline-block;
-		margin-top: 0.5rem;
-		justify-self: end;
-	}
-
-	& > a {
-		margin-right: 1rem;
 	}
 `;
 
@@ -69,7 +75,7 @@ const Lightbox = styled.div`
 	height: 100%;
 `;
 
-class Menu extends React.Component<any> {
+class Navigation extends React.Component<any> {
 	state = {
 		showMenu: false,
 	};
@@ -86,20 +92,32 @@ class Menu extends React.Component<any> {
 		this.setState({showMenu: true});
 	};
 
+	menu = () => (
+		<React.Fragment>
+			<Link href="/sources">How We Calculate</Link>
+			<Link href="/about">About Us</Link>
+		</React.Fragment>
+	);
+
 	render = () => (
 		<React.Fragment>
 			<Burger onClick={this.openMenu}>☰</Burger>
 			{this.state.showMenu ? (
 				<React.Fragment>
 					<Lightbox onClick={this.closeMenu} />
-					<MobileMenu>{this.props.children}</MobileMenu>
+					<MobileMenu>{this.menu()}</MobileMenu>
 				</React.Fragment>
 			) : (
 				''
 			)}
-			<HeaderMenu>{this.props.children}</HeaderMenu>
+			<StyledNav>
+				<DesktopMenu>{this.menu()}</DesktopMenu>
+				<div style={{fontSize: '1.5rem'}}>
+					<Link href="/support">❤️Support Us</Link>
+				</div>
+			</StyledNav>
 		</React.Fragment>
 	);
 }
 
-export default Menu;
+export default Navigation;
