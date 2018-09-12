@@ -8,6 +8,10 @@ const StyledLogo = styled.div`
 
 	font-size: 2rem;
 	margin-top: 0.75rem;
+
+	${theme.largeDevices} {
+		font-size: 2.5rem;
+	}
 `;
 
 const Fructose = styled.span`

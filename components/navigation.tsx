@@ -37,8 +37,11 @@ const StyledNav = styled.nav`
 `;
 
 const StyledSupport = styled.nav`
-	font-size: 1rem;
 	text-align: right;
+
+	${theme.largeDevices} {
+		font-size: 1.5rem;
+	}
 `;
 
 const DesktopMenu = styled.div`
