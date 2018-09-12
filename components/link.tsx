@@ -11,9 +11,14 @@ const StyledA = styled.a`
 	}
 `;
 
+type IProps = {
+	href: string;
+	children: React.ReactNode;
+};
+
 // Next.js Link apparently injects href only into <a> child elements,
 // not generic elements, such as styled components
-export default (props) => (
+export default (props: IProps) => (
 	<Link prefetch href={props.href}>
 		<StyledA href={props.href}>{props.children}</StyledA>
 	</Link>

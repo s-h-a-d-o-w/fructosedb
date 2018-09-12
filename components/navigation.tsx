@@ -81,7 +81,7 @@ const Lightbox = styled.div`
 	height: 100%;
 `;
 
-class Navigation extends React.Component<any> {
+class Navigation extends React.Component {
 	state = {
 		showMenu: false,
 	};

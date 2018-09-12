@@ -19,13 +19,13 @@ const StyledIcon = styled.div`
 	}
 `;
 
-interface IProps {
+type IProps = {
 	target: React.RefObject<HTMLElement>;
-}
+};
 
-interface IState {
+type IState = {
 	fullscreen: boolean;
-}
+};
 
 export default class FullscreenButton extends React.Component<IProps, IState> {
 	state = {

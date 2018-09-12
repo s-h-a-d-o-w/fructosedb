@@ -35,7 +35,7 @@ interface IState {
 }
 
 class Index extends React.Component<IProps, IState> {
-	refContent = React.createRef<HTMLElement>();
+	refContent = React.createRef<HTMLDivElement>();
 	state = {
 		hasMounted: false,
 	};

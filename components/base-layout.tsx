@@ -4,11 +4,11 @@ import Navigation from './navigation';
 import React from 'react';
 import theme from '../lib/theme';
 
-interface IProps {
+type IStyledBaseProps = {
 	hasMounted: boolean;
-}
+};
 
-const StyledBase = styled<IProps, any>('div')`
+const StyledBase = styled<IStyledBaseProps, any>('div')`
 	display: grid;
 	height: 100vh;
 
@@ -38,11 +38,16 @@ const StyledBase = styled<IProps, any>('div')`
 		}
 	}
 
-	${(props: IProps) =>
+	${(props) =>
 		props.hasMounted ? '' : '& > * {animation: fadeIn 250ms ease-in;}'};
 `;
 
-export default class BaseLayout extends React.Component<any> {
+type IProps = {
+	children: React.ReactNode;
+	onClick?: () => void;
+};
+
+export default class BaseLayout extends React.Component<IProps> {
 	state = {
 		hasMounted: false,
 	};

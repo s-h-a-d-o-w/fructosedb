@@ -74,7 +74,7 @@ class VirtualTable extends React.Component<any, any> {
 		hasMounted: false,
 	};
 
-	tableRef = React.createRef<HTMLElement>();
+	tableRef = React.createRef<HTMLDivElement>();
 	headerData = {
 		name: {description: 'Name', remWidth: 0},
 		avoid: {description: '🔒', remWidth: 1.5},
@@ -232,12 +232,18 @@ class VirtualTable extends React.Component<any, any> {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	filter: state.filter,
-	showServing: state.showServing,
-	sortBy: state.sortBy,
-	sortAsc: state.sortAsc,
-	lockedAvoid: state.lockedAvoid,
+const mapStateToProps = ({
+	filter,
+	showServing,
+	sortBy,
+	sortAsc,
+	lockedAvoid,
+}) => ({
+	filter,
+	showServing,
+	sortBy,
+	sortAsc,
+	lockedAvoid,
 });
 
 const mapDispatchToProps = (dispatch) => ({

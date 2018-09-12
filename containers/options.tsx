@@ -46,8 +46,8 @@ class Options extends React.Component<any> {
 	);
 }
 
-const mapStateToProps = (state) => ({
-	showServing: state.showServing,
+const mapStateToProps = ({showServing}) => ({
+	showServing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
