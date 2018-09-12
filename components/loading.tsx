@@ -3,39 +3,34 @@ import styled from 'styled-components';
 // Enforce a 1:1 aspect ratio so that spinner stays round
 // even when using percentage for width/height.
 const StyledAspectRatio = styled.div`
-	position: relative;
-	width: 100%;
-	padding-bottom: 100%;
-`;
-
-const StyledAspectRatioWrapper = styled.div`
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-
 	display: flex;
-	align-items: center;
+	width: 100%;
+	height: 100%;
+
 	justify-content: center;
 `;
 
+// From: https://codepen.io/bernethe/pen/dorozd
 const StyledIcon = styled.div`
-	width: 20%;
-	height: 20%;
+	width: 4rem;
+	height: 4rem;
+	margin-top: 20vh;
 
-	border: 8px rgba(255, 255, 255, 0.25) solid;
-	border-top: 8px rgba(255, 255, 255, 1) solid;
+	border: 0.5rem rgba(255, 255, 255, 0.25) solid;
+	border-top: 0.5rem rgba(255, 255, 255, 1) solid;
 	border-radius: 50%;
-	-webkit-animation: spCircRot 1s infinite linear;
-	animation: spCircRot 1s infinite linear;
+	animation: delayStart 2s, spCircRot 1s infinite linear;
 
-	@-webkit-keyframes spCircRot {
-		from {
-			-webkit-transform: rotate(0deg);
+	/* Prevent brief showing of this for fast connections */
+	@keyframes delayStart {
+		0% {
+			opacity: 0;
 		}
-		to {
-			-webkit-transform: rotate(359deg);
+		50% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
 		}
 	}
 
@@ -52,8 +47,6 @@ const StyledIcon = styled.div`
 // Basically centered (moved up a bit for better visual balance), takes up 20% of the parent container
 export default () => (
 	<StyledAspectRatio>
-		<StyledAspectRatioWrapper>
-			<StyledIcon />
-		</StyledAspectRatioWrapper>
+		<StyledIcon />
 	</StyledAspectRatio>
 );

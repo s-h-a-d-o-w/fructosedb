@@ -142,7 +142,6 @@ class VirtualTable extends React.Component<any, any> {
 	getData = async () => {
 		const res = await fetch(`${process.env.BACKEND_URL}/list`);
 		const data = await res.json();
-		console.log('got the data');
 		this.setState({data});
 	};
 
