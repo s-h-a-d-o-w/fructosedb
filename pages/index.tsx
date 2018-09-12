@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import fetch from '../lib/fetch-with-timeout.js';
 import {connect} from 'react-redux';
 
 import BaseLayout from '../components/base-layout';
@@ -12,6 +11,7 @@ import {actions} from '../store/store';
 import React from 'react';
 import CenteredContent from '../components/centered-content';
 import FullScreenButton from '../components/fullscreen-button';
+import Loading from '../components/loading';
 import theme from '../lib/theme';
 
 const FullScreenContainer = styled.div`
@@ -48,23 +48,22 @@ class Index extends React.Component<IProps, IState> {
 		});
 	}
 
-	static async getInitialProps() {
-		const res = await fetch(`${process.env.BACKEND_URL}/list`);
-		return {data: await res.json()};
-	}
-
 	render() {
 		return (
 			<BaseLayout onClick={this.props.dispatchKillFloat}>
 				<CenteredContent>
 					{/* Containers that use gridArea can't be made to use fullscreen as expected,
 							a nested container is required. */}
-					<FullScreenContainer innerRef={this.refContent}>
-						{this.state.hasMounted ? <Options /> : ''}
-						<Table {...this.props} />
-						<FullScreenButton target={this.refContent} />
-						<FloatingInfo />
-					</FullScreenContainer>
+					{this.state.hasMounted ? (
+						<FullScreenContainer innerRef={this.refContent}>
+							<Options />
+							<Table {...this.props} />
+							<FullScreenButton target={this.refContent} />
+							<FloatingInfo />
+						</FullScreenContainer>
+					) : (
+						<Loading />
+					)}
 				</CenteredContent>
 			</BaseLayout>
 		);

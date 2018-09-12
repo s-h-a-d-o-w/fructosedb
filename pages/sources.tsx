@@ -3,7 +3,8 @@ import CenteredContent from '../components/centered-content';
 import styled from 'styled-components';
 
 const StyledText = styled.article`
-	padding: 2rem;
+	padding: 0 2rem;
+	line-height: 1.5rem;
 `;
 
 const StyledP = styled.p`

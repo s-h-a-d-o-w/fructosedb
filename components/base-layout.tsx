@@ -6,11 +6,11 @@ import theme from '../lib/theme';
 
 type IStyledBaseProps = {
 	hasMounted: boolean;
-};
+} & IProps;
 
 const StyledBase = styled<IStyledBaseProps, any>('div')`
 	display: grid;
-	height: 100vh;
+	min-height: 100vh;
 
 	grid-template-columns: 1fr auto 1fr;
 	grid-template-rows: auto 1fr;
@@ -59,7 +59,7 @@ export default class BaseLayout extends React.Component<IProps> {
 	}
 
 	render = () => (
-		<StyledBase hasMounted={this.state.hasMounted}>
+		<StyledBase {...this.props} hasMounted={this.state.hasMounted}>
 			<Logo />
 			<Navigation />
 			{this.props.children}

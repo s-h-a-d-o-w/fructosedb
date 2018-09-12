@@ -5,7 +5,6 @@ import theme from '../lib/theme';
 
 const MobileMenu = styled.div`
 	background-color: ${theme.primary};
-	color: black;
 
 	position: absolute;
 	left: 0;
@@ -15,11 +14,25 @@ const MobileMenu = styled.div`
 	height: 100vh;
 	padding: 2%;
 
+	text-align: right;
+
 	flex-direction: column;
 
 	display: flex;
 	${theme.largeDevices} {
 		display: none;
+	}
+
+	a {
+		margin-top: 1rem;
+		margin-right: 1rem;
+	}
+`;
+
+const DesktopMenu = styled.div`
+	display: none;
+	${theme.largeDevices} {
+		display: inline-block;
 	}
 `;
 
@@ -44,15 +57,8 @@ const StyledSupport = styled.nav`
 	}
 `;
 
-const DesktopMenu = styled.div`
-	display: none;
-	${theme.largeDevices} {
-		display: inline-block;
-	}
-`;
-
 const Burger = styled.div`
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	width: 3rem;
@@ -66,7 +72,7 @@ const Burger = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	@media all and (min-width: 45em) {
+	${theme.largeDevices} {
 		display: none;
 	}
 `;
@@ -122,7 +128,7 @@ class Navigation extends React.Component {
 			<StyledNav>
 				<DesktopMenu>{this.menu()}</DesktopMenu>
 				<StyledSupport>
-					<Link href="/support">❤️Support Us</Link>
+					<Link href="http://www.google.com">❤️Support Us</Link>
 				</StyledSupport>
 			</StyledNav>
 		</>

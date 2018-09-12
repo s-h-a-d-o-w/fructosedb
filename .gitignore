@@ -1,5 +1,8 @@
 now.json
 
+# Webpack analyzer output
+bundles
+
 # Logs
 logs
 *.log

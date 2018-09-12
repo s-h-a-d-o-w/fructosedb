@@ -8,6 +8,7 @@ import toPXOriginal from 'to-px';
 import theme from '../lib/theme';
 
 import {actions, actionTypes} from '../store/store.js';
+import fetch from '../lib/fetch-with-timeout';
 
 const TableWrapper = styled.div`
 	font-family: 'Roboto Condensed', sans-serif;
@@ -66,14 +67,21 @@ const AvoidIndicator: any = styled.div`
 `;
 
 class VirtualTable extends React.Component<any, any> {
+	// =============================
+	// DEFAULT PROPS/STATE
+	// =============================
 	static defaultProps = {
 		filter: '',
 	};
 
 	state = {
+		data: [],
 		hasMounted: false,
 	};
 
+	// =============================
+	// FIXED DATA
+	// =============================
 	tableRef = React.createRef<HTMLDivElement>();
 	headerData = {
 		name: {description: 'Name', remWidth: 0},
@@ -112,11 +120,10 @@ class VirtualTable extends React.Component<any, any> {
 		},
 	};
 
+	// =============================
+	// HELPER METHODS
+	// =============================
 	avoidRenderer = ({cellData}) => <AvoidIndicator avoid={cellData} />;
-
-	componentDidMount() {
-		this.setState({hasMounted: true});
-	}
 
 	generateHeaders = (cols) =>
 		cols.map((col) =>
@@ -132,6 +139,13 @@ class VirtualTable extends React.Component<any, any> {
 			)
 		);
 
+	getData = async () => {
+		const res = await fetch(`${process.env.BACKEND_URL}/list`);
+		const data = await res.json();
+		console.log('got the data');
+		this.setState({data});
+	};
+
 	nameRenderer = ({cellData}) => (
 		<div
 			onClick={this.props.dispatchShowFloat.bind(this, cellData)}
@@ -145,13 +159,13 @@ class VirtualTable extends React.Component<any, any> {
 	);
 
 	sortData = memoize(
-		(sortBy, sortAsc, lockedAvoid) =>
+		(data, sortBy, sortAsc, lockedAvoid) =>
 			lockedAvoid
-				? sort(this.props.data).by([
+				? sort(data).by([
 						{desc: 'avoid'},
 						sortAsc ? {asc: sortBy} : {desc: sortBy},
 				  ])
-				: sort(this.props.data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}])
+				: sort(data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}])
 	);
 
 	// Styles have to be consistent on server/client after first load (SSR).
@@ -159,12 +173,21 @@ class VirtualTable extends React.Component<any, any> {
 	toPX = (...args) =>
 		this.state.hasMounted ? toPXOriginal.apply(null, args) : 16;
 
+	// =============================
+	// LIFECYCLE METHODS
+	// =============================
+	componentDidMount() {
+		this.setState({hasMounted: true});
+		this.getData();
+	}
+
 	render() {
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
 		// my own? Resize event handler, get computed width and height of parent.
 
 		let filter = this.props.filter.toLowerCase();
 		const sortedData = this.sortData(
+			this.state.data,
 			this.props.sortBy,
 			this.props.sortAsc,
 			this.props.lockedAvoid
@@ -252,7 +275,6 @@ const mapDispatchToProps = (dispatch) => ({
 		col === 'avoid'
 			? dispatch({type: actionTypes.TOGGLE_LOCK_AVOID})
 			: dispatch(actions.changeSort(col, sortDirection === SortDirection.ASC)),
-	dispatchKillFloat: () => dispatch(actions.killFloat()),
 	dispatchShowFloat: (name, e) => {
 		if (e.target.scrollWidth > e.target.clientWidth) {
 			e.stopPropagation();
