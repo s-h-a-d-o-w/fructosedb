@@ -136,7 +136,9 @@ class VirtualTable extends React.Component<any, any> {
 		<div
 			onClick={this.props.dispatchShowFloat.bind(this, cellData)}
 			onMouseOver={this.props.dispatchShowFloat.bind(this, cellData)}
-			onMouseLeave={this.props.dispatchKillFloat}
+			onMouseLeave={
+				this.props.float.content ? this.props.dispatchKillFloat : undefined
+			}
 		>
 			{cellData}
 		</div>
@@ -202,10 +204,7 @@ class VirtualTable extends React.Component<any, any> {
 		));
 
 		return (
-			<TableWrapper
-				innerRef={this.tableRef}
-				onMouseLeave={this.props.dispatchKillFloat}
-			>
+			<TableWrapper innerRef={this.tableRef}>
 				<AutoSizer>
 					{({width, height}) => {
 						return (
@@ -234,16 +233,18 @@ class VirtualTable extends React.Component<any, any> {
 
 const mapStateToProps = ({
 	filter,
+	float,
+	lockedAvoid,
 	showServing,
 	sortBy,
 	sortAsc,
-	lockedAvoid,
 }) => ({
 	filter,
+	float,
+	lockedAvoid,
 	showServing,
 	sortBy,
 	sortAsc,
-	lockedAvoid,
 });
 
 const mapDispatchToProps = (dispatch) => ({
