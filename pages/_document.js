@@ -19,20 +19,6 @@ export default class MyDocument extends Document {
 				<Head>
 					<title>fructose.db</title>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
-					<link
-						rel="preload"
-						href="/static/fonts/roboto-slab.woff"
-						as="font"
-						type="font/woff"
-						crossOrigin="crossorigin"
-					/>
-					<link
-						rel="preload"
-						href="/static/fonts/roboto-condensed.woff"
-						as="font"
-						type="font/woff"
-						crossOrigin="crossorigin"
-					/>
 					<style
 						dangerouslySetInnerHTML={{
 							__html: `

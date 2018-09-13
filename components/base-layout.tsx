@@ -3,6 +3,7 @@ import {Logo} from './logo';
 import Navigation from './navigation';
 import React from 'react';
 import theme from '../lib/theme';
+import Head from 'next/head';
 
 type IStyledBaseProps = {
 	hasMounted: boolean;
@@ -59,10 +60,28 @@ export default class BaseLayout extends React.Component<IProps> {
 	}
 
 	render = () => (
-		<StyledBase {...this.props} hasMounted={this.state.hasMounted}>
-			<Logo />
-			<Navigation />
-			{this.props.children}
-		</StyledBase>
+		<>
+			<Head>
+				<link
+					rel="preload"
+					href="/static/fonts/roboto-slab.woff"
+					as="font"
+					type="font/woff"
+					crossOrigin="crossorigin"
+				/>
+				<link
+					rel="preload"
+					href="/static/fonts/roboto-condensed.woff"
+					as="font"
+					type="font/woff"
+					crossOrigin="crossorigin"
+				/>
+			</Head>
+			<StyledBase {...this.props} hasMounted={this.state.hasMounted}>
+				<Logo />
+				<Navigation />
+				{this.props.children}
+			</StyledBase>
+		</>
 	);
 }
