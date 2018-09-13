@@ -76,27 +76,26 @@ class Translate extends React.Component<any, IState> {
 
 	render() {
 		// Arrange all keys that still need translating in a JSON structure
-		const keysToTranslate = this.state.data
-			.filter(
-				(el) =>
-					this.props.langTranslate !== 'en' &&
-					this.props.langTranslate !== '' &&
-					!this.state.translatedKeys.includes(el)
-			)
-			.map((el, idx) => {
-				let quotesEscaped = el.replace(/([0-9])"/g, '$1\\"');
-				return (
-					<div key={quotesEscaped}>
-						{'  '}
-						<span className="notranslate">"{quotesEscaped}" : "</span>
-						{quotesEscaped}
-						<span className="notranslate">
-							"{idx < this.state.data.length - 1 ? ',' : ''}
-						</span>
-						<br />
-					</div>
-				);
-			});
+		const keysToTranslate =
+			this.props.langTranslate === 'en' || this.props.langTranslate === ''
+				? ''
+				: this.state.data
+						.filter((el) => !this.state.translatedKeys.includes(el))
+						.sort((a: string, b: string) => a.localeCompare(b))
+						.map((el, idx) => {
+							let quotesEscaped = el.replace(/([0-9])"/g, '$1\\"');
+							return (
+								<div key={quotesEscaped}>
+									{'  '}
+									<span className="notranslate">"{quotesEscaped}" : "</span>
+									{quotesEscaped}
+									<span className="notranslate">
+										"{idx < this.state.data.length - 1 ? ',' : ''}
+									</span>
+									<br />
+								</div>
+							);
+						});
 
 		return (
 			<BaseLayout>
