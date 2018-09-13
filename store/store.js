@@ -6,8 +6,9 @@ import {loadState} from './local-storage.js';
 import withPersistence from '../lib/with-persistence.js';
 
 export const actionTypes = {
-	CHANGE_SORT: 'CHANGE_SORT',
 	CHANGE_FILTER: 'CHANGE_FILTER',
+	CHANGE_SORT: 'CHANGE_SORT',
+	CHANGE_TRANSLATION_TARGET: 'CHANGE_TRANSLATION_TARGET',
 	KILL_FLOAT: 'KILL_FLOAT',
 	TOGGLE_LOCK_AVOID: 'TOGGLE_LOCK_AVOID',
 	REHYDRATE: 'REHYDRATE',
@@ -25,6 +26,8 @@ export const reducer = (state = exampleInitialState, action) => {
 				sortBy: action.sortBy,
 				sortAsc: action.sortAsc,
 			});
+		case actionTypes.CHANGE_TRANSLATION_TARGET:
+			return Object.assign({}, state, {langTranslate: action.value});
 		case actionTypes.KILL_FLOAT:
 			return Object.assign({}, state, {
 				float: {},
@@ -59,6 +62,10 @@ export const actions = {
 		type: actionTypes.CHANGE_SORT,
 		sortBy,
 		sortAsc,
+	}),
+	changeTranslationTarget: (value) => ({
+		type: actionTypes.CHANGE_TRANSLATION_TARGET,
+		value,
 	}),
 	killFloat: () => ({
 		type: actionTypes.KILL_FLOAT,
