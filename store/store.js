@@ -7,6 +7,7 @@ import withPersistence from '../lib/with-persistence.js';
 
 export const actionTypes = {
 	CHANGE_FILTER: 'CHANGE_FILTER',
+	CHANGE_LANGUAGE: 'CHANGE_LANGUAGE',
 	CHANGE_SORT: 'CHANGE_SORT',
 	CHANGE_TRANSLATION_TARGET: 'CHANGE_TRANSLATION_TARGET',
 	KILL_FLOAT: 'KILL_FLOAT',
@@ -21,6 +22,8 @@ export const reducer = (state = exampleInitialState, action) => {
 	switch (action.type) {
 		case actionTypes.CHANGE_FILTER:
 			return Object.assign({}, state, {filter: action.value});
+		case actionTypes.CHANGE_LANGUAGE:
+			return Object.assign({}, state, {lang: action.value});
 		case actionTypes.CHANGE_SORT:
 			return Object.assign({}, state, {
 				sortBy: action.sortBy,
@@ -58,6 +61,7 @@ export const reducer = (state = exampleInitialState, action) => {
 // ACTIONS
 export const actions = {
 	changeFilter: (value) => ({type: actionTypes.CHANGE_FILTER, value}),
+	changeLanguage: (value) => ({type: actionTypes.CHANGE_LANGUAGE, value}),
 	changeSort: (sortBy, sortAsc) => ({
 		type: actionTypes.CHANGE_SORT,
 		sortBy,
@@ -94,6 +98,7 @@ const exampleInitialState = {
 	light: false,
 	count: 0,
 	float: {},
+	lang: 'en',
 };
 
 export const initializeStore = (initialState = exampleInitialState) =>

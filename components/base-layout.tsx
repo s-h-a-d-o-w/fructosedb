@@ -9,7 +9,7 @@ type IStyledBaseProps = {
 	hasMounted: boolean;
 } & IProps;
 
-const StyledBase = styled<IStyledBaseProps, any>('div')`
+const StyledBase = styled.div`
 	display: grid;
 	min-height: 100vh;
 
@@ -39,7 +39,7 @@ const StyledBase = styled<IStyledBaseProps, any>('div')`
 		}
 	}
 
-	${(props) =>
+	${(props: IStyledBaseProps) =>
 		props.hasMounted ? '' : '& > * {animation: fadeIn 250ms ease-in;}'};
 `;
 

@@ -9,6 +9,7 @@ import theme from '../lib/theme';
 
 import {actions, actionTypes} from '../store/store.js';
 import fetch from '../lib/fetch-with-timeout';
+import {isEmptyObject} from '../lib/util';
 
 const TableWrapper = styled.div`
 	font-family: 'Roboto Condensed', sans-serif;
@@ -76,7 +77,9 @@ class VirtualTable extends React.Component<any, any> {
 
 	state = {
 		data: [],
+		dataTranslated: [],
 		hasMounted: false,
+		translation: {},
 	};
 
 	// =============================
@@ -145,6 +148,18 @@ class VirtualTable extends React.Component<any, any> {
 		this.setState({data});
 	};
 
+	getTranslation = async () => {
+		console.log('getTranslation()');
+
+		// Memoize this based on language so that switching back and forth
+		// doesn't cause requests?
+		const res = await fetch(
+			`${process.env.BACKEND_URL}/static/lang/${this.props.lang}.json`
+		);
+		const translation = await res.json();
+		this.setState({translation});
+	};
+
 	nameRenderer = ({cellData}) => (
 		<div
 			onClick={this.props.dispatchShowFloat.bind(this, cellData)}
@@ -157,15 +172,16 @@ class VirtualTable extends React.Component<any, any> {
 		</div>
 	);
 
-	sortData = memoize(
-		(data, sortBy, sortAsc, lockedAvoid) =>
-			lockedAvoid
+	sortData = memoize((data, sortBy, sortAsc, lockedAvoid) => {
+		return data.length === 0
+			? data
+			: lockedAvoid
 				? sort(data).by([
 						{desc: 'avoid'},
 						sortAsc ? {asc: sortBy} : {desc: sortBy},
 				  ])
-				: sort(data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}])
-	);
+				: sort(data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}]);
+	});
 
 	// Styles have to be consistent on server/client after first load (SSR).
 	// Plus, toPX() can only be used in a browser anyway.
@@ -178,19 +194,57 @@ class VirtualTable extends React.Component<any, any> {
 	componentDidMount() {
 		this.setState({hasMounted: true});
 		this.getData();
+
+		if (this.props.lang !== 'en') this.getTranslation();
 	}
+
+	async componentDidUpdate(prevProps) {
+		// On page load, the general data will probably arrive AFTER the language was already set.
+		// In which case, state.translation will be empty.
+		if (
+			this.props.lang !== 'en' &&
+			(isEmptyObject(this.state.translation) ||
+				this.props.lang !== prevProps.lang)
+		)
+			this.getTranslation();
+	}
+
+	translateData = memoize(
+		(_, lang) =>
+			lang === 'en'
+				? this.state.data
+				: this.state.data.map((el) =>
+						Object.assign({}, el, {name: this.state.translation[el.name]})
+				  )
+	);
 
 	render() {
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
 		// my own? Resize event handler, get computed width and height of parent.
 
-		let filter = this.props.filter.toLowerCase();
-		const sortedData = this.sortData(
-			this.state.data,
+		//let begin = performance.now();
+
+		// TRANSLATA DATA
+		// Memoized - state.data reference only changes when translation is changed
+		// So in other cases, the same reference should end up in data.
+		let data = this.translateData(this.state.data, this.props.lang);
+		if (!Array.isArray(data)) data = [];
+
+		// SORT DATA
+		data = this.sortData(
+			data,
 			this.props.sortBy,
 			this.props.sortAsc,
 			this.props.lockedAvoid
-		).filter((el) => el.name.toLowerCase().indexOf(filter) >= 0);
+		);
+
+		// FILTER DATA
+		if (this.props.filter !== '') {
+			let filter = this.props.filter.toLowerCase();
+			data = data.filter((el) => el.name.toLowerCase().indexOf(filter) >= 0);
+		}
+
+		//console.log('Processing data took:', performance.now() - begin);
 
 		const headers = this.props.showServing
 			? this.generateHeaders([
@@ -234,8 +288,8 @@ class VirtualTable extends React.Component<any, any> {
 								headerHeight={3.0 * this.toPX('em', this.tableRef.current)}
 								height={height}
 								rowHeight={1.5 * this.toPX('em', this.tableRef.current)}
-								rowGetter={({index}) => sortedData[index]}
-								rowCount={sortedData.length}
+								rowGetter={({index}) => data[index]}
+								rowCount={data.length}
 								sort={this.props.dispatchColAction}
 								sortBy={this.props.sortBy}
 								sortDirection={
@@ -256,6 +310,7 @@ class VirtualTable extends React.Component<any, any> {
 const mapStateToProps = ({
 	filter,
 	float,
+	lang,
 	lockedAvoid,
 	showServing,
 	sortBy,
@@ -263,6 +318,7 @@ const mapStateToProps = ({
 }) => ({
 	filter,
 	float,
+	lang,
 	lockedAvoid,
 	showServing,
 	sortBy,

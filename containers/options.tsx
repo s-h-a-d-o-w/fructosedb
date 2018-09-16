@@ -2,8 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {actions} from '../store/store.js';
 import styled from 'styled-components';
+import LangSelect from './lang-select';
 
 const StyledOptions = styled.div`
+	display: flex;
+	align-items: center;
+
 	margin-bottom: 0.3rem;
 	margin-top: 0.3rem;
 `;
@@ -42,6 +46,7 @@ class Options extends React.Component<any> {
 				value={this.state.filter}
 				size={15}
 			/>
+			<LangSelect />
 		</StyledOptions>
 	);
 }
