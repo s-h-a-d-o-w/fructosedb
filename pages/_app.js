@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 
 if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
 	const {whyDidYouUpdate} = require('why-did-you-update');
-	whyDidYouUpdate(React);
+	//whyDidYouUpdate(React);
 }
 
 class MyApp extends App {

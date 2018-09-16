@@ -20,13 +20,7 @@ const StyledTextBox = styled.input`
 `;
 
 class Options extends React.Component<any> {
-	state = {
-		filter: '',
-	};
-
 	handleFilter = (e) => {
-		// Redundant but otherwise, React warning about uncontrolled input is triggered
-		this.setState({filter: e.target.value});
 		this.props.dispatchFilter(e.target.value);
 	};
 
@@ -43,7 +37,7 @@ class Options extends React.Component<any> {
 				type="text"
 				placeholder="Filter"
 				onChange={this.handleFilter}
-				value={this.state.filter}
+				value={this.props.filter}
 				size={15}
 			/>
 			<LangSelect />
@@ -51,7 +45,8 @@ class Options extends React.Component<any> {
 	);
 }
 
-const mapStateToProps = ({showServing}) => ({
+const mapStateToProps = ({filter, showServing}) => ({
+	filter,
 	showServing,
 });
 

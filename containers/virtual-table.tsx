@@ -165,7 +165,9 @@ class VirtualTable extends React.Component<any, any> {
 			onClick={this.props.dispatchShowFloat.bind(this, cellData)}
 			onMouseOver={this.props.dispatchShowFloat.bind(this, cellData)}
 			onMouseLeave={
-				this.props.float.content ? this.props.dispatchKillFloat : undefined
+				this.props.float.content
+					? this.props.dispatchKillFloat.bind(null, this.props.float)
+					: undefined
 			}
 		>
 			{cellData}
@@ -226,7 +228,7 @@ class VirtualTable extends React.Component<any, any> {
 	// }
 
 	render() {
-		console.log('render');
+		//console.log('render');
 
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
 		// my own? Resize event handler, get computed width and height of parent.
