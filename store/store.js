@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk';
 
 import {loadState} from './local-storage.js';
 import withPersistence from '../lib/with-persistence.js';
+import {isEmptyObject} from '../lib/util';
 
 export const actionTypes = {
 	CHANGE_FILTER: 'CHANGE_FILTER',
@@ -32,9 +33,11 @@ export const reducer = (state = exampleInitialState, action) => {
 		case actionTypes.CHANGE_TRANSLATION_TARGET:
 			return Object.assign({}, state, {langTranslate: action.value});
 		case actionTypes.KILL_FLOAT:
-			return Object.assign({}, state, {
-				float: {},
-			});
+			return isEmptyObject(state.float)
+				? state
+				: Object.assign({}, state, {
+						float: {},
+				  });
 		case actionTypes.REHYDRATE:
 			return loadState(state);
 		case actionTypes.SHOW_FLOAT:
@@ -101,8 +104,9 @@ const exampleInitialState = {
 	lang: 'en',
 };
 
-export const initializeStore = (initialState = exampleInitialState) =>
-	createStore(
+export const initializeStore = (initialState = exampleInitialState) => {
+	console.log('initializeStore');
+	return createStore(
 		// No persistence for SSR.
 		// Also: Could provide a blacklist or whitelist to withPersistence for which
 		// keys of the state to store.
@@ -110,3 +114,4 @@ export const initializeStore = (initialState = exampleInitialState) =>
 		initialState,
 		composeWithDevTools(applyMiddleware(thunkMiddleware))
 	);
+};

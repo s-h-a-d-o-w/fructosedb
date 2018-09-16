@@ -31,7 +31,8 @@
     "redux-devtools-extension": "2.13.5",
     "redux-thunk": "2.3.0",
     "styled-components": "3.4.4",
-    "to-px": "1.0.1"
+    "to-px": "1.0.1",
+    "why-did-you-update": "0.1.1"
   },
   "devDependencies": {
     "@types/next": "6.1.2",

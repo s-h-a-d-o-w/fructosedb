@@ -36,12 +36,12 @@ const StyledDropDown = styled.div`
 	width: 2rem;
 
 	overflow-y: hidden;
-	animation: moveIn 500ms cubic-bezier(0, 1, 0.5, 1);
+	animation: moveIn 200ms ease-in;
 
 	@keyframes moveIn {
 		from {
 			opacity: 0;
-			max-height: 0;
+			max-height: 2rem;
 		}
 		to {
 			opacity: 1;
@@ -55,21 +55,26 @@ class LangSelect extends React.Component<any> {
 		expanded: false,
 	};
 
+	collapse = (e: any) => {
+		if (
+			e.target.closest('#langDropDown') !== null &&
+			e.target.closest('svg') !== null
+		)
+			this.props.dispatchChangeLanguage(
+				e.target.closest('svg').getAttribute('data-key')
+			);
+
+		this.setState({expanded: false});
+		document.body.removeEventListener('click', this.collapse);
+	};
+
 	expand = () => {
 		this.setState({expanded: true});
+		document.body.addEventListener('click', this.collapse);
+	};
 
-		// Handle selection (or user clicking outside)
-		document.body.addEventListener('click', (e: any) => {
-			if (
-				e.target.closest('#langDropDown') !== null &&
-				e.target.closest('svg') !== null
-			)
-				this.props.dispatchChangeLanguage(
-					e.target.closest('svg').getAttribute('data-key')
-				);
-
-			this.setState({expanded: false});
-		});
+	componentWillUnmount = () => {
+		document.body.removeEventListener('click', this.collapse);
 	};
 
 	render = () => {
@@ -99,8 +104,12 @@ const mapStateToProps = ({lang}) => ({
 	lang,
 });
 
+function dispatchChangeLanguage(dispatch, value) {
+	dispatch(actions.changeLanguage(value));
+}
+
 const mapDispatchToProps = (dispatch) => ({
-	dispatchChangeLanguage: (value) => dispatch(actions.changeLanguage(value)),
+	dispatchChangeLanguage: dispatchChangeLanguage.bind(null, dispatch),
 });
 
 export default connect(

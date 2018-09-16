@@ -188,6 +188,15 @@ class VirtualTable extends React.Component<any, any> {
 	toPX = (...args) =>
 		this.state.hasMounted ? toPXOriginal.apply(null, args) : 16;
 
+	translateData = memoize(
+		(_, __, lang) =>
+			lang === 'en'
+				? this.state.data
+				: this.state.data.map((el) =>
+						Object.assign({}, el, {name: this.state.translation[el.name]})
+				  )
+	);
+
 	// =============================
 	// LIFECYCLE METHODS
 	// =============================
@@ -209,25 +218,34 @@ class VirtualTable extends React.Component<any, any> {
 			this.getTranslation();
 	}
 
-	translateData = memoize(
-		(_, lang) =>
-			lang === 'en'
-				? this.state.data
-				: this.state.data.map((el) =>
-						Object.assign({}, el, {name: this.state.translation[el.name]})
-				  )
-	);
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	console.log('props', this.props);
+	// 	console.log('props', nextProps);
+	// 	console.log('state', this.state === nextState);
+	// 	return true;
+	// }
 
 	render() {
+		console.log('render');
+
 		// TODO: Probably AutoSizer makes table flicker at certain widths. Shouldn't be that difficult to write
 		// my own? Resize event handler, get computed width and height of parent.
 
 		//let begin = performance.now();
 
-		// TRANSLATA DATA
+		// TRANSLATE DATA
 		// Memoized - state.data reference only changes when translation is changed
 		// So in other cases, the same reference should end up in data.
-		let data = this.translateData(this.state.data, this.props.lang);
+		// Checking for language change when translation hasn't arrived yet allows to avoid
+		// flash of empty table.
+		let data =
+			this.props.lang !== 'en' && isEmptyObject(this.state.translation)
+				? this.state.data
+				: this.translateData(
+						this.state.data,
+						this.state.translation,
+						this.props.lang
+				  );
 		if (!Array.isArray(data)) data = [];
 
 		// SORT DATA
@@ -282,25 +300,23 @@ class VirtualTable extends React.Component<any, any> {
 		return (
 			<TableWrapper innerRef={this.tableRef}>
 				<AutoSizer>
-					{({width, height}) => {
-						return (
-							<Table
-								headerHeight={3.0 * this.toPX('em', this.tableRef.current)}
-								height={height}
-								rowHeight={1.5 * this.toPX('em', this.tableRef.current)}
-								rowGetter={({index}) => data[index]}
-								rowCount={data.length}
-								sort={this.props.dispatchColAction}
-								sortBy={this.props.sortBy}
-								sortDirection={
-									this.props.sortAsc ? SortDirection.ASC : SortDirection.DESC
-								}
-								width={width}
-							>
-								{columns}
-							</Table>
-						);
-					}}
+					{({width, height}) => (
+						<Table
+							headerHeight={3.0 * this.toPX('em', this.tableRef.current)}
+							height={height}
+							rowHeight={1.5 * this.toPX('em', this.tableRef.current)}
+							rowGetter={({index}) => data[index]}
+							rowCount={data.length}
+							sort={this.props.dispatchColAction}
+							sortBy={this.props.sortBy}
+							sortDirection={
+								this.props.sortAsc ? SortDirection.ASC : SortDirection.DESC
+							}
+							width={width}
+						>
+							{columns}
+						</Table>
+					)}
 				</AutoSizer>
 			</TableWrapper>
 		);
@@ -325,17 +341,21 @@ const mapStateToProps = ({
 	sortAsc,
 });
 
+const dispatchColAction = (dispatch, {sortBy: col, sortDirection}) =>
+	col === 'avoid'
+		? dispatch({type: actionTypes.TOGGLE_LOCK_AVOID})
+		: dispatch(actions.changeSort(col, sortDirection === SortDirection.ASC));
+
+const dispatchShowFloat = (dispatch, name, e) => {
+	if (e.target.scrollWidth > e.target.clientWidth) {
+		e.stopPropagation();
+		dispatch(actions.showFloat(name, e.pageX, e.pageY));
+	}
+};
+
 const mapDispatchToProps = (dispatch) => ({
-	dispatchColAction: ({sortBy: col, sortDirection}) =>
-		col === 'avoid'
-			? dispatch({type: actionTypes.TOGGLE_LOCK_AVOID})
-			: dispatch(actions.changeSort(col, sortDirection === SortDirection.ASC)),
-	dispatchShowFloat: (name, e) => {
-		if (e.target.scrollWidth > e.target.clientWidth) {
-			e.stopPropagation();
-			dispatch(actions.showFloat(name, e.pageX, e.pageY));
-		}
-	},
+	dispatchColAction: dispatchColAction.bind(null, dispatch),
+	dispatchShowFloat: dispatchShowFloat.bind(null, dispatch),
 });
 
 export default connect(

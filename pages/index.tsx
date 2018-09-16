@@ -13,6 +13,8 @@ import CenteredContent from '../components/centered-content';
 import FullScreenButton from '../components/fullscreen-button';
 import Loading from '../components/loading';
 import theme from '../lib/theme';
+import {isEmptyObject} from '../lib/util';
+import {Dispatch} from 'redux';
 
 const FullScreenContainer = styled.div`
 	/* If background-color isn't set, :-webkit-full-screen (default: white) will be aplied */
@@ -27,7 +29,8 @@ const FullScreenContainer = styled.div`
 
 interface IProps {
 	data: object[];
-	dispatchKillFloat: () => void;
+	dispatch: Dispatch;
+	float: object;
 }
 
 interface IState {
@@ -48,9 +51,14 @@ class Index extends React.Component<IProps, IState> {
 		});
 	}
 
+	dispatchKillFloat = () => {
+		if (this.props.float && !isEmptyObject(this.props.float))
+			this.props.dispatch(actions.killFloat());
+	};
+
 	render() {
 		return (
-			<BaseLayout onClick={this.props.dispatchKillFloat}>
+			<BaseLayout onClick={this.dispatchKillFloat}>
 				<CenteredContent>
 					{/* Containers that use gridArea can't be made to use fullscreen as expected,
 							a nested container is required. */}
@@ -70,11 +78,8 @@ class Index extends React.Component<IProps, IState> {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => ({
-	dispatchKillFloat: () => dispatch(actions.killFloat()),
+const mapStateToProps = ({float}) => ({
+	float,
 });
 
-export default connect(
-	null,
-	mapDispatchToProps
-)(Index);
+export default connect(mapStateToProps)(Index);
