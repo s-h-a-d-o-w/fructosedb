@@ -2,8 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {actions} from '../store/store.js';
 
+type HTMLInputEvent = {
+	target: HTMLInputElement;
+} & Event;
+
 class TranslationDropdown extends React.Component<any> {
-	handleChange = (event: {target: HTMLInputElement}) => {
+	handleChange = (event: HTMLInputEvent) => {
 		this.props.dispatch(actions.changeTranslationTarget(event.target.value));
 	};
 

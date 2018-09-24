@@ -105,7 +105,6 @@ const exampleInitialState = {
 };
 
 export const initializeStore = (initialState = exampleInitialState) => {
-	console.log('initializeStore');
 	return createStore(
 		// No persistence for SSR.
 		// Also: Could provide a blacklist or whitelist to withPersistence for which

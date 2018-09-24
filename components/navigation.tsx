@@ -3,8 +3,14 @@ import styled from 'styled-components';
 
 import theme from '../lib/theme';
 import Link from './link';
-import Burger from './burger';
+import Burger from './Burger';
 import Menu from './menu';
+
+const StyledBurger = styled(Burger)`
+	position: fixed;
+	left: 0;
+	top: 0;
+`;
 
 const StyledNav = styled.nav`
 	grid-area: nav;
@@ -65,7 +71,7 @@ export default class extends React.Component {
 
 	render = () => (
 		<>
-			<Burger onClick={this.openMenu}>☰</Burger>
+			<StyledBurger onClick={this.openMenu}>☰</StyledBurger>
 			{this.state.showMenu ? (
 				<>
 					<StyledLightbox onClick={this.closeMenu} />

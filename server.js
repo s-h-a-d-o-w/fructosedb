@@ -33,6 +33,7 @@ const avoid = (serving, fructose, sucrose, glucose) => {
 };
 
 // Format the data the way the frontend needs it.
+// Discard items that don't contain all needed nutrient info.
 const extractData = (data) =>
 	data
 		.filter(
@@ -111,24 +112,35 @@ const removeDuplicates = (data) => {
 	return data;
 };
 
-async function getList() {
-	//const dbURL = 'https://api.github.com/repos/zeit/next.js';
-
-	// TODO: Put api key into some file that won't be committed!
+async function getReport(max = 1, offset = 0) {
 	const query = querystring.stringify({
 		api_key: process.env.USDA_KEY,
 		nutrients: [210, 211, 212],
-		max: 1500, // number of elements to return. default: 50
+		max, // number of elements to return. default: 50
+		offset,
 	});
 	const dbURL = `http://api.nal.usda.gov/ndb/nutrients/?${query}`;
 	const res = await fetch(dbURL);
 
 	if (res.status === 200) {
-		//return extractData((await res.json()).report.foods);
-		return removeDuplicates(extractData((await res.json()).report.foods));
+		return (await res.json()).report;
 	} else {
 		throw `Contacting ${dbURL} failed! (code: ${res.status}`;
 	}
+}
+
+// Get full list of foods from the USDA DB.
+// Data rearranged as needed by the frontend. (see extractData())
+async function getList() {
+	let total = (await getReport()).total, // Dummy report fetch gives us total number of foods
+		data = [];
+
+	for (let offset = 0; offset < total; offset += 1500) {
+		let report = await getReport(1500, offset);
+		data = data.concat(report.foods);
+	}
+
+	return removeDuplicates(extractData(data));
 }
 
 app.prepare().then(() => {

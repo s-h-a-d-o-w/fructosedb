@@ -21,9 +21,11 @@ const StyledMap = styled.div`
 
 	margin-left: auto;
 	width: 2rem;
+
+	cursor: pointer;
 `;
 
-type IStyledDropDown = {
+type DropDownProps = {
 	numFlags: number;
 } & React.HTMLProps<HTMLDivElement>;
 
@@ -45,7 +47,7 @@ const StyledDropDown = styled.div`
 		}
 		to {
 			opacity: 1;
-			max-height: ${(props: IStyledDropDown) => props.numFlags * 2}rem;
+			max-height: ${(props: DropDownProps) => props.numFlags * 2}rem;
 		}
 	}
 `;
