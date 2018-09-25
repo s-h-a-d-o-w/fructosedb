@@ -10,6 +10,10 @@ const StyledBurger = styled(Burger)`
 	position: fixed;
 	left: 0;
 	top: 0;
+
+	${theme.largeDevices} {
+		display: none;
+	}
 `;
 
 const StyledNav = styled.nav`
@@ -71,7 +75,7 @@ export default class extends React.Component {
 
 	render = () => (
 		<>
-			<StyledBurger onClick={this.openMenu}>☰</StyledBurger>
+			<StyledBurger onClick={this.openMenu} />
 			{this.state.showMenu ? (
 				<>
 					<StyledLightbox onClick={this.closeMenu} />

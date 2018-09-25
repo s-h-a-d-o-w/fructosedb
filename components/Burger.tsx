@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import theme from '../lib/theme';
+import React from 'react';
 
-export default styled.div`
+const Burger = styled.div`
 	width: 3rem;
 	height: 3rem;
 
@@ -13,7 +14,15 @@ export default styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	${theme.largeDevices} {
-		display: none;
-	}
 `;
+
+type Props = {
+	onClick: () => void;
+};
+
+/**
+ * Used to toggle mobile menu.
+ * @param props
+ * @example ../docs/examples/Burger.md
+ */
+export default (props: Props) => <Burger {...props}>☰</Burger>;
