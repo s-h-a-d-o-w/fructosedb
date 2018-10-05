@@ -1,9 +1,9 @@
+import * as React from 'react';
 import styled from 'styled-components';
-import {Logo} from './logo';
-import Navigation from './navigation';
-import React from 'react';
+import {Logo} from './Logo';
+import Navigation from './Navigation';
 import theme from '../lib/theme';
-import FructoseHead from '../components/head';
+import FructoseHead from './Head';
 
 type IStyledBaseProps = {
 	hasMounted: boolean;

@@ -1,17 +1,17 @@
+import * as React from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 
-import BaseLayout from '../components/base-layout';
-import Options from '../containers/options';
-import Table from '../containers/virtual-table';
-import FloatingInfo from '../containers/floating-info';
+import BaseLayout from '../components/BaseLayout';
+import Options from '../containers/Options';
+import Table from '../containers/VirtualTable';
+import FloatingInfo from '../containers/FloatingInfo';
 
 import 'react-virtualized/styles.css';
 import {actions} from '../store/store';
-import React from 'react';
-import CenteredContent from '../components/centered-content';
-import FullScreenButton from '../components/fullscreen-button';
-import Loading from '../components/loading';
+import CenteredContent from '../components/CenteredContent';
+import FullScreenButton from '../components/FullscreenButton';
+import Loading from '../components/Loading';
 import theme from '../lib/theme';
 import {isEmptyObject} from '../lib/util';
 import {Dispatch} from 'redux';

@@ -1,5 +1,6 @@
+import * as React from 'react';
 import styled from 'styled-components';
-import Link from './link';
+import Link from './Link';
 import theme from '../lib/theme';
 
 const StyledLogo = styled.div`

@@ -36,15 +36,15 @@ module.exports = {
 	webpackConfig: createConfig([
 		devServer(),
 		babel(),
+		// Using babel for TS is necessary because of "jsx": "preserve" in tsconfig.json
+		// (Which is required for the next.js build pipeline)
 		typescript({
-			silent: true,
 			useBabel: true,
+			babelCore: '@babel/core',
 			babelOptions: {
 				compact: process.env.NODE_ENV === 'production',
 				highlightCode: true,
 			},
-			babelCore: '@babel/core',
-			useCache: true,
 		}),
 	]),
 };

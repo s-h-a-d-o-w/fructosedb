@@ -1,12 +1,12 @@
+import * as React from 'react';
 import {connect} from 'react-redux';
 import 'react-virtualized/styles.css';
-import React from 'react';
 
-import BaseLayout from '../components/base-layout';
-import CenteredContent from '../components/centered-content';
-import Loading from '../components/loading';
+import BaseLayout from '../components/BaseLayout';
+import CenteredContent from '../components/CenteredContent';
+import Loading from '../components/Loading';
 import fetch from '../lib/fetch-with-timeout';
-import TranslationDropdown from '../containers/translation-dropdown';
+import TranslationDropdown from '../containers/TranslationDropdown';
 import Head from 'next/head';
 
 interface IState {

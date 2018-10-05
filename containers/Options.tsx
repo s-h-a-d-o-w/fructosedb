@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {actions} from '../store/store.js';
 import styled from 'styled-components';
-import LangSelect from './lang-select';
+import LangSelect from './LangSelect';
 
 const StyledOptions = styled.div`
 	display: flex;

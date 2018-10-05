@@ -1,5 +1,5 @@
+import * as React from 'react';
 import Head from 'next/head';
-import React from 'react';
 
 export default class extends React.PureComponent {
 	render() {

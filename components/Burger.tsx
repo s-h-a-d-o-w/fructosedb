@@ -1,6 +1,6 @@
+import * as React from 'react';
 import styled from 'styled-components';
 import theme from '../lib/theme';
-import React from 'react';
 
 const Burger = styled.div`
 	width: 3rem;
@@ -25,4 +25,6 @@ type Props = {
  * @param props
  * @example ../docs/examples/Burger.md
  */
-export default (props: Props) => <Burger {...props}>☰</Burger>;
+export default (props: Props) => {
+	return <Burger {...props}>☰</Burger>;
+};

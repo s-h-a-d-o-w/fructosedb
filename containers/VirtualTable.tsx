@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import memoize from 'memoize-one';
 import {connect} from 'react-redux';
 import sort from 'fast-sort';

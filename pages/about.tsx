@@ -1,5 +1,6 @@
-import BaseLayout from '../components/base-layout';
-import CenteredContent from '../components/centered-content';
+import * as React from 'react';
+import BaseLayout from '../components/BaseLayout';
+import CenteredContent from '../components/CenteredContent';
 
 export default () => (
 	<BaseLayout>

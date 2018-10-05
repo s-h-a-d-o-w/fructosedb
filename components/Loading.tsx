@@ -1,3 +1,4 @@
+import * as React from 'react';
 import styled from 'styled-components';
 
 // Enforce a 1:1 aspect ratio so that spinner stays round

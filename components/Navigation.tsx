@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 
 import theme from '../lib/theme';
-import Link from './link';
+import Link from './Link';
 import Burger from './Burger';
-import Menu from './menu';
+import Menu from './Menu';
 
 const StyledBurger = styled(Burger)`
 	position: fixed;
