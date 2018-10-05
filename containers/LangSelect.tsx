@@ -8,18 +8,16 @@ import US from '../static/lang/us.svg';
 
 import {actions} from '../store/store.js';
 
-const langMap = {
+const languages = {
 	de: <DE key={'de'} data-key={'de'} />,
 	en: <US key={'en'} data-key={'en'} />,
 };
 
-const StyledMap = styled.div`
+const StyledFlag = styled.div`
 	position: relative;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 
 	margin-left: auto;
+	margin-right: 0.3rem;
 	width: 2rem;
 
 	cursor: pointer;
@@ -82,21 +80,21 @@ class LangSelect extends React.Component<any> {
 	render = () => {
 		return (
 			<>
-				<StyledMap onClick={this.expand}>
-					{langMap[this.props.lang]}
+				<StyledFlag onClick={this.expand}>
+					{languages[this.props.lang]}
 					{this.state.expanded ? (
 						<StyledDropDown
 							id="langDropDown"
-							numFlags={Reflect.ownKeys(langMap).length}
+							numFlags={Reflect.ownKeys(languages).length}
 						>
-							{Reflect.ownKeys(langMap)
+							{Reflect.ownKeys(languages)
 								.sort((a) => (a !== this.props.lang ? 1 : 0))
-								.map((key) => langMap[key])}
+								.map((key) => languages[key])}
 						</StyledDropDown>
 					) : (
 						''
 					)}
-				</StyledMap>
+				</StyledFlag>
 			</>
 		);
 	};
