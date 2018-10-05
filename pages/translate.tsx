@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import 'react-virtualized/styles.css';
 
 import BaseLayout from '../components/BaseLayout';
 import CenteredContent from '../components/CenteredContent';

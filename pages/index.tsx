@@ -7,7 +7,6 @@ import Options from '../containers/Options';
 import Table from '../containers/VirtualTable';
 import FloatingInfo from '../containers/FloatingInfo';
 
-import 'react-virtualized/styles.css';
 import {actions} from '../store/store';
 import CenteredContent from '../components/CenteredContent';
 import FullScreenButton from '../components/FullscreenButton';
