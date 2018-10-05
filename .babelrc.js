@@ -13,4 +13,9 @@ module.exports = {
 		],
 		['transform-define', env],
 	],
+	env: {
+		production: {
+			plugins: ['transform-remove-console'],
+		},
+	},
 };
