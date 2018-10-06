@@ -1,5 +1,6 @@
 require('./env-config.js');
 
+const path = require('path');
 const next = require('next');
 const express = require('express');
 const compression = require('compression');
@@ -25,6 +26,10 @@ app.prepare().then(() => {
 		console.log(new Date().toISOString(), 'Updated cache.');
 		setTimeout(updateCache, 24 * 1000 * 60 * 60);
 	};
+
+	server.get('/favicon.ico', (req, res) => {
+		app.serveStatic(req, res, path.join(__dirname, 'static/favicon.ico'));
+	});
 
 	server.get('/list', (req, res) => {
 		return res.json(cache);

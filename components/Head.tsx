@@ -53,6 +53,8 @@ export default class extends React.PureComponent {
 					`,
 					}}
 				/>
+				{/* TODO: favicon is served but this doesn't work */}
+				<link rel="shortcut icon" href="/favicon.ico" />
 			</Head>
 		);
 	}
