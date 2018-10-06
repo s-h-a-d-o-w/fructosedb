@@ -5,6 +5,10 @@ export interface ITheme {
 	primaryLight: string;
 	primary: string;
 	primaryDark: string;
+
+	secondaryLight: string;
+	secondary: string;
+	secondaryDark: string;
 }
 
 // http://paletton.com/#uid=34y0u0kn5sr5XTpg7ACsGlQGgbR
@@ -16,9 +20,9 @@ const theme: ITheme = {
 	primary: '#653399', // almost rebeccapurple
 	primaryDark: '#210340',
 
-	// secondaryLight: '#FFF4D0',
-	// secondary: '#E3BE3F',
-	// secondaryDark: '#5E4900',
+	secondaryLight: '#FFF4D0',
+	secondary: '#E3BE3F',
+	secondaryDark: '#5E4900',
 };
 
 export default theme;

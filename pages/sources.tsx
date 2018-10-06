@@ -1,51 +1,82 @@
 import * as React from 'react';
-import BaseLayout from '../components/BaseLayout';
-import CenteredContent from '../components/CenteredContent';
 import styled from 'styled-components';
 
-const StyledText = styled.article`
-	padding: 0 2rem;
-	line-height: 1.5rem;
-`;
+import BaseLayout from '../components/BaseLayout';
+import CenteredContent from '../components/CenteredContent';
+import Article from '../components/Article';
+import Paragraph from '../components/Paragraph';
+import Note from '../components/Note';
 
-const StyledP = styled.p`
-	text-align: justify;
-	text-indent: 1rem;
+const StyledUSDASymbol = styled.img`
+	width: 2rem;
+	background-color: white;
+	vertical-align: middle;
 `;
 
 export default () => (
 	<BaseLayout>
 		<CenteredContent>
-			<StyledText>
-				<StyledP>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed justo
-					felis, imperdiet vel odio eget, mollis ultrices mauris. Pellentesque
-					gravida a nunc vel egestas. Pellentesque bibendum, leo vitae venenatis
-					convallis, orci diam imperdiet mi, ut tincidunt nisi justo in magna.
-					In mollis bibendum sem, at volutpat quam commodo et. Nunc augue risus,
-					posuere non augue vitae, placerat dignissim sapien. Nam in
-					pellentesque purus. Aenean at facilisis neque.
-				</StyledP>
-				<StyledP>
-					Praesent lorem erat, lobortis eu iaculis ut, placerat nec diam. Cras
-					mollis, velit sed auctor ultrices, erat nibh aliquet sem, vitae auctor
-					enim arcu semper lectus. Vestibulum pretium placerat nunc, vel
-					efficitur ligula egestas vel. Quisque tortor nisl, rutrum quis
-					fermentum id, lacinia id purus. Nullam a quam vitae lorem pretium
-					dapibus. Vestibulum tincidunt rutrum tellus cursus dapibus. Integer id
-					nunc velit.
-				</StyledP>
-				<StyledP>
-					In tempor maximus leo eget vehicula. Donec nec ultricies tortor.
-					Vivamus volutpat urna nec ex scelerisque facilisis. In a pellentesque
-					leo. Vestibulum ac leo vel mauris mattis dictum. Morbi posuere
-					dignissim feugiat. Suspendisse id vehicula ex, sit amet placerat
-					massa. Mauris eu malesuada erat. Nunc feugiat est et justo elementum
-					vehicula ut vitae magna. Pellentesque egestas felis vel velit
-					vulputate malesuada at vitae nisi. In in tellus viverra, eleifend
-					augue vitae, bibendum magna. Fusce hendrerit convallis rutrum.
-				</StyledP>
-			</StyledText>
+			<Article>
+				<Paragraph>
+					Data is provided by the{' '}
+					<a target="_blank" href="https://www.usda.gov/">
+						<StyledUSDASymbol src="/static/images/usda-symbol.svg" />
+					</a>{' '}
+					through their{' '}
+					<a
+						target="_blank"
+						href="https://ndb.nal.usda.gov/ndb/search/list?home=true"
+					>
+						food composition database
+					</a>{' '}
+					and updated once a day.
+				</Paragraph>
+				<Paragraph>
+					The formula for calculating whether it is recommended to avoid a given
+					food or not was derived from the article{' '}
+					<a
+						target="_blank"
+						href="https://www.foodsmatter.com/miscellaneous_articles/sugar_sweeteners/articles/fructose-intol-joneja-09-14.html"
+					>
+						"Fructose intolerance, including FODMAPs"
+					</a>{' '}
+					by Dr. Janice Joneja and is a combination of <strong>relative</strong>{' '}
+					and <strong>absolute</strong> fructose content. See also{' '}
+					<a
+						target="_blank"
+						href="https://en.wikipedia.org/wiki/Fructose_malabsorption#Diet"
+					>
+						Wikipedia
+					</a>{' '}
+					for complementary sources.
+				</Paragraph>
+				<Note>
+					<strong>NOTE</strong> Severity of issues from fructose consumption
+					depend on quantity, time (to digest) and varies from person to person.
+					So the most important thing is not necessarily the fructose content of
+					specific food but how much you eat of it during one meal. For
+					instance, raisins are generally considered harmful but if your degree
+					of malabsorption allows it, you may be fine sprinkling 10 pieces or so
+					on top of a porridge that is mostly free of sugar otherwise. And if
+					you eat no other sugar during this meal.
+				</Note>
+				<Paragraph>
+					The <strong>relative</strong> content is measured compared to glucose.
+					So related to the F/G ratio in the table. If fructose exceeds glucose
+					by 0.5g, the food is not recommended. (Sucrose is factored into this)
+				</Paragraph>
+				<Paragraph>
+					The <strong>absolute</strong> content is measured based on what the{' '}
+					<a target="_blank" href="https://www.usda.gov/">
+						<StyledUSDASymbol src="/static/images/usda-symbol.svg" />
+					</a>{' '}
+					declares to be the serving size (fructose should not exceed more than
+					3g per meal). Which may not be based on average eating habits. E.g.
+					who eats 1 cup of raisins in one sitting? Unfortunately, we don't have
+					the staff to manually curate what would be more reasonable serving
+					sizes.
+				</Paragraph>
+			</Article>
 		</CenteredContent>
 	</BaseLayout>
 );
