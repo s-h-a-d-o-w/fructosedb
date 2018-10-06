@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import theme from '../lib/theme';
 
 export default styled.article`
+	margin-top: 2rem;
+	margin-bottom: 3rem;
 	padding: 0 2rem;
 	line-height: 1.5rem;
 

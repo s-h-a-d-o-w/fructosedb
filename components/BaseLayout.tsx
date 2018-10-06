@@ -25,11 +25,6 @@ const StyledBase = styled.div`
 
 	font-family: 'Roboto Slab', serif;
 
-	input {
-		min-width: 0.4rem;
-		min-height: 0.4rem;
-	}
-
 	@keyframes fadeIn {
 		from {
 			opacity: 0;

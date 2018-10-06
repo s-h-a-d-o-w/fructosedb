@@ -21,6 +21,14 @@ const StyledOptions = styled.div`
 		margin-left: 0.5rem;
 	}
 
+	input[type='checkbox'] {
+		position: relative;
+		top: 1px;
+
+		width: 1.2em;
+		height: 1.2em;
+	}
+
 	label {
 		white-space: nowrap;
 	}
@@ -30,7 +38,7 @@ const StyledTextBox = styled.input`
 	font-family: inherit;
 	font-size: inherit;
 
-	width: 8rem;
+	width: 7.5rem;
 	${theme.largeDevices} {
 		width: 10rem;
 	}
