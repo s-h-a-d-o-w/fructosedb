@@ -149,7 +149,7 @@ class VirtualTable extends React.Component<any, any> {
 	};
 
 	getTranslation = async () => {
-		console.log('getTranslation()');
+		//console.log('getTranslation()');
 
 		// Memoize this based on language so that switching back and forth
 		// doesn't cause requests?
@@ -216,12 +216,12 @@ class VirtualTable extends React.Component<any, any> {
 			this.getTranslation();
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
-		console.log('props', this.props);
-		console.log('props', nextProps);
-		console.log('state', this.state === nextState);
-		return true;
-	}
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	console.log('props', this.props);
+	// 	console.log('props', nextProps);
+	// 	console.log('state', this.state === nextState);
+	// 	return true;
+	// }
 
 	render() {
 		//console.log('render');
@@ -255,9 +255,14 @@ class VirtualTable extends React.Component<any, any> {
 		);
 
 		// FILTER DATA
+		// ... based on keyword
 		if (this.props.filter !== '') {
 			let filter = this.props.filter.toLowerCase();
 			data = data.filter((el) => el.name.toLowerCase().indexOf(filter) >= 0);
+		}
+		// ... based on "only fruit"
+		if (this.props.onlyFruit) {
+			data = data.filter((el) => el.isFruit);
 		}
 
 		//console.log('onlyFruit', this.props.onlyFruit);

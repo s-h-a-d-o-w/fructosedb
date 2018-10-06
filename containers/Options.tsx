@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {actions} from '../store/store.js';
 import styled from 'styled-components';
 import LangSelect from './LangSelect';
+import theme from '../lib/theme';
 
 const StyledOptions = styled.div`
 	display: flex;
@@ -10,15 +11,29 @@ const StyledOptions = styled.div`
 
 	margin-bottom: 0.3rem;
 	margin-top: 0.3rem;
+
+	font-size: 0.8rem;
+	${theme.largeDevices} {
+		font-size: inherit;
+	}
+
+	input {
+		margin-left: 0.5rem;
+	}
+
+	label {
+		white-space: nowrap;
+	}
 `;
 
 const StyledTextBox = styled.input`
 	font-family: inherit;
 	font-size: inherit;
 
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
-	width: 6rem;
+	width: 8rem;
+	${theme.largeDevices} {
+		width: 10rem;
+	}
 `;
 
 class Options extends React.Component<any> {

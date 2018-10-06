@@ -52,7 +52,6 @@ class Index extends React.Component<IProps, IState> {
 	}
 
 	dispatchKillFloat = () => {
-		console.log(this.props.float);
 		if (this.props.float && !isEmptyObject(this.props.float))
 			this.props.dispatchKillFloat();
 	};

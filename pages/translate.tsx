@@ -115,7 +115,7 @@ class Translate extends React.Component<any, IState> {
 							Step 3: Paste into a file called language.json.
 							<br />
 							Step 4: Replace oddities like \“ or whatever Google makes out of
-							it by the correct \".
+							it with the correct \".
 							<br />
 							Step 5: Proofread.
 						</div>
