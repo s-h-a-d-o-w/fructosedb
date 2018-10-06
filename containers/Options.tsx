@@ -16,7 +16,9 @@ const StyledTextBox = styled.input`
 	font-family: inherit;
 	font-size: inherit;
 
-	margin-left: 1rem;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	width: 6rem;
 `;
 
 class Options extends React.Component<any> {
@@ -32,13 +34,19 @@ class Options extends React.Component<any> {
 				checked={this.props.showServing}
 				onChange={this.props.dispatchServing}
 			/>
-			<label htmlFor="showServing">Per serving</label>
+			<label htmlFor="showServing">Per Serving</label>
+			<input
+				type="checkbox"
+				id="onlyFruit"
+				checked={this.props.onlyFruit}
+				onChange={this.props.dispatchFruit}
+			/>
+			<label htmlFor="onlyFruit">Only Fruit</label>
 			<StyledTextBox
 				type="text"
 				placeholder="Filter"
 				onChange={this.handleFilter}
 				value={this.props.filter}
-				size={15}
 			/>
 			<LangSelect />
 		</StyledOptions>
@@ -51,8 +59,9 @@ const mapStateToProps = ({filter, showServing}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	dispatchServing: () => dispatch(actions.toggleServing()),
 	dispatchFilter: (value) => dispatch(actions.changeFilter(value)),
+	dispatchFruit: () => dispatch(actions.toggleFruit()),
+	dispatchServing: () => dispatch(actions.toggleServing()),
 });
 
 export default connect(

@@ -11,15 +11,18 @@ export const actionTypes = {
 	CHANGE_LANGUAGE: 'CHANGE_LANGUAGE',
 	CHANGE_SORT: 'CHANGE_SORT',
 	CHANGE_TRANSLATION_TARGET: 'CHANGE_TRANSLATION_TARGET',
+
 	KILL_FLOAT: 'KILL_FLOAT',
-	TOGGLE_LOCK_AVOID: 'TOGGLE_LOCK_AVOID',
 	REHYDRATE: 'REHYDRATE',
 	SHOW_FLOAT: 'SHOW_FLOAT',
+
+	TOGGLE_FRUIT: 'TOGGLE_FRUIT',
+	TOGGLE_LOCK_AVOID: 'TOGGLE_LOCK_AVOID',
 	TOGGLE_SERVING: 'TOGGLE_SERVING',
 };
 
 // REDUCERS
-export const reducer = (state = exampleInitialState, action) => {
+export const reducer = (state = defaultInitialState, action) => {
 	switch (action.type) {
 		case actionTypes.CHANGE_FILTER:
 			return Object.assign({}, state, {filter: action.value});
@@ -51,6 +54,10 @@ export const reducer = (state = exampleInitialState, action) => {
 		case actionTypes.TOGGLE_LOCK_AVOID:
 			return Object.assign({}, state, {
 				lockedAvoid: !state.lockedAvoid,
+			});
+		case actionTypes.TOGGLE_FRUIT:
+			return Object.assign({}, state, {
+				onlyFruit: !state.onlyFruit,
 			});
 		case actionTypes.TOGGLE_SERVING:
 			return Object.assign({}, state, {
@@ -86,25 +93,29 @@ export const actions = {
 		x,
 		y,
 	}),
+	toggleFruit: () => ({
+		type: actionTypes.TOGGLE_FRUIT,
+	}),
 	toggleServing: () => ({
 		type: actionTypes.TOGGLE_SERVING,
 	}),
 };
 
 // INITIALIZATION
-const exampleInitialState = {
-	showServing: false,
-	lockedAvoid: true,
-	sortBy: 'name',
-	sortAsc: true,
-	lastUpdate: 0,
-	light: false,
+const defaultInitialState = {
 	count: 0,
 	float: {},
+	lastUpdate: 0,
 	lang: 'en',
+	light: false,
+	lockedAvoid: true,
+	onlyFruit: false,
+	showServing: false,
+	sortBy: 'name',
+	sortAsc: true,
 };
 
-export const initializeStore = (initialState = exampleInitialState) => {
+export const initializeStore = (initialState = defaultInitialState) => {
 	return createStore(
 		// No persistence for SSR.
 		// Also: Could provide a blacklist or whitelist to withPersistence for which

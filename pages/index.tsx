@@ -51,19 +51,23 @@ class Index extends React.Component<IProps, IState> {
 		});
 	}
 
+	dispatchKillFloat = () => {
+		console.log(this.props.float);
+		if (this.props.float && !isEmptyObject(this.props.float))
+			this.props.dispatchKillFloat();
+	};
+
 	render() {
 		//console.log('index.render()');
 		return (
-			<BaseLayout
-				onClick={this.props.dispatchKillFloat.bind(null, this.props.float)}
-			>
+			<BaseLayout onClick={this.dispatchKillFloat}>
 				<CenteredContent>
 					{/* Containers that use gridArea can't be made to use fullscreen as expected,
 							a nested container is required. */}
 					{this.state.hasMounted ? (
 						<FullScreenContainer innerRef={this.refContent}>
 							<Options />
-							<Table dispatchKillFloat={this.props.dispatchKillFloat} />
+							<Table dispatchKillFloat={this.dispatchKillFloat} />
 							<FullScreenButton target={this.refContent} />
 							<FloatingInfo />
 						</FullScreenContainer>
@@ -80,12 +84,8 @@ const mapStateToProps = ({float}) => ({
 	float,
 });
 
-const dispatchKillFloat = (dispatch, float) => {
-	if (float && !isEmptyObject(float)) dispatch(actions.killFloat());
-};
-
 const mapDispatchToProps = (dispatch) => ({
-	dispatchKillFloat: dispatchKillFloat.bind(null, dispatch),
+	dispatchKillFloat: () => dispatch(actions.killFloat()),
 });
 
 export default connect(

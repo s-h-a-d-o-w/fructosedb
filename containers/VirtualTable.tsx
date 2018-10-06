@@ -164,11 +164,7 @@ class VirtualTable extends React.Component<any, any> {
 		<div
 			onClick={this.props.dispatchShowFloat.bind(this, cellData)}
 			onMouseOver={this.props.dispatchShowFloat.bind(this, cellData)}
-			onMouseLeave={
-				this.props.float.content
-					? this.props.dispatchKillFloat.bind(null, this.props.float)
-					: undefined
-			}
+			onMouseLeave={this.props.dispatchKillFloat}
 		>
 			{cellData}
 		</div>
@@ -220,12 +216,12 @@ class VirtualTable extends React.Component<any, any> {
 			this.getTranslation();
 	}
 
-	// shouldComponentUpdate(nextProps, nextState) {
-	// 	console.log('props', this.props);
-	// 	console.log('props', nextProps);
-	// 	console.log('state', this.state === nextState);
-	// 	return true;
-	// }
+	shouldComponentUpdate(nextProps, nextState) {
+		console.log('props', this.props);
+		console.log('props', nextProps);
+		console.log('state', this.state === nextState);
+		return true;
+	}
 
 	render() {
 		//console.log('render');
@@ -264,6 +260,7 @@ class VirtualTable extends React.Component<any, any> {
 			data = data.filter((el) => el.name.toLowerCase().indexOf(filter) >= 0);
 		}
 
+		//console.log('onlyFruit', this.props.onlyFruit);
 		//console.log('Processing data took:', performance.now() - begin);
 
 		const headers = this.props.showServing
@@ -327,17 +324,17 @@ class VirtualTable extends React.Component<any, any> {
 
 const mapStateToProps = ({
 	filter,
-	float,
 	lang,
 	lockedAvoid,
+	onlyFruit,
 	showServing,
 	sortBy,
 	sortAsc,
 }) => ({
 	filter,
-	float,
 	lang,
 	lockedAvoid,
+	onlyFruit,
 	showServing,
 	sortBy,
 	sortAsc,
