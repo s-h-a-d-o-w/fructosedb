@@ -256,10 +256,11 @@ class VirtualTable extends React.Component<any, any> {
 
 		// FILTER DATA
 		// ... based on keyword
-		if (this.props.filter !== '') {
-			let filter = this.props.filter.toLowerCase();
-			data = data.filter((el) => el.name.toLowerCase().indexOf(filter) >= 0);
-		}
+		if (this.props.filter !== '')
+			data = data.filter(
+				(el) =>
+					el.name.toLowerCase().indexOf(this.props.filter.toLowerCase()) >= 0
+			);
 		// ... based on "only fruit"
 		if (this.props.onlyFruit) {
 			data = data.filter((el) => el.isFruit);
