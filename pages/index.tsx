@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
+import screenfull from 'screenfull';
 
 import BaseLayout from '../components/BaseLayout';
 import Options from '../containers/Options';
@@ -67,7 +68,11 @@ class Index extends React.Component<IProps, IState> {
 						<FullScreenContainer innerRef={this.refContent}>
 							<Options />
 							<Table dispatchKillFloat={this.dispatchKillFloat} />
-							<FullScreenButton target={this.refContent} />
+							{screenfull.enabled ? (
+								<FullScreenButton target={this.refContent} />
+							) : (
+								''
+							)}
 							<FloatingInfo />
 						</FullScreenContainer>
 					) : (

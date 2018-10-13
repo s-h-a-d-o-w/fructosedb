@@ -1,5 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import screenfull from 'screenfull';
+
 import theme from '../lib/theme';
 
 const StyledIcon = styled.div`
@@ -34,27 +36,14 @@ export default class FullscreenButton extends React.Component<IProps, IState> {
 
 	toggleFullScreen = (e) => {
 		e.preventDefault();
+
 		if (this.state.fullscreen) {
-			if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-			else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-			else if (document.msExitFullscreen) document.msExitFullscreen();
-			else if (document.exitFullscreen) document.exitFullscreen();
-
-			this.setState({fullscreen: false});
+			screenfull.exit();
 		} else {
-			let elem: HTMLElement = this.props.target.current;
-			if (elem.requestFullscreen) {
-				elem.requestFullscreen();
-			} else if (elem.msRequestFullscreen) {
-				elem.msRequestFullscreen();
-			} else if (elem.mozRequestFullScreen) {
-				elem.mozRequestFullScreen();
-			} else if (elem.webkitRequestFullscreen) {
-				elem.webkitRequestFullscreen();
-			}
-
-			this.setState({fullscreen: true});
+			screenfull.request(this.props.target.current);
 		}
+
+		this.setState({fullscreen: !this.state.fullscreen});
 	};
 
 	render() {
