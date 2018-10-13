@@ -1,5 +1,5 @@
 const querystring = require('querystring');
-const fetch = require('./fetch-with-timeout.js');
+const fetch = require('../lib/fetch-with-timeout.js');
 
 const nutrientPerServing = (gm, weight) => Math.round(gm * weight) / 100;
 

@@ -2,9 +2,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import theme from '../lib/theme';
-import Link from './Link';
-import Burger from './Burger';
-import Menu from './Menu';
+import Link from '../components/Link';
+import Burger from '../components/Burger';
+import Menu from '../components/Menu';
 
 const StyledBurger = styled(Burger)`
 	position: fixed;

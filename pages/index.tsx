@@ -9,7 +9,7 @@ import FloatingInfo from '../containers/FloatingInfo';
 
 import {actions} from '../store/store';
 import CenteredContent from '../components/CenteredContent';
-import FullScreenButton from '../components/FullscreenButton';
+import FullScreenButton from '../containers/FullscreenButton';
 import Loading from '../components/Loading';
 import theme from '../lib/theme';
 import {isEmptyObject} from '../lib/util';

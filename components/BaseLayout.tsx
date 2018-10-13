@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {Logo} from './Logo';
-import Navigation from './Navigation';
+import Navigation from '../containers/Navigation';
 import FructoseHead from './Head';
 import theme from '../lib/theme';
 
@@ -34,6 +34,11 @@ const StyledBase = styled.div`
 		}
 	}
 
+	/* 
+		Due to SSR, the following syle is included with initial HTML.
+		But once this has mounted, it should be dismissed because fade in effects  
+		are only inteded to soften the inital page load.
+	 */
 	${(props: IStyledBaseProps) =>
 		props.hasMounted ? '' : '& > * {animation: fadeIn 250ms ease-in;}'};
 `;
@@ -55,7 +60,6 @@ export default class BaseLayout extends React.Component<IProps> {
 	}
 
 	render() {
-		//console.log('base-layout.render()');
 		return (
 			<>
 				<FructoseHead />
