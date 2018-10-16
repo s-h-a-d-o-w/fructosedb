@@ -1,4 +1,5 @@
-now.json
+.env
+prod_env.bat
 
 # Webpack analyzer output
 bundles

@@ -1,17 +1,19 @@
 require('../env-config.js');
 
-// TODO: Won't work until the following ticket is resolved:
-// https://github.com/RuntimeTools/appmetrics-dash/issues/160
-// const appmetrics = require('appmetrics');
-// const monitoring = appmetrics.monitor();
-// require('appmetrics-dash').attach({
-// 	url: process.env.DASHBOARD_PATH,
-// });
+require('appmetrics-dash').attach({
+	// TODO: Use once a version containing the PR for the following has been published on npmjs
+	// https://github.com/RuntimeTools/appmetrics-dash/issues/160
+	//url: process.env.DASHBOARD_PATH,
+	nodereport: null,
+});
 
 const path = require('path');
 const next = require('next');
 const express = require('express');
 const compression = require('compression');
+const os = require('os-utils');
+const {spawn} = require('child_process');
+
 const fetchFoodsList = require('./usda.js').fetchFoodsList;
 
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -48,6 +50,26 @@ app.prepare().then(() => {
 		return res.json(cache);
 	});
 
+	server.get('/health', (req, res) => {
+		return res.send(
+			`
+<pre>
+Platform: ${os.platform()}
+CPUs: ${os.cpuCount()}
+Free Mem: ${os.freemem()}
+Total Mem: ${os.totalmem()}
+Free Mem %: ${os.freememPercentage()}
+Sys uptime: ${os.sysUptime()}
+Proc uptime: ${os.processUptime()}
+
+CPU Load 1 min: ${os.loadavg(1)}
+CPU Load 5 min: ${os.loadavg(5)}
+CPU Load 15 min: ${os.loadavg(15)}
+</pre>
+`
+		);
+	});
+
 	server.get('/visitors', async (req, res) => {
 		let result = await visitorLogger.report();
 		return res.send(result);
@@ -64,6 +86,11 @@ app.prepare().then(() => {
 			console.log(
 				`> ${dev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
 			);
+
+			// Create SSR cache
+			setTimeout(() => spawn('curl', [process.env.BACKEND_URL]), 500);
+			// ... and make sure deployment never enters idle mode
+			setInterval(() => spawn('curl', [process.env.BACKEND_URL]), 5 * 60 * 1000);
 		});
 	});
 });

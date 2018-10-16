@@ -18,10 +18,12 @@ class VisitorLogger {
 		this.reportInterval = opts.reportInterval;
 		this.visitorInterval = opts.visitorInterval;
 
+		let connectstr = `mongodb://${process.env.MONGODB_USER}:${
+			process.env.MONGODB_PW
+			}@${process.env.MONGODB_URL}/fructosedb${isDev ? '_dev' : ''}`;
+		//console.log(connectstr);
 		mongoose.connect(
-			`mongodb://${process.env.MONGODB_USER}:${
-				process.env.MONGODB_PW
-			}@ds052978.mlab.com:52978/fructosedb${isDev ? '_dev' : ''}`,
+			connectstr,
 			{useNewUrlParser: true},
 			(err) => console.error('MongoDB connection error:', err)
 		);

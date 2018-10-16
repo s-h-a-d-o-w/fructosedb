@@ -1,0 +1,24 @@
+{
+  "type": "docker",
+  "name": "fructosedb",
+  "alias": "fructosedb",
+  "env": {
+    "PORT": "443",
+    "BACKEND_URL": "https://fructosedb.now.sh",
+    "USDA_KEY": "@fructosedb-usda-key",
+    "DASHBOARD_PATH": "@fructosedb-dashboard-path",
+    "MONGODB_USER": "fructosedb",
+    "MONGODB_PW": "@fructosedb-mongodb-pw",
+    "MONGODB_URL": "ds052978.mlab.com:52978"
+  },
+  "scale": {
+    "bru1": {
+      "min": 2,
+      "max": 2
+    },
+    "sfo1": {
+      "min": 2,
+      "max": 2
+    }
+  }
+}
