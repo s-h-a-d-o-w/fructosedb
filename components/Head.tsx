@@ -5,11 +5,12 @@ export default class extends React.PureComponent {
 	render() {
 		return (
 			<Head>
-				<title>fructose.db</title>
+				<title>fructose db</title>
 				<meta
 					name="Description"
-					content="List of foods with their fructose and glucose content, to allow people
-					suffering from fructose malabsorption to adjust their diet."
+					content='A list of foods with their fructose and glucose content that allows people
+					suffering from fructose malabsorption (also sometimes referred to as "fructose intolerance" or
+					"DFI") to adjust their diet more easily.'
 				/>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link
