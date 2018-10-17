@@ -15,16 +15,16 @@ export default class extends React.PureComponent {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link
 					rel="preload"
-					href="/static/fonts/roboto-slab.woff"
+					href="/static/fonts/roboto-slab.woff2"
 					as="font"
-					type="font/woff"
+					type="font/woff2"
 					crossOrigin="crossorigin"
 				/>
 				<link
 					rel="preload"
-					href="/static/fonts/roboto-condensed.woff"
+					href="/static/fonts/roboto-condensed.woff2"
 					as="font"
-					type="font/woff"
+					type="font/woff2"
 					crossOrigin="crossorigin"
 				/>
 				<style
@@ -45,15 +45,15 @@ export default class extends React.PureComponent {
 
 						@font-face {
 							font-family: 'Roboto Slab';
-							src: url('/static/fonts/roboto-slab.woff') format('woff'),
-								url('/static/fonts/roboto-slab.woff2') format('woff2');
+							src: url('/static/fonts/roboto-slab.woff2') format('woff2'),
+								url('/static/fonts/roboto-slab.woff') format('woff');
 							font-display: block;
 						}
 
 						@font-face {
 							font-family: 'Roboto Condensed';
-							src: url('/static/fonts/roboto-condensed.woff') format('woff'),
-								url('/static/fonts/roboto-condensed.woff2') format('woff2');
+							src: url('/static/fonts/roboto-condensed.woff2') format('woff2'),
+								url('/static/fonts/roboto-condensed.woff') format('woff');
 							font-display: block;
 						}
 					`,
