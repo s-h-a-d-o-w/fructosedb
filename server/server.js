@@ -102,8 +102,9 @@ CPU Load 15 min: ${os.loadavg(15)}
 				5 * 60 * 1000
 			);
 
-			if('TRAVIS' in process.env && 'CI' in process.env)
+			if ('TRAVIS' in process.env && 'CI' in process.env) {
 				process.exit(0);
+			}
 		});
 	});
 });

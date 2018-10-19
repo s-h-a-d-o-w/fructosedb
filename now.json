@@ -5,9 +5,7 @@
   "env": {
     "USDA_KEY": "@fructosedb-usda-key",
     "DASHBOARD_PATH": "@fructosedb-dashboard-path",
-    "MONGODB_USER": "fructosedb",
-    "MONGODB_PW": "@fructosedb-mongodb-pw",
-    "MONGODB_URL": "ds052978.mlab.com:52978"
+    "MONGODB_PW": "@fructosedb-mongodb-pw"
   },
   "scale": {
     "bru1": {

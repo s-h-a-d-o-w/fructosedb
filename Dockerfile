@@ -23,8 +23,6 @@ ENV NODE_ENV production
 ENV PORT 443,
 ENV BACKEND_URL https://www.fructosedb.org
 
-
-# We run the build and expose as /public
 RUN yarn build
 
 EXPOSE 443

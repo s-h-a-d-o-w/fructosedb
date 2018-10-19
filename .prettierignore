@@ -3,6 +3,7 @@
 .babelrc
 *.json
 *.bat
+Dockerfile
 
 .gitignore
 .prettierignore
