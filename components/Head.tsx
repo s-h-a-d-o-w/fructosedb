@@ -5,12 +5,12 @@ export default class extends React.PureComponent {
 	render() {
 		return (
 			<Head>
-				<title>fructose db</title>
+				<title>fructosedb</title>
 				<meta
 					name="Description"
-					content='A list of foods with their fructose and glucose content that allows people
-					suffering from fructose malabsorption (also sometimes referred to as "fructose intolerance" or
-					"DFI") to adjust their diet more easily.'
+					content="A list of foods with their fructose and glucose content that allows people
+					suffering from fructose malabsorption (also sometimes referred to as &quot;fructose intolerance&quot; or
+					&quot;DFI&quot;) to adjust their diet more easily."
 				/>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link
@@ -59,9 +59,10 @@ export default class extends React.PureComponent {
 					`,
 					}}
 				/>
-				{/* TODO: favicon is served but this doesn't work */}
-				<link rel="shortcut icon" href="/favicon.ico" />
 				<link rel="preload" href="/list" as="fetch" crossOrigin="crossorigin" />
+				{/* Force favicon refresh on changes */}
+				<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20181018" />
+				<link rel="preload" href="/static/images/usda-symbol.svg" as="image" />
 			</Head>
 		);
 	}

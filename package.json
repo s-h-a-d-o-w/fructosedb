@@ -26,6 +26,7 @@
     "next": "^7.0.0",
     "os-utils": "0.0.14",
     "react": "^16.4.2",
+    "react-addons-css-transition-group": "15.6.2",
     "react-burger-menu": "2.5.2",
     "react-dom": "^16.4.2",
     "react-flags-select": "1.1.9",

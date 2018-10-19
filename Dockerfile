@@ -17,9 +17,12 @@ RUN yarn
 # We copy all source files
 COPY . .
 
+# Variables that need to be set during build already, not just at launch (which are in now.json)
 ENV LD_LIBRARY_PATH /usr/src/node_modules/appmetrics
-ENV BACKEND_URL https://fructosedb.now.sh
 ENV NODE_ENV production
+ENV PORT 443,
+ENV BACKEND_URL https://www.fructosedb.org
+
 
 # We run the build and expose as /public
 RUN yarn build

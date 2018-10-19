@@ -1,12 +1,17 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import theme from '../lib/theme';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-const Mobile = styled.div`
+import theme from '../lib/theme';
+import Link from './Link';
+
+const Mobile: any = styled.div`
+	transition: left 150ms ease-in-out;
+	left: 0;
+
 	background-color: ${theme.primary};
 
 	position: absolute;
-	left: 0;
 	top: 0;
 	z-index: 1001;
 	width: 60vw;
@@ -26,6 +31,18 @@ const Mobile = styled.div`
 		margin-top: 1rem;
 		margin-right: 1rem;
 	}
+
+	// ReactCSSTransitionGroup classes
+	&.menu-appear {
+		// initial value
+		left: -60vw;
+	}
+
+	&.menu-appear.menu-appear-active {
+		// animation target (see also transition property above)
+		// set briefly after inital value
+		left: 0;
+	}
 `;
 
 const Desktop = styled.div`
@@ -35,5 +52,26 @@ const Desktop = styled.div`
 	}
 `;
 
-export default (props) =>
-	props.desktop ? <Desktop {...props} /> : <Mobile {...props} />;
+export default (props) => {
+	let items = (
+		<>
+			<Link href="/">Home</Link>
+			<Link href="/sources">How We Calculate</Link>
+			<Link href="/about">About Us</Link>
+		</>
+	);
+
+	return props.desktop ? (
+		<Desktop>{items}</Desktop>
+	) : (
+		<ReactCSSTransitionGroup
+			transitionName="menu"
+			transitionAppear={true}
+			transitionAppearTimeout={20} // Value has no consequence on animation
+			transitionEnter={false}
+			transitionLeave={false}
+		>
+			<Mobile>{items}</Mobile>
+		</ReactCSSTransitionGroup>
+	);
+};

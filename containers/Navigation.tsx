@@ -11,6 +11,8 @@ const StyledBurger = styled(Burger)`
 	left: 0;
 	top: 0;
 
+	cursor: pointer; // In case of small window on desktop
+
 	${theme.largeDevices} {
 		display: none;
 	}
@@ -66,26 +68,19 @@ export default class extends React.Component {
 		this.setState({showMenu: true});
 	};
 
-	menu = () => (
-		<>
-			<Link href="/sources">How We Calculate</Link>
-			<Link href="/about">About Us</Link>
-		</>
-	);
-
 	render = () => (
 		<>
 			<StyledBurger onClick={this.openMenu} />
 			{this.state.showMenu ? (
 				<>
 					<StyledLightbox onClick={this.closeMenu} />
-					<Menu desktop={false}>{this.menu()}</Menu>
+					<Menu desktop={false} />
 				</>
 			) : (
 				''
 			)}
 			<StyledNav>
-				<Menu desktop={true}>{this.menu()}</Menu>
+				<Menu desktop={true} />
 				<StyledSupport>
 					<Link href="http://www.google.com">❤️Support Us</Link>
 				</StyledSupport>
