@@ -27,6 +27,12 @@ const handle = app.getRequestHandler();
 // But first check what cache-less page load performance is like!
 // https://github.com/zeit/next.js/blob/master/examples/ssr-caching/server.js
 
+// At some point, this will become Node default behavior anyway.
+process.on('unhandledRejection', (reason, p) => {
+	console.log('Unhandled Rejection at:', p, 'reason:', reason);
+	process.exit(1);
+});
+
 app.prepare().then(() => {
 	const server = express();
 	server.use(compression());
