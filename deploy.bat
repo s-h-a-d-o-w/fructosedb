@@ -1,3 +1,3 @@
-now remove fructosedb -y
+now remove fructosedb --safe --yes
 now
 now alias
