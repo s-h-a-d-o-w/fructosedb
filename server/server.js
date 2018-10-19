@@ -43,7 +43,11 @@ app.prepare().then(() => {
 	};
 
 	server.get('/favicon.ico', (req, res) => {
-		app.serveStatic(req, res, path.join(__dirname, 'static/favicon.ico'));
+		return app.serveStatic(
+			req,
+			res,
+			path.join(__dirname, '../static/favicon.ico')
+		);
 	});
 
 	server.get('/list', (req, res) => {
@@ -90,7 +94,10 @@ CPU Load 15 min: ${os.loadavg(15)}
 			// Create SSR cache
 			setTimeout(() => spawn('curl', [process.env.BACKEND_URL]), 500);
 			// ... and make sure deployment never enters idle mode
-			setInterval(() => spawn('curl', [process.env.BACKEND_URL]), 5 * 60 * 1000);
+			setInterval(
+				() => spawn('curl', [process.env.BACKEND_URL]),
+				5 * 60 * 1000
+			);
 		});
 	});
 });
