@@ -20,8 +20,8 @@ class VisitorLogger {
 
 		let connectstr = `mongodb://${process.env.MONGODB_USER}:${
 			process.env.MONGODB_PW
-			}@${process.env.MONGODB_URL}/fructosedb${isDev ? '_dev' : ''}`;
-		//console.log(connectstr);
+		}@${process.env.MONGODB_URL}/fructosedb${isDev ? '_dev' : ''}`;
+		console.log(connectstr);
 		mongoose.connect(
 			connectstr,
 			{useNewUrlParser: true},
@@ -50,7 +50,7 @@ class VisitorLogger {
 		}
 
 		if (!this.ipBuffer.includes(ip)) {
-			console.log('Logging visitor:', ip);
+			//console.log('Logging visitor:', ip);
 			this.ipBuffer.push(ip);
 
 			const geo = geoip.lookup(ip);
@@ -67,7 +67,7 @@ class VisitorLogger {
 
 			// Requests within 1 hour are counted as one visit.
 			setTimeout(() => {
-				console.log('Removing from visitor ip buffer:', this.ipBuffer.shift());
+				//console.log('Removing from visitor ip buffer:', this.ipBuffer.shift());
 			}, this.visitorInterval);
 		}
 	}
