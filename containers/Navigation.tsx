@@ -82,7 +82,9 @@ export default class extends React.Component {
 			<StyledNav>
 				<Menu desktop={true} />
 				<StyledSupport>
-					<Link href="http://www.google.com">❤️Support Us</Link>
+					<Link target="_blank" href="http://www.google.com">
+						❤️Support Us
+					</Link>
 				</StyledSupport>
 			</StyledNav>
 		</>

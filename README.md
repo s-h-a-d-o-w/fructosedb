@@ -2,14 +2,23 @@
 
 # fructosedb
 
-## Building
+### Environment Variables
 
-Possible environment values:
+#### Required
 
-- `USDA_KEY` - string for accessing USDA REST API
-- `BACKEND_URL` - default: `http://localhost`
+- `USDA_KEY` - For accessing USDA REST API
+- `MONGODB_PW` - For logging visitors
+- `DASHBOARD_PATH` - For appmetrics dashboard
+
+#### Optional
+
+- `BACKEND_URL` (default: `http://localhost`)
 - `PORT` - default: `3000`
 
-### Local Environment
+### Development
 
-Only `USDA_KEY` is required, can be supplied via `/.env` file.
+Specify variables in `.env`.
+
+### Production
+
+See `Dockerfile`. And of course secret values on various platforms.

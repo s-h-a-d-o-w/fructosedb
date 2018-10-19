@@ -1,12 +1,14 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
+import Head from 'next/head';
 
 import BaseLayout from '../components/BaseLayout';
 import CenteredContent from '../components/CenteredContent';
 import Loading from '../components/Loading';
 import fetch from '../lib/fetch-with-timeout';
 import TranslationDropdown from '../containers/TranslationDropdown';
-import Head from 'next/head';
+import Link from '../components/Link';
+import theme from '../lib/theme';
 
 interface IState {
 	data: any[];
@@ -112,12 +114,25 @@ class Translate extends React.Component<any, IState> {
 							Step 2:{' '}
 							<button onClick={this.copyToClipboard}>Copy to Clipboard</button>
 							<br />
-							Step 3: Paste into a file called language.json.
+							Step 3: Paste into a file called &lt;language-code&gt;.json.
 							<br />
 							Step 4: Replace oddities like \“ or whatever Google makes out of
 							it with the correct \".
 							<br />
 							Step 5: Proofread.
+							<br />
+							Step 6: Commit{' '}
+							<Link
+								target="_blank"
+								href="https://github.com/s-h-a-d-o-w/fructosedb/tree/master/static/lang"
+							>
+								<span style={{color: theme.primaryDark}}>here</span>
+							</Link>{' '}
+							or{' '}
+							<Link target="_blank" href="/about">
+								<span style={{color: theme.primaryDark}}>email</span>
+							</Link>{' '}
+							it to us.
 						</div>
 						<br />
 						Missing translations for '{this.props.langTranslate}
