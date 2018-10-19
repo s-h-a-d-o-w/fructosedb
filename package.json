@@ -8,7 +8,8 @@
     "build": "rimraf .next && next build",
     "start": "cross-env NODE_ENV=production node server/server.js",
     "analyze": "cross-env BUNDLE_ANALYZE=browser yarn build",
-    "style": "yarn styleguidist server"
+    "style": "yarn styleguidist server",
+    "test": "yarn build && yarn start"
   },
   "dependencies": {
     "@zeit/next-typescript": "^1.1.0",

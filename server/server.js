@@ -18,10 +18,10 @@ const fetchFoodsList = require('./usda.js').fetchFoodsList;
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
+const visitorLogger = new (require('./VisitorLogger')).VisitorLogger();
+
 const app = next({dev});
 const handle = app.getRequestHandler();
-
-const visitorLogger = new (require('./VisitorLogger')).VisitorLogger();
 
 // TODO: Might want to cache SSR renderings at some point
 // But first check what cache-less page load performance is like!
@@ -31,7 +31,8 @@ app.prepare().then(() => {
 	const server = express();
 	server.use(compression());
 
-	// For visitor logging - see: https://stackoverflow.com/a/14631683/5040168
+	// Make it possible to get visitor's IP for logging - see VisitorLogger.
+	// See: https://stackoverflow.com/a/14631683/5040168
 	server.enable('trust proxy');
 
 	let cache = {};
@@ -39,6 +40,8 @@ app.prepare().then(() => {
 		cache = await fetchFoodsList();
 		cache.age = new Date();
 		console.log(new Date().toISOString(), 'Updated cache.');
+
+		// Update cache every 24h
 		setTimeout(updateCache, 24 * 1000 * 60 * 60);
 	};
 
@@ -98,6 +101,9 @@ CPU Load 15 min: ${os.loadavg(15)}
 				() => spawn('curl', [process.env.BACKEND_URL]),
 				5 * 60 * 1000
 			);
+
+			if('TRAVIS' in process.env && 'CI' in process.env)
+				process.exit(0);
 		});
 	});
 });
