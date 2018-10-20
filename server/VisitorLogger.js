@@ -75,12 +75,12 @@ class VisitorLogger {
 
 	report() {
 		if (this.VisitorModel !== null) {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.VisitorModel.find((err, visitors) => {
 					if (err) {
 						let generalError = 'Error generating visitor report';
 						console.error(generalError, err);
-						resolve(generalError);
+						reject(generalError);
 					}
 
 					const hitsPerDay = {};
@@ -120,6 +120,4 @@ ${JSON.stringify(hitsPerDay, null, 2)}
 	}
 }
 
-module.exports = {
-	VisitorLogger,
-};
+module.exports = VisitorLogger;

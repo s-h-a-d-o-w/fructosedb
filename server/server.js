@@ -7,21 +7,17 @@ require('appmetrics-dash').attach({
 	nodereport: null,
 });
 
-const path = require('path');
 const next = require('next');
 const express = require('express');
 const compression = require('compression');
-const os = require('os-utils');
 const {spawn} = require('child_process');
 
-const fetchFoodsList = require('./usda.js').fetchFoodsList;
+const {fetchFoodsList} = require('./usda.js');
+const {setupRoutes} = require('./routes.js');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
-const visitorLogger = new (require('./VisitorLogger')).VisitorLogger();
-
 const app = next({dev});
-const handle = app.getRequestHandler();
 
 // TODO: Might want to cache SSR renderings at some point
 // But first check what cache-less page load performance is like!
@@ -51,47 +47,7 @@ app.prepare().then(() => {
 		setTimeout(updateCache, 24 * 1000 * 60 * 60);
 	};
 
-	server.get('/favicon.ico', (req, res) => {
-		return app.serveStatic(
-			req,
-			res,
-			path.join(__dirname, '../static/favicon.ico')
-		);
-	});
-
-	server.get('/list', (req, res) => {
-		return res.json(cache);
-	});
-
-	server.get('/health', (req, res) => {
-		return res.send(
-			`
-<pre>
-Platform: ${os.platform()}
-CPUs: ${os.cpuCount()}
-Free Mem: ${os.freemem()}
-Total Mem: ${os.totalmem()}
-Free Mem %: ${os.freememPercentage()}
-Sys uptime: ${os.sysUptime()}
-Proc uptime: ${os.processUptime()}
-
-CPU Load 1 min: ${os.loadavg(1)}
-CPU Load 5 min: ${os.loadavg(5)}
-CPU Load 15 min: ${os.loadavg(15)}
-</pre>
-`
-		);
-	});
-
-	server.get('/visitors', async (req, res) => {
-		let result = await visitorLogger.report();
-		return res.send(result);
-	});
-
-	server.get('*', (req, res) => {
-		visitorLogger.log(req.ip);
-		return handle(req, res);
-	});
+	setupRoutes(app, server);
 
 	updateCache().then(() => {
 		server.listen(port, (err) => {
