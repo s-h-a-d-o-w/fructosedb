@@ -12,8 +12,7 @@ const express = require('express');
 const compression = require('compression');
 const {spawn} = require('child_process');
 
-const {fetchFoodsList} = require('./usda.js');
-const {setupRoutes} = require('./routes.js');
+const {setupRoutes, updateCache} = require('./routes.js');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -37,18 +36,7 @@ app.prepare().then(() => {
 	// See: https://stackoverflow.com/a/14631683/5040168
 	server.enable('trust proxy');
 
-	let cache = {};
-	const updateCache = async () => {
-		cache = await fetchFoodsList();
-		cache.age = new Date();
-		console.log(new Date().toISOString(), 'Updated cache.');
-
-		// Update cache every 24h
-		setTimeout(updateCache, 24 * 1000 * 60 * 60);
-	};
-
 	setupRoutes(app, server);
-
 	updateCache().then(() => {
 		server.listen(port, (err) => {
 			if (err) throw err;
@@ -56,9 +44,10 @@ app.prepare().then(() => {
 				`> ${dev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
 			);
 
-			// Create SSR cache
+			// First page load appears to be slower than subsequent ones,
+			// so trigger one on startup
 			setTimeout(() => spawn('curl', [process.env.BACKEND_URL]), 500);
-			// ... and make sure deployment never enters idle mode
+			// ... and try to prevent deployment from entering idle mode
 			setInterval(
 				() => spawn('curl', [process.env.BACKEND_URL]),
 				5 * 60 * 1000

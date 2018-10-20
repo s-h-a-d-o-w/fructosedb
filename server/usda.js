@@ -2,7 +2,6 @@ const querystring = require('querystring');
 const fetch = require('../lib/fetch-with-timeout.js');
 
 const nutrientPerServing = (gm, weight) => Math.round(gm * weight) / 100;
-
 const fructoseGlucoseRatio = (fructose, sucrose, glucose) =>
 	Math.round(((fructose + 0.5 * sucrose) / (glucose + 0.5 * sucrose)) * 100) /
 	100;
@@ -85,7 +84,7 @@ async function fetchFoodsList() {
 		data = data.concat(report.foods);
 	}
 
-	return removeDuplicates(transformData(data, await getFruitIDs()));
+	return removeSimilar(transformData(data, await getFruitIDs()));
 }
 
 /**
@@ -96,8 +95,9 @@ async function fetchFoodsList() {
  * @param {Object[]} data
  * @returns {Object[]}
  */
-const removeDuplicates = (data) => {
+const removeSimilar = (data) => {
 	let thresholdRatio = 0.1;
+	let thresholdFructose = 1;
 	// Threshold of 5 e.g. removes apple juices -> too short
 	let thresholdName = 7; // number of characters that have to match
 	let similar = {};
@@ -105,28 +105,32 @@ const removeDuplicates = (data) => {
 	// Find similar F/G ratios
 	data = data.sort((a, b) => a.ratio - b.ratio);
 	for (let i = 0; i < data.length - 1; i++) {
-		let j = i + 1;
-
 		// Could also create on demand in loop below - memory use vs. runtime perf
 		similar[i] = [];
 
-		while (j < data.length && data[j].ratio - data[i].ratio < thresholdRatio) {
-			similar[i].push(j);
-			j++;
+		for (
+			let j = i + 1;
+			j < data.length && data[j].ratio - data[i].ratio < thresholdRatio;
+			j++
+		) {
+			// Amount of fructose being too different is also an important factor
+			if (Math.abs(data[i].fructose - data[j].fructose) < thresholdFructose) {
+				similar[i].push(j);
+			}
 		}
 	}
 
 	// Find similar names among similar ratios
 	let elementsToRemove = {};
-	for (let key of Reflect.ownKeys(similar)) {
-		if (similar[key].length > 1) {
-			let firstName = data[similar[key][0]].name.substr(0, thresholdName);
-			for (let i = 1; i < similar[key].length; i++) {
-				if (firstName === data[similar[key][i]].name.substr(0, thresholdName))
-					elementsToRemove[similar[key][i]] = null;
-			}
+	Reflect.ownKeys(similar).forEach((idx) => {
+		if (similar[idx].length > 0) {
+			const nameBeginning = data[idx].name.substr(0, thresholdName);
+			similar[idx].forEach((innerIdx) => {
+				if (nameBeginning === data[innerIdx].name.substr(0, thresholdName))
+					elementsToRemove[innerIdx] = null;
+			});
 		}
-	}
+	});
 
 	// Actually remove the likely duplicates
 	let sortedIndices = Reflect.ownKeys(elementsToRemove)
@@ -134,9 +138,9 @@ const removeDuplicates = (data) => {
 		.sort((a, b) => a - b);
 
 	console.log(
-		`Removing ${sortedIndices.length} likely duplicates from ${
+		`Removing ${sortedIndices.length} similar items from ${
 			data.length
-		} items`
+		} in total`
 	);
 
 	for (let i = sortedIndices.length - 1; i >= 0; i--)
