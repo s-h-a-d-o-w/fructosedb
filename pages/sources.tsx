@@ -29,7 +29,8 @@ export default () => (
 					>
 						food composition database
 					</a>{' '}
-					and updated once a day.
+					and updated once a day. (Should new foods be added, translations may
+					lag behind, as they are hand-crafted)
 				</Paragraph>
 				<Paragraph>
 					The formula for calculating whether it is recommended to avoid a given

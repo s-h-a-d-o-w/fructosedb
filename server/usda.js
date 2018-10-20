@@ -76,12 +76,24 @@ async function getReport(max = 1, offset = 0, fg = '') {
 // Get full list of foods from the USDA DB.
 // Data rearranged as needed by the frontend. (see transformData())
 async function fetchFoodsList() {
-	let total = (await getReport()).total, // Dummy report fetch gives us total number of foods
-		data = [];
+	// Included food groups.
+	// Only 10 can be specified at once!
+	// See also: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
+	// prettier-ignore
+	let foodGroups = [
+		['3500', '1800', '1300', '1400', '0800', '2000', '0100', '1500', '0900', '1700'],
+		['1600', '2200', '1200', '1000', '0500', '0700', '2500', '0200', '1900', '1100']
+	];
 
-	for (let offset = 0; offset < total; offset += 1500) {
-		let report = await getReport(1500, offset);
-		data = data.concat(report.foods);
+	let data = [];
+	for (let fg of foodGroups) {
+		// Dummy report fetch gives us total number of foods
+		let total = (await getReport(1, 0, fg)).total;
+
+		for (let offset = 0; offset < total; offset += 1500) {
+			let report = await getReport(1500, offset, fg);
+			data = data.concat(report.foods);
+		}
 	}
 
 	return removeSimilar(transformData(data, await getFruitIDs()));

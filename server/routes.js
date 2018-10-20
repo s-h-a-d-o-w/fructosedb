@@ -1,3 +1,6 @@
+const os = require('os-utils');
+const path = require('path');
+
 const VisitorLogger = require('./VisitorLogger');
 const {fetchFoodsList} = require('./usda.js');
 
@@ -16,7 +19,7 @@ const setupRoutes = (nextApp, expressServer) => {
 	const nextHandle = nextApp.getRequestHandler();
 
 	expressServer.get('/favicon.ico', (req, res) => {
-		return app.serveStatic(
+		return nextApp.serveStatic(
 			req,
 			res,
 			path.join(__dirname, '../static/favicon.ico')

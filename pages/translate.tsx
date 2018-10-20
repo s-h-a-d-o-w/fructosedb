@@ -83,16 +83,14 @@ class Translate extends React.Component<any, IState> {
 				: this.state.data
 						.filter((el) => !this.state.translatedKeys.includes(el))
 						.sort((a: string, b: string) => a.localeCompare(b))
-						.map((el, idx) => {
+						.map((el) => {
 							let quotesEscaped = el.replace(/([0-9])"/g, '$1\\"');
 							return (
 								<div key={quotesEscaped}>
 									{'  '}
 									<span className="notranslate">"{quotesEscaped}" : "</span>
 									{quotesEscaped}
-									<span className="notranslate">
-										"{idx < this.state.data.length - 1 ? ',' : ''}
-									</span>
+									<span className="notranslate">",</span>
 									<br />
 								</div>
 							);
