@@ -46,6 +46,7 @@ const StyledBase = styled.div`
 type IProps = {
 	children: React.ReactNode;
 	onClick?: () => void;
+	onTouchStart?: () => void;
 };
 
 export default class BaseLayout extends React.Component<IProps> {
@@ -60,13 +61,15 @@ export default class BaseLayout extends React.Component<IProps> {
 	}
 
 	render() {
+		let {children, ...restProps} = this.props;
+
 		return (
 			<>
 				<FructoseHead />
-				<StyledBase {...this.props} hasMounted={this.state.hasMounted}>
+				<StyledBase {...restProps} hasMounted={this.state.hasMounted}>
 					<Logo />
 					<Navigation />
-					{this.props.children}
+					{children}
 				</StyledBase>
 			</>
 		);
