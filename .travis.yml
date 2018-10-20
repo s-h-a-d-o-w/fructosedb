@@ -11,6 +11,7 @@ deploy:
     script:
       now remove --token $NOW_TOKEN fructosedb --safe --yes;
       now --token $NOW_TOKEN;
+      now alias --token $NOW_TOKEN;
     skip_cleanup: true
     on:
       master: true

@@ -9,6 +9,7 @@ import fetch from '../lib/fetch-with-timeout';
 import TranslationDropdown from '../containers/TranslationDropdown';
 import Link from '../components/Link';
 import theme from '../lib/theme';
+import Email from '../components/Email';
 
 interface IState {
 	data: any[];
@@ -123,16 +124,13 @@ class Translate extends React.Component<any, IState> {
 							<br />
 							Step 6: Commit{' '}
 							<Link
+								invert
 								target="_blank"
 								href="https://github.com/s-h-a-d-o-w/fructosedb/tree/master/static/lang"
 							>
-								<span style={{color: theme.primaryDark}}>here</span>
+								here
 							</Link>{' '}
-							or{' '}
-							<Link target="_blank" href="/about">
-								<span style={{color: theme.primaryDark}}>email</span>
-							</Link>{' '}
-							it to us.
+							or send it to us via <Email />.
 						</div>
 						<br />
 						Missing translations for '{this.props.langTranslate}
