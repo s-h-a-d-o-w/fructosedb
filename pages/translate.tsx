@@ -8,7 +8,6 @@ import Loading from '../components/Loading';
 import fetch from '../lib/fetch-with-timeout';
 import TranslationDropdown from '../containers/TranslationDropdown';
 import Link from '../components/Link';
-import theme from '../lib/theme';
 import Email from '../components/Email';
 
 interface IState {

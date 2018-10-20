@@ -76,8 +76,9 @@ class Options extends React.Component<any> {
 	);
 }
 
-const mapStateToProps = ({filter, showServing}) => ({
+const mapStateToProps = ({filter, onlyFruit, showServing}) => ({
 	filter,
+	onlyFruit,
 	showServing,
 });
 

@@ -2,8 +2,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 
-import {loadState} from './local-storage.js';
-import withPersistence from '../lib/with-persistence.js';
+import {loadState, saveState} from './local-storage.js';
 import {isEmptyObject} from '../lib/util';
 
 export const actionTypes = {
@@ -21,7 +20,6 @@ export const actionTypes = {
 	TOGGLE_SERVING: 'TOGGLE_SERVING',
 };
 
-// REDUCERS
 export const reducer = (state = defaultInitialState, action) => {
 	switch (action.type) {
 		case actionTypes.CHANGE_FILTER:
@@ -68,7 +66,6 @@ export const reducer = (state = defaultInitialState, action) => {
 	}
 };
 
-// ACTIONS
 export const actions = {
 	changeFilter: (value) => ({type: actionTypes.CHANGE_FILTER, value}),
 	changeLanguage: (value) => ({type: actionTypes.CHANGE_LANGUAGE, value}),
@@ -117,10 +114,18 @@ const defaultInitialState = {
 
 export const initializeStore = (initialState = defaultInitialState) => {
 	return createStore(
-		// No persistence for SSR.
-		// Also: Could provide a blacklist or whitelist to withPersistence for which
-		// keys of the state to store.
-		typeof window === 'undefined' ? reducer : withPersistence(reducer),
+		// No persistence on the server.
+		typeof window === 'undefined'
+			? reducer
+			: (...args) => {
+					let state = reducer.apply(null, args);
+
+					// Need to skip @@INIT, since that would obviously overwrite whatever state there
+					// might be in local storage before we can even use it for rehydration.
+					if (args[1].type !== '@@INIT') saveState(state);
+
+					return state;
+			  },
 		initialState,
 		composeWithDevTools(applyMiddleware(thunkMiddleware))
 	);
