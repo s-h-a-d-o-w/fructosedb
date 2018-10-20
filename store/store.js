@@ -105,7 +105,7 @@ const defaultInitialState = {
 	lastUpdate: 0,
 	lang: 'en',
 	light: false,
-	lockedAvoid: true,
+	lockedAvoid: false,
 	onlyFruit: false,
 	showServing: false,
 	sortBy: 'name',
