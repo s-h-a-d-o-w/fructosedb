@@ -5,15 +5,25 @@ import theme from '../lib/theme';
 const Burger = styled.div`
 	width: 3rem;
 	height: 3rem;
-
-	font-size: 2rem;
-	font-weight: bold;
+	padding: 0.4rem;
 	background-color: ${theme.primaryLight};
-	color: ${theme.primaryDark};
 
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: space-evenly;
 	align-items: center;
+
+	.burgerLine {
+		width: 1.9rem;
+		height: 4px;
+		background-color: ${theme.primaryDark};
+	}
+`;
+
+const BurgerLine = styled.div`
+	width: 1.9rem;
+	height: 4px;
+	background-color: ${theme.primaryDark};
 `;
 
 type Props = {
@@ -26,5 +36,11 @@ type Props = {
  * @example ../docs/examples/Burger.md
  */
 export default (props: Props) => {
-	return <Burger {...props}>☰</Burger>;
+	return (
+		<Burger {...props}>
+			<BurgerLine />
+			<BurgerLine />
+			<BurgerLine />
+		</Burger>
+	);
 };

@@ -6,7 +6,7 @@ import theme from '../lib/theme';
 import Link from './Link';
 
 const Mobile: any = styled.div`
-	transition: left 150ms ease-in-out;
+	transition: left 150ms ease-out;
 	left: 0;
 
 	background-color: ${theme.primary};
