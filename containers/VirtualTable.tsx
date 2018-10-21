@@ -10,8 +10,9 @@ import theme from '../lib/theme';
 import {actions, actionTypes} from '../store/store.js';
 import fetch from '../lib/fetch-with-timeout';
 import {isEmptyObject} from '../lib/util';
+import * as TableSymbols from '../components/TableSymbols';
 
-const TableWrapper = styled.div`
+const StyledTable = styled.div`
 	font-family: 'Roboto Condensed', sans-serif;
 
 	/* Required for AutoSizer to expand correctly */
@@ -33,6 +34,8 @@ const TableWrapper = styled.div`
 	}
 	.ReactVirtualized__Table__rowColumn:first-child {
 		text-align: center;
+		font-size: 0.7rem;
+		color: green;
 	}
 
 	.ReactVirtualized__Table__rowColumn,
@@ -57,15 +60,6 @@ const TableWrapper = styled.div`
 		background-color: ${theme.primaryLight};
 		border-bottom: whitesmoke 1px solid;
 	}
-`;
-
-const AvoidIndicator: any = styled.div`
-	display: inline-block;
-	width: 0.75em;
-	height: 0.75em;
-	border-radius: 0.4em;
-	background-color: ${(props: any) =>
-		props.avoid ? 'indianred' : 'darkolivegreen'};
 `;
 
 class VirtualTable extends React.Component<any, any> {
@@ -127,7 +121,8 @@ class VirtualTable extends React.Component<any, any> {
 	// =============================
 	// HELPER METHODS
 	// =============================
-	avoidRenderer = ({cellData}) => <AvoidIndicator avoid={cellData} />;
+	avoidRenderer = ({cellData}) =>
+		cellData ? TableSymbols.Error : TableSymbols.OK;
 
 	generateHeaders = (cols) =>
 		cols.map((col) =>
@@ -217,13 +212,6 @@ class VirtualTable extends React.Component<any, any> {
 			this.getTranslation();
 	}
 
-	// shouldComponentUpdate(nextProps, nextState) {
-	// 	console.log('props', this.props);
-	// 	console.log('props', nextProps);
-	// 	console.log('state', this.state === nextState);
-	// 	return true;
-	// }
-
 	render() {
 		//console.log('render');
 
@@ -267,9 +255,6 @@ class VirtualTable extends React.Component<any, any> {
 			data = data.filter((el) => el.isFruit);
 		}
 
-		//console.log('onlyFruit', this.props.onlyFruit);
-		//console.log('Processing data took:', performance.now() - begin);
-
 		const headers = this.props.showServing
 			? this.generateHeaders([
 					'avoid',
@@ -304,7 +289,7 @@ class VirtualTable extends React.Component<any, any> {
 		));
 
 		return (
-			<TableWrapper innerRef={this.tableRef}>
+			<StyledTable innerRef={this.tableRef}>
 				<AutoSizer>
 					{({width, height}) => (
 						<Table
@@ -324,7 +309,7 @@ class VirtualTable extends React.Component<any, any> {
 						</Table>
 					)}
 				</AutoSizer>
-			</TableWrapper>
+			</StyledTable>
 		);
 	}
 }
