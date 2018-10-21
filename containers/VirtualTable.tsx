@@ -63,6 +63,7 @@ const AvoidIndicator: any = styled.div`
 	display: inline-block;
 	width: 0.75em;
 	height: 0.75em;
+	border-radius: 0.4em;
 	background-color: ${(props: any) =>
 		props.avoid ? 'indianred' : 'darkolivegreen'};
 `;
