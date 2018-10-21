@@ -1,7 +1,8 @@
 // In production, environment variables come from cloud
 // (via now.json and secrets)
-if(process.env.NODE_ENV !== 'production')
+if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config();
+}
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 

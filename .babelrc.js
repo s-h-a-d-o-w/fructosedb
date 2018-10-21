@@ -1,4 +1,4 @@
-const env = require('./env-config.js');
+const env = require('./server/env-config.js');
 
 module.exports = {
 	presets: ['next/babel', '@zeit/next-typescript/babel'],

@@ -4,9 +4,10 @@
   "main": "server/server.js",
   "license": "MIT",
   "scripts": {
-    "dev": "rimraf node_modules/.cache && node server/server.js",
-    "build": "rimraf .next && next build",
-    "start": "cross-env NODE_ENV=production node server/server.js",
+    "dev": "rimraf node_modules/.cache && yarn build:server && node server/main.js",
+    "build": "rimraf .next && yarn build:server && next build",
+    "build:server": "tsc -p tsconfig.server.json",
+    "start": "cross-env NODE_ENV=production node server/main.js",
     "analyze": "cross-env BUNDLE_ANALYZE=browser yarn build",
     "style": "yarn styleguidist server",
     "test": "yarn build && yarn start"

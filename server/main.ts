@@ -1,18 +1,19 @@
-require('../env-config.js');
+import './env-config';
 
-require('appmetrics-dash').attach({
+import * as appmetricsDash from 'appmetrics-dash';
+appmetricsDash.attach({
 	// TODO: Use once a version containing the PR for the following has been published on npmjs
 	// https://github.com/RuntimeTools/appmetrics-dash/issues/160
 	//url: process.env.DASHBOARD_PATH,
 	nodereport: null,
 });
 
-const next = require('next');
-const express = require('express');
-const compression = require('compression');
-const {spawn} = require('child_process');
+import * as next from 'next';
+import * as express from 'express';
+import * as compression from 'compression';
+import {spawn} from 'child_process';
 
-const {setupRoutes, updateCache} = require('./routes.js');
+import {setupRoutes, updateFoodCache} from './routes.js';
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -37,7 +38,7 @@ app.prepare().then(() => {
 	server.enable('trust proxy');
 
 	setupRoutes(app, server);
-	updateCache().then(() => {
+	updateFoodCache().then(() => {
 		server.listen(port, (err) => {
 			if (err) throw err;
 			console.log(
