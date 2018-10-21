@@ -14,6 +14,7 @@ const StyledFloat = styled.div.attrs({
 	position: absolute;
 	z-index: 10000;
 	max-width: 30vw;
+	padding: 0.5vw;
 
 	background-color: white;
 	color: black;
@@ -31,9 +32,10 @@ type IProps = {
 
 // Always rendered (not as much adding/removing from DOM, more concise code),
 // won't be visible if content is empty
-const FloatingInfo = (props: IProps) => (
-	<StyledFloat {...props}>{props.float ? props.float.content : ''}</StyledFloat>
-);
+const FloatingInfo = (props: IProps) =>
+	props.float.content ? (
+		<StyledFloat {...props}>{props.float.content}</StyledFloat>
+	) : null;
 
 const mapStateToProps = ({float}) => ({
 	float,
