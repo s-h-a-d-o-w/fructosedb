@@ -1,9 +1,15 @@
 import * as os from 'os-utils';
 import * as path from 'path';
+const LRUCache = require('lru-cache');
 
 import VisitorLogger from './VisitorLogger';
 import {fetchFoodsList} from './usda';
 
+const dev = process.env.NODE_ENV !== 'production';
+
+// ==================================
+// USDA data cache (refresh interval: 24h)
+// ==================================
 let foodCache: any = {};
 const updateFoodCache = async () => {
 	foodCache = await fetchFoodsList();
@@ -13,7 +19,51 @@ const updateFoodCache = async () => {
 	// Update cache every 24h
 	setTimeout(updateFoodCache, 24 * 1000 * 60 * 60);
 };
+// ==================================
 
+// ==================================
+// SSR CACHE
+// ==================================
+// See https://github.com/zeit/next.js/blob/master/examples/ssr-caching/server.js
+const ssrCache = new LRUCache({
+	max: 100,
+	maxAge: 1000 * 60 * 60, // 1hour
+});
+
+async function renderAndCache(app, req, res, pagePath, queryParams?) {
+	const key = req.url;
+
+	// If we have a page in the cache, let's serve it
+	if (ssrCache.has(key)) {
+		res.setHeader('x-cache', 'HIT');
+		res.send(ssrCache.get(key));
+		return;
+	}
+
+	try {
+		// If not let's render the page into HTML
+		const html = await app.renderToHTML(req, res, pagePath, queryParams);
+
+		// Something is wrong with the request, let's skip the cache
+		if (res.statusCode !== 200) {
+			res.send(html);
+			return;
+		}
+
+		// Let's cache this page
+		ssrCache.set(key, html);
+
+		res.setHeader('x-cache', 'MISS');
+		res.send(html);
+	} catch (err) {
+		app.renderError(err, req, res, pagePath, queryParams);
+	}
+}
+// ==================================
+
+// ==================================
+// ROUTES
+// ==================================
 const setupRoutes = (nextApp, expressServer) => {
 	const visitorLogger = new VisitorLogger();
 	const nextHandle = nextApp.getRequestHandler();
@@ -60,10 +110,15 @@ CPU Load 15 min: ${os.loadavg(15)}
 		return res.send(result);
 	});
 
-	expressServer.get('*', (req, res) => {
+	expressServer.get('/', (req, res) => {
 		visitorLogger.log(req.ip);
+		return dev ? nextHandle(req, res) : renderAndCache(nextApp, req, res, '/');
+	});
+
+	expressServer.get('*', (req, res) => {
 		return nextHandle(req, res);
 	});
 };
+// ==================================
 
 export {setupRoutes, updateFoodCache};

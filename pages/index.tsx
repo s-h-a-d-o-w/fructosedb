@@ -60,7 +60,10 @@ class Index extends React.Component<IProps, IState> {
 	render() {
 		//console.log('index.render()');
 		return (
-			<BaseLayout onClick={this.dispatchKillFloat} onTouchStart={this.dispatchKillFloat}>
+			<BaseLayout
+				onClick={this.dispatchKillFloat}
+				onTouchStart={this.dispatchKillFloat}
+			>
 				<CenteredContent>
 					{/* Containers that use gridArea can't be made to use fullscreen as expected,
 							a nested container is required. */}

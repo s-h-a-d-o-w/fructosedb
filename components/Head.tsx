@@ -62,7 +62,7 @@ export default class extends React.PureComponent {
 				<link rel="preload" href="/list" as="fetch" crossOrigin="crossorigin" />
 				{/* Force favicon refresh on changes */}
 				<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20181018" />
-				<link rel="preload" href="/static/images/usda-symbol.svg" as="image" />
+				<link rel="prefetch" href="/static/images/usda-symbol.svg" />
 			</Head>
 		);
 	}

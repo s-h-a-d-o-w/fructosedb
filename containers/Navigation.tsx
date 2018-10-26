@@ -74,7 +74,7 @@ export default class extends React.Component {
 			{this.state.showMenu ? (
 				<>
 					<StyledLightbox onClick={this.closeMenu} />
-					<Menu desktop={false} />
+					<Menu onClick={this.closeMenu} desktop={false} />
 				</>
 			) : (
 				''
@@ -82,7 +82,7 @@ export default class extends React.Component {
 			<StyledNav>
 				<Menu desktop={true} />
 				<StyledSupport>
-					<Link target="_blank" href="http://www.google.com">
+					<Link target="_blank" href="/support">
 						❤️Support Us
 					</Link>
 				</StyledSupport>

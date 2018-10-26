@@ -55,9 +55,15 @@ const Desktop = styled.div`
 export default (props) => {
 	let items = (
 		<>
-			<Link href="/">Home</Link>
-			<Link href="/sources">How We Calculate</Link>
-			<Link href="/about">About Us</Link>
+			<Link onClick={props.onClick} href="/">
+				Home
+			</Link>
+			<Link onClick={props.onClick} href="/sources">
+				How We Calculate
+			</Link>
+			<Link onClick={props.onClick} href="/about">
+				About Us
+			</Link>
 		</>
 	);
 

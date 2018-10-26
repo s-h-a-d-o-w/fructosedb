@@ -6,6 +6,7 @@ import theme from '../lib/theme';
 type IProps = {
 	children: React.ReactNode;
 	href: string;
+	onClick?: () => void;
 	invert?: boolean;
 	target?: string;
 };
@@ -23,6 +24,6 @@ const StyledA = styled.a`
 // not generic elements, such as styled components
 export default (props: IProps) => (
 	<Link prefetch href={props.href}>
-		<StyledA {...props} />
+		<StyledA onClick={props.onClick} {...props} />
 	</Link>
 );

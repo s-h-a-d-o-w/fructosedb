@@ -1,6 +1,10 @@
 .env
 prod_env.bat
 
+# TS compiled files
+lib/fetch-with-timeout.js
+server/*.js
+
 # Webpack analyzer output
 bundles
 
