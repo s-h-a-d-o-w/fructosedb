@@ -1,5 +1,7 @@
 [![Travis Build Status](https://travis-ci.org/s-h-a-d-o-w/fructosedb.svg?branch=master)](https://travis-ci.org/s-h-a-d-o-w/fructosedb)
 
+<p align="center"><img src="./assets/icon.png" width="100px" /></p>
+
 # fructosedb
 
 ### Environment Variables

@@ -32,7 +32,9 @@ class VisitorLogger implements LoggerProps {
 				process.env.MONGODB_PW
 			}@ds052978.mlab.com:52978/fructosedb${isDev ? '_dev' : ''}`,
 			{useNewUrlParser: true},
-			(err) => console.error('MongoDB connection error:', err)
+			(err) => {
+				if (err) console.error('MongoDB connection error:', err);
+			}
 		);
 
 		const db = mongoose.connection;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import screenfull from 'screenfull';
+import Head from 'next/head';
 
 import BaseLayout from '../components/BaseLayout';
 import Options from '../containers/Options';
@@ -60,29 +61,40 @@ class Index extends React.Component<IProps, IState> {
 	render() {
 		//console.log('index.render()');
 		return (
-			<BaseLayout
-				onClick={this.dispatchKillFloat}
-				onTouchStart={this.dispatchKillFloat}
-			>
-				<CenteredContent>
-					{/* Containers that use gridArea can't be made to use fullscreen as expected,
+			<>
+				<BaseLayout
+					onClick={this.dispatchKillFloat}
+					onTouchStart={this.dispatchKillFloat}
+				>
+					<CenteredContent>
+						{/* Containers that use gridArea can't be made to use fullscreen as expected,
 							a nested container is required. */}
-					{this.state.hasMounted ? (
-						<FullScreenContainer innerRef={this.refContent}>
-							<Options />
-							<Table dispatchKillFloat={this.dispatchKillFloat} />
-							{screenfull.enabled ? (
-								<FullScreenButton target={this.refContent} />
-							) : (
-								''
-							)}
-							<FloatingInfo />
-						</FullScreenContainer>
-					) : (
-						<Loading />
-					)}
-				</CenteredContent>
-			</BaseLayout>
+						{this.state.hasMounted ? (
+							<FullScreenContainer innerRef={this.refContent}>
+								<Options />
+								<Table dispatchKillFloat={this.dispatchKillFloat} />
+								{screenfull.enabled ? (
+									<FullScreenButton target={this.refContent} />
+								) : (
+									''
+								)}
+								<FloatingInfo />
+							</FullScreenContainer>
+						) : (
+							<Loading />
+						)}
+					</CenteredContent>
+				</BaseLayout>
+				{/* Preload REST call after fonts (which is done via BaseLayout) */}
+				<Head>
+					<link
+						rel="preload"
+						href="/list"
+						as="fetch"
+						crossOrigin="crossorigin"
+					/>
+				</Head>
+			</>
 		);
 	}
 }
