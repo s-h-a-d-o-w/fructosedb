@@ -1,0 +1,26 @@
+patch-package
+--- a/node_modules/@webpack-blocks/typescript/index.js
++++ b/node_modules/@webpack-blocks/typescript/index.js
+@@ -16,7 +16,11 @@ function typescript(options = {}) {
+   return (context, util) =>
+     util.merge({
+       resolve: {
+-        extensions: ['.ts', '.tsx']
++        extensions: ['.ts', '.tsx'],
++        plugins: [
++          // This hooks into webpacks module resolution, configure via tsconfig.json
++          new TsConfigPathsPlugin({ tsconfig: options.configFileName, compiler: options.compiler })
++        ]
+       },
+       module: {
+         rules: [
+@@ -35,8 +39,7 @@ function typescript(options = {}) {
+         ]
+       },
+       plugins: [
+-        new CheckerPlugin(),
+-        new TsConfigPathsPlugin({ tsconfig: options.configFileName, compiler: options.compiler }) // This hooks into webpacks module resolution, configure via tsconfig.json
++        new CheckerPlugin()
+       ]
+     })
+ }
