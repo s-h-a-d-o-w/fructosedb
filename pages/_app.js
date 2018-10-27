@@ -10,7 +10,7 @@ if (typeof window !== 'undefined') {
 		//whyDidYouUpdate(React);
 	}
 
-	console.log('Built on:', process.env.BUILD_TIMESTAMP);
+	console.info('Built on:', process.env.BUILD_TIMESTAMP);
 }
 
 class MyApp extends App {
