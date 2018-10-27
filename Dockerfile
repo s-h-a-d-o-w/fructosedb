@@ -3,6 +3,7 @@ FROM mhart/alpine-node:8
 WORKDIR /usr/src
 
 RUN apk add --no-cache --update \
+    git \
     curl \
     python \
     build-base \

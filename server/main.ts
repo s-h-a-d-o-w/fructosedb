@@ -1,4 +1,4 @@
-import './env-config';
+import '../env-config';
 
 import * as appmetricsDash from 'appmetrics-dash';
 appmetricsDash.attach({

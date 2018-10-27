@@ -13,4 +13,5 @@ process.env.BACKEND_URL = !process.env.BACKEND_URL
 // Exported values are provided to frontend via transform-define
 module.exports = {
 	'process.env.BACKEND_URL': process.env.BACKEND_URL,
+	'process.env.BUILD_TIMESTAMP': (new Date()).toString(),
 };

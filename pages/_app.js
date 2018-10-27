@@ -4,9 +4,13 @@ import React from 'react';
 import withReduxStore from '../lib/with-redux-store';
 import {Provider} from 'react-redux';
 
-if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
-	const {whyDidYouUpdate} = require('why-did-you-update');
-	//whyDidYouUpdate(React);
+if (typeof window !== 'undefined') {
+	if (process.env.NODE_ENV !== 'production') {
+		const {whyDidYouUpdate} = require('why-did-you-update');
+		//whyDidYouUpdate(React);
+	}
+
+	console.log('Built on:', process.env.BUILD_TIMESTAMP);
 }
 
 class MyApp extends App {
