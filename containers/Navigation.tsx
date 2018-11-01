@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import theme from '../lib/theme';
-import Link from '../components/Link';
+// import Link from '../components/Link';
 import Burger from '../components/Burger';
 import Menu from '../components/Menu';
 
@@ -31,6 +31,7 @@ const StyledNav = styled.nav`
 	}
 `;
 
+/*
 const StyledSupport = styled.nav`
 	text-align: right;
 
@@ -38,6 +39,7 @@ const StyledSupport = styled.nav`
 		font-size: 1.5rem;
 	}
 `;
+*/
 
 const StyledLightbox = styled.div`
 	position: absolute;
@@ -81,11 +83,13 @@ export default class extends React.Component {
 			)}
 			<StyledNav>
 				<Menu desktop={true} />
+				{/*
 				<StyledSupport>
 					<Link target="_blank" href="/support">
 						❤️Support Us
 					</Link>
 				</StyledSupport>
+				*/}
 			</StyledNav>
 		</>
 	);

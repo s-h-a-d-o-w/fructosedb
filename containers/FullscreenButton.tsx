@@ -43,7 +43,7 @@ export default class FullscreenButton extends React.Component<IProps, IState> {
 			screenfull.request(this.props.target.current);
 		}
 
-		this.setState({fullscreen: !this.state.fullscreen});
+		this.setState((prevState) => ({fullscreen: !prevState.fullscreen}));
 	};
 
 	render() {
