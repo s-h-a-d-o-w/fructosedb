@@ -22,7 +22,7 @@ const StyledFloat = styled.div.attrs({
 	pointer-events: none;
 `;
 
-type IProps = {
+type Props = {
 	float: {
 		x?: number;
 		y?: number;
@@ -32,7 +32,7 @@ type IProps = {
 
 // Always rendered (not as much adding/removing from DOM, more concise code),
 // won't be visible if content is empty
-const FloatingInfo = (props: IProps) =>
+const FloatingInfo = (props: Props) =>
 	props.float.content ? (
 		<StyledFloat {...props}>{props.float.content}</StyledFloat>
 	) : null;

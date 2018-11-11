@@ -8,11 +8,6 @@ import US from '../static/lang/us.svg';
 
 import {actions} from '../store/store.js';
 
-const languages = {
-	de: <DE key={'de'} data-key={'de'} />,
-	en: <US key={'en'} data-key={'en'} />,
-};
-
 const StyledFlag = styled.div`
 	position: relative;
 
@@ -50,12 +45,26 @@ const StyledDropDown = styled.div`
 	}
 `;
 
-class LangSelect extends React.Component<any> {
+type Props = {
+	lang: string;
+	dispatchChangeLanguage: (string) => void;
+};
+
+type State = {
+	expanded: boolean;
+};
+
+class LangSelect extends React.Component<Props, State> {
+	languages = {
+		de: <DE key={'de'} data-key={'de'} />,
+		en: <US key={'en'} data-key={'en'} />,
+	};
+
 	state = {
 		expanded: false,
 	};
 
-	collapse = (e: any) => {
+	collapse = (e: Event & {target: HTMLElement}) => {
 		if (
 			e.target.closest('#langDropDown') !== null &&
 			e.target.closest('svg') !== null
@@ -77,39 +86,36 @@ class LangSelect extends React.Component<any> {
 		document.body.removeEventListener('click', this.collapse);
 	};
 
-	render = () => {
-		return (
-			<>
-				<StyledFlag onClick={this.expand}>
-					{languages[this.props.lang]}
-					{this.state.expanded ? (
-						<StyledDropDown
-							id="langDropDown"
-							numFlags={Reflect.ownKeys(languages).length}
-						>
-							{Reflect.ownKeys(languages)
-								.sort((a) => (a !== this.props.lang ? 1 : 0))
-								.map((key) => languages[key])}
-						</StyledDropDown>
-					) : (
-						''
-					)}
-				</StyledFlag>
-			</>
-		);
-	};
+	render = () => (
+		<>
+			<StyledFlag onClick={this.expand}>
+				{this.languages[this.props.lang]}
+				{this.state.expanded ? (
+					<StyledDropDown
+						id="langDropDown"
+						numFlags={Reflect.ownKeys(this.languages).length}
+					>
+						{Reflect.ownKeys(this.languages)
+							.sort(
+								(a, b) =>
+									a === this.props.lang ? -1 : b === this.props.lang ? 1 : 0
+							)
+							.map((key) => this.languages[key])}
+					</StyledDropDown>
+				) : (
+					''
+				)}
+			</StyledFlag>
+		</>
+	);
 }
 
 const mapStateToProps = ({lang}) => ({
 	lang,
 });
 
-function dispatchChangeLanguage(dispatch, value) {
-	dispatch(actions.changeLanguage(value));
-}
-
 const mapDispatchToProps = (dispatch) => ({
-	dispatchChangeLanguage: dispatchChangeLanguage.bind(null, dispatch),
+	dispatchChangeLanguage: (value) => dispatch(actions.changeLanguage(value)),
 });
 
 export default connect(

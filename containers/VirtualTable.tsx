@@ -11,6 +11,7 @@ import {actions, actionTypes} from '../store/store.js';
 import fetch from '../lib/fetch-with-timeout';
 import {isEmptyObject} from '../lib/util';
 import * as TableSymbols from '../components/TableSymbols';
+import {Food} from '../server/usda';
 
 const StyledTable = styled.div`
 	font-family: 'Roboto Condensed', sans-serif;
@@ -62,7 +63,32 @@ const StyledTable = styled.div`
 	}
 `;
 
-class VirtualTable extends React.Component<any, any> {
+type Props = {
+	filter: string;
+	lang: string;
+	lockedAvoid: boolean;
+	onlyFruit: boolean;
+	showServing: boolean;
+	sortBy: string;
+	sortAsc: boolean;
+	dispatchColAction: (
+		object: {
+			sortBy: string;
+			sortDirection: 'ASC' | 'DESC';
+		}
+	) => void;
+	dispatchShowFloat: (name: string, e: Event) => void;
+	dispatchKillFloat: () => void;
+};
+
+type State = {
+	data: Food[];
+	dataTranslated: Food[];
+	hasMounted: boolean;
+	translation: object;
+};
+
+class VirtualTable extends React.Component<Props, State> {
 	// =============================
 	// DEFAULT PROPS/STATE
 	// =============================
@@ -156,7 +182,7 @@ class VirtualTable extends React.Component<any, any> {
 		this.setState({translation});
 	};
 
-	nameRenderer = ({cellData}) => (
+	nameRenderer = ({cellData}: {cellData: string}) => (
 		<div
 			onClick={this.props.dispatchShowFloat.bind(this, cellData)}
 			onMouseOver={this.props.dispatchShowFloat.bind(this, cellData)}
@@ -166,16 +192,18 @@ class VirtualTable extends React.Component<any, any> {
 		</div>
 	);
 
-	sortData = memoize((data, sortBy, sortAsc, lockedAvoid) => {
-		return data.length === 0
-			? data
-			: lockedAvoid
-				? sort(data).by([
-						{desc: 'avoid'},
-						sortAsc ? {asc: sortBy} : {desc: sortBy},
-				  ])
-				: sort(data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}]);
-	});
+	sortData = memoize(
+		(data: Food[], sortBy: string, sortAsc: boolean, lockedAvoid: boolean) => {
+			return data.length === 0
+				? data
+				: lockedAvoid
+					? sort(data).by([
+							{desc: 'avoid'},
+							sortAsc ? {asc: sortBy} : {desc: sortBy},
+					  ])
+					: sort(data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}]);
+		}
+	);
 
 	// Styles have to be consistent on server/client after first load (SSR).
 	// Plus, toPX() can only be used in a browser anyway.
@@ -183,12 +211,12 @@ class VirtualTable extends React.Component<any, any> {
 		this.state.hasMounted ? toPXOriginal.apply(null, args) : 16;
 
 	translateData = memoize(
-		(_, __, lang) =>
+		// data and translation could be gotten directly from state but that would make
+		// memoization impossible.
+		(data: Food[], translation: object, lang: string): Food[] =>
 			lang === 'en'
-				? this.state.data
-				: this.state.data.map((el) =>
-						Object.assign({}, el, {name: this.state.translation[el.name]})
-				  )
+				? data
+				: data.map((el) => Object.assign({}, el, {name: translation[el.name]}))
 	);
 
 	// =============================
@@ -201,15 +229,16 @@ class VirtualTable extends React.Component<any, any> {
 		if (this.props.lang !== 'en') this.getTranslation();
 	}
 
-	async componentDidUpdate(prevProps) {
-		// On page load, the general data will probably arrive AFTER the language was already set.
+	async componentDidUpdate(prevProps: Props) {
+		// On page load, data will probably arrive AFTER the language was already set.
 		// In which case, state.translation will be empty.
 		if (
 			this.props.lang !== 'en' &&
 			(isEmptyObject(this.state.translation) ||
 				this.props.lang !== prevProps.lang)
-		)
+		) {
 			this.getTranslation();
+		}
 	}
 
 	render() {
@@ -221,11 +250,11 @@ class VirtualTable extends React.Component<any, any> {
 		//let begin = performance.now();
 
 		// TRANSLATE DATA
-		// Memoized - state.data reference only changes when translation is changed
-		// So in other cases, the same reference should end up in data.
+		// Memoized - Hence providing this.state and this.props properties as arguments
+		// is important.
 		// Checking for language change when translation hasn't arrived yet allows to avoid
 		// flash of empty table.
-		let data =
+		let data: Food[] =
 			this.props.lang !== 'en' && isEmptyObject(this.state.translation)
 				? this.state.data
 				: this.translateData(
@@ -337,7 +366,11 @@ const dispatchColAction = (dispatch, {sortBy: col, sortDirection}) =>
 		? dispatch({type: actionTypes.TOGGLE_LOCK_AVOID})
 		: dispatch(actions.changeSort(col, sortDirection === SortDirection.ASC));
 
-const dispatchShowFloat = (dispatch, name, e) => {
+const dispatchShowFloat = (
+	dispatch,
+	name: string,
+	e: MouseEvent & {target: HTMLElement}
+) => {
 	if (e.target.scrollWidth > e.target.clientWidth) {
 		e.stopPropagation();
 		dispatch(actions.showFloat(name, e.pageX, e.pageY));

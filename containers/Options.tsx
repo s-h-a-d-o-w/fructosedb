@@ -44,7 +44,16 @@ const StyledTextBox = styled.input`
 	}
 `;
 
-class Options extends React.Component<any> {
+type Props = {
+	filter: string;
+	onlyFruit: boolean;
+	showServing: boolean;
+	dispatchFilter: (string) => void;
+	dispatchFruit: () => void;
+	dispatchServing: () => void;
+};
+
+class Options extends React.Component<Props> {
 	handleFilter = (e) => {
 		this.props.dispatchFilter(e.target.value);
 	};

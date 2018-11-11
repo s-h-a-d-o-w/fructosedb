@@ -54,7 +54,7 @@ app.prepare().then(() => {
 				5 * 60 * 1000
 			);
 
-			if ('TRAVIS' in process.env && 'CI' in process.env) {
+			if ('TESTRUN' in process.env || 'TRAVIS' in process.env) {
 				process.exit(0);
 			}
 		});

@@ -1,20 +1,24 @@
 import * as os from 'os-utils';
 import * as path from 'path';
-const LRUCache = require('lru-cache');
+import * as LRUCache from 'lru-cache';
 
 import VisitorLogger from './VisitorLogger';
-import {fetchFoodsList} from './usda';
+import {fetchFoodsList, Food} from './usda';
 
 const dev = process.env.NODE_ENV !== 'production';
 
 // ==================================
 // USDA data cache (refresh interval: 24h)
 // ==================================
-let foodCache: any = {};
+interface FoodCache extends Array<Food> {
+	age?: Date;
+}
+
+let foodCache: FoodCache = [];
 const updateFoodCache = async () => {
 	foodCache = await fetchFoodsList();
 	foodCache.age = new Date();
-	console.log(new Date().toISOString(), 'Updated cache.');
+	console.log(foodCache.age.toISOString(), 'Updated cache.');
 
 	// Update cache every 24h
 	setTimeout(updateFoodCache, 24 * 1000 * 60 * 60);
@@ -27,7 +31,7 @@ const updateFoodCache = async () => {
 // See https://github.com/zeit/next.js/blob/master/examples/ssr-caching/server.js
 const ssrCache = new LRUCache({
 	max: 100,
-	maxAge: 1000 * 60 * 60, // 1hour
+	maxAge: 1000 * 60 * 60, // 1 hour
 });
 
 async function renderAndCache(app, req, res, pagePath, queryParams?) {
@@ -68,12 +72,9 @@ const setupRoutes = (nextApp, expressServer) => {
 	const visitorLogger = new VisitorLogger();
 	const nextHandle = nextApp.getRequestHandler();
 
-	expressServer.get('/favicon.ico', (req, res) => {
-		return nextApp.serveStatic(
-			req,
-			res,
-			path.join(__dirname, '../static/favicon.ico')
-		);
+	expressServer.get('/', (req, res) => {
+		visitorLogger.log(req.ip);
+		return dev ? nextHandle(req, res) : renderAndCache(nextApp, req, res, '/');
 	});
 
 	expressServer.get('/list', (_, res) => {
@@ -110,9 +111,12 @@ CPU Load 15 min: ${os.loadavg(15)}
 		return res.send(result);
 	});
 
-	expressServer.get('/', (req, res) => {
-		visitorLogger.log(req.ip);
-		return dev ? nextHandle(req, res) : renderAndCache(nextApp, req, res, '/');
+	expressServer.get('/favicon.ico', (req, res) => {
+		return nextApp.serveStatic(
+			req,
+			res,
+			path.join(__dirname, '../static/favicon.ico')
+		);
 	});
 
 	expressServer.get('*', (req, res) => {

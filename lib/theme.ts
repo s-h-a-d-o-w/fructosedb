@@ -1,4 +1,4 @@
-export interface ITheme {
+export type Theme = {
 	largeThreshold: number;
 	largeDevices: string;
 
@@ -9,10 +9,10 @@ export interface ITheme {
 	secondaryLight: string;
 	secondary: string;
 	secondaryDark: string;
-}
+};
 
 // http://paletton.com/#uid=34y0u0kn5sr5XTpg7ACsGlQGgbR
-const theme: ITheme = {
+const theme: Theme = {
 	largeThreshold: 45, // em
 	largeDevices: '@media all and (min-width: 45em)',
 

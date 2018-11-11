@@ -9,9 +9,9 @@
     "build:server": "tsc -p tsconfig.server.json",
     "dev": "rimraf node_modules/.cache && yarn build:server && node server/main.js",
     "prepare": "patch-package",
-    "start": "cross-env NODE_ENV=production node server/main.js",
+    "start": "cross-env NODE_ENV=production yarn build && node server/main.js",
     "style": "yarn styleguidist server",
-    "test": "yarn build && yarn start"
+    "test": "cross-env TESTRUN=true yarn start"
   },
   "dependencies": {
     "@zeit/next-typescript": "^1.1.0",
@@ -46,6 +46,8 @@
     "why-did-you-update": "0.1.1"
   },
   "devDependencies": {
+    "@types/lru-cache": "4.1.1",
+    "@types/mongoose": "5.3.1",
     "@types/next": "6.1.2",
     "@types/node": "10.7.1",
     "@types/react": "^16.4.11",

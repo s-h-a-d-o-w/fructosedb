@@ -10,30 +10,35 @@ import TranslationDropdown from '../containers/TranslationDropdown';
 import Link from '../components/Link';
 import Email from '../components/Email';
 
-interface IState {
-	data: any[];
-	translatedKeys: PropertyKey[];
+type State = {
+	foodNames: string[];
 	hasMounted: boolean;
-}
+	translatedKeys: string[];
+};
 
-class Translate extends React.Component<any, IState> {
+type Props = {
+	langTranslate: string;
+};
+
+class Translate extends React.Component<Props, State> {
 	refData = React.createRef<HTMLPreElement>();
 	state = {
+		foodNames: [],
 		hasMounted: false,
 		translatedKeys: [],
-		data: [],
 	};
 
-	static props = {
+	static props: Props = {
 		langTranslate: 'en',
 	};
 
 	getData = async () => {
 		const res = await fetch(`${process.env.BACKEND_URL}/list`);
-		const data = {};
-		(await res.json()).forEach((el) => (data[el.name] = null));
 
-		this.setState({data: Reflect.ownKeys(data)});
+		const foodNames = {};
+		(await res.json()).forEach((el) => (foodNames[el.name] = null));
+
+		this.setState({foodNames: Object.keys(foodNames)});
 	};
 
 	getTranslation = async () => {
@@ -42,7 +47,7 @@ class Translate extends React.Component<any, IState> {
 		);
 
 		if (res.status === 200)
-			this.setState({translatedKeys: Reflect.ownKeys(await res.json())});
+			this.setState({translatedKeys: Object.keys(await res.json())});
 		else this.setState({translatedKeys: []});
 	};
 
@@ -80,7 +85,7 @@ class Translate extends React.Component<any, IState> {
 		const keysToTranslate =
 			this.props.langTranslate === 'en' || this.props.langTranslate === ''
 				? ''
-				: this.state.data
+				: this.state.foodNames
 						.filter((el) => !this.state.translatedKeys.includes(el))
 						.sort((a: string, b: string) => a.localeCompare(b))
 						.map((el) => {

@@ -52,7 +52,12 @@ const Desktop = styled.div`
 	}
 `;
 
-export default (props) => {
+type Props = {
+	desktop: boolean;
+	onClick?: () => void;
+};
+
+export default (props: Props) => {
 	let items = (
 		<>
 			<Link onClick={props.onClick} href="/">

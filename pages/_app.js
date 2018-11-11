@@ -1,4 +1,4 @@
-// see: https://github.com/zeit/next.js/blob/master/examples/with-redux/pages/_app.js
+// See: https://github.com/zeit/next.js/blob/master/examples/with-redux/pages/_app.js
 import App, {Container} from 'next/app';
 import React from 'react';
 import withReduxStore from '../lib/with-redux-store';

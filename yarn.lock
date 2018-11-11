@@ -730,6 +730,34 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@types/bson@*":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@types/bson/-/bson-1.0.11.tgz#c95ad69bb0b3f5c33b4bb6cc86d86cafb273335c"
+  integrity sha512-j+UcCWI+FsbI5/FQP/Kj2CXyplWAz39ktHFkXk84h7dNblKRSoNJs95PZFRd96NQGqsPEPgeclqnznWZr14ZDA==
+  dependencies:
+    "@types/node" "*"
+
+"@types/lru-cache@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@types/lru-cache/-/lru-cache-4.1.1.tgz#b2d87a5e3df8d4b18ca426c5105cd701c2306d40"
+  integrity sha512-8mNEUG6diOrI6pMqOHrHPDBB1JsrpedeMK9AWGzVCQ7StRRribiT9BRvUmF8aUws9iBbVlgVekOT5Sgzc1MTKw==
+
+"@types/mongodb@*":
+  version "3.1.14"
+  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.1.14.tgz#979335f89725b30eeb2e6719562ee9173e7a9ad9"
+  integrity sha512-Hc9nhu9Z33Gq8SP2CZluNlhwbXBCEGAzLMQPEceZG0wUt/ZTzIGaeo8RXu7FWNXfUd6JHh6KHl0YjQlu6TgncQ==
+  dependencies:
+    "@types/bson" "*"
+    "@types/node" "*"
+
+"@types/mongoose@5.3.1":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.3.1.tgz#97112342e9d5930b75fe60121f820a310f98b6b7"
+  integrity sha512-4ASViFpeE9LLE+VLs/NgPy1gSS6nlUA5Iz9UBm1X5VMLqgGURvGfqML3liRrzna6WUt5kNTcLf245GQHxCxuBQ==
+  dependencies:
+    "@types/mongodb" "*"
+    "@types/node" "*"
+
 "@types/next@6.1.2":
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@types/next/-/next-6.1.2.tgz#8a653ba609e3cc33f3955bb6e4615313d70aa362"

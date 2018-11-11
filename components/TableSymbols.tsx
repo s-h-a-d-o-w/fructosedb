@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import * as React from 'react';
 
-const StyledSVG: any = styled.svg`
+const StyledSVG = styled.svg`
 	width: 1.3em;
 	height: 1.3em;
 

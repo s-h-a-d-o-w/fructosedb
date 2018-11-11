@@ -1,19 +1,16 @@
+import {SchemaDefinition} from 'mongoose';
+
 const geoip = require('geoip-lite');
 const mongoose = require('mongoose');
 
 const isDev = !(process.env.NODE_ENV === 'production');
 
-// type Options = {
-// 	reportInterval: number;
-// 	visitorInterval: number;
-// };
-
-interface LoggerProps {
+type LoggerProps = {
 	VisitorModel: any;
-	ipBuffer: Array<string>;
+	ipBuffer: string[];
 	reportInterval: number;
 	visitorInterval: number;
-}
+};
 
 class VisitorLogger implements LoggerProps {
 	VisitorModel = null;
@@ -49,7 +46,7 @@ class VisitorLogger implements LoggerProps {
 				time: String,
 				country: String,
 				region: String,
-			});
+			} as SchemaDefinition);
 
 			this.VisitorModel = mongoose.model('VisitorModel', VisitorSchema);
 		});
