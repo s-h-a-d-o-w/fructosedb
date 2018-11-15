@@ -5,7 +5,7 @@ export default class extends React.PureComponent {
 	render() {
 		return (
 			<Head>
-				<title>fructosedb</title>
+				<title>fructosedb - find low fructose foods</title>
 				<meta
 					name="Description"
 					content="A list of foods with their fructose and glucose content that allows people

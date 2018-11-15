@@ -5,7 +5,11 @@ export const loadState = (defaultState) => {
 	try {
 		return localStorage.getItem('state') === null
 			? defaultState
-			: JSON.parse(localStorage.getItem('state'));
+			: Object.assign(
+					{},
+					defaultState,
+					JSON.parse(localStorage.getItem('state'))
+			  );
 	} catch (e) {
 		console.error(e);
 		return defaultState;
