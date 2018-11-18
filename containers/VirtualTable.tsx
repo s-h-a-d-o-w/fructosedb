@@ -165,7 +165,7 @@ class VirtualTable extends React.Component<Props, State> {
 		);
 
 	getData = async () => {
-		const res = await fetch(`${process.env.BACKEND_URL}/list`);
+		const res = await fetch('list');
 		const data = await res.json();
 		this.setState({data});
 	};
@@ -175,9 +175,7 @@ class VirtualTable extends React.Component<Props, State> {
 
 		// Memoize this based on language so that switching back and forth
 		// doesn't cause requests?
-		const res = await fetch(
-			`${process.env.BACKEND_URL}/static/lang/${this.props.lang}.json`
-		);
+		const res = await fetch(`static/lang/${this.props.lang}.json`);
 		const translation = await res.json();
 		this.setState({translation});
 	};

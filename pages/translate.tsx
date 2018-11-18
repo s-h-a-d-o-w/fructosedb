@@ -33,7 +33,7 @@ class Translate extends React.Component<Props, State> {
 	};
 
 	getData = async () => {
-		const res = await fetch(`${process.env.BACKEND_URL}/list`);
+		const res = await fetch('list');
 
 		const foodNames = {};
 		(await res.json()).forEach((el) => (foodNames[el.name] = null));
@@ -42,9 +42,7 @@ class Translate extends React.Component<Props, State> {
 	};
 
 	getTranslation = async () => {
-		const res = await fetch(
-			`${process.env.BACKEND_URL}/static/lang/${this.props.langTranslate}.json`
-		);
+		const res = await fetch(`static/lang/${this.props.langTranslate}.json`);
 
 		if (res.status === 200)
 			this.setState({translatedKeys: Object.keys(await res.json())});
