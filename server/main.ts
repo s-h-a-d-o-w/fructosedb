@@ -15,7 +15,7 @@ import {spawn} from 'child_process';
 
 import {setupRoutes, updateFoodCache} from './routes.js';
 
-const port = parseInt(process.env.PORT, 10) || 3000;
+const port = process.env.PORT;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({dev});
 
