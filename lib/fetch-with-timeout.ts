@@ -1,9 +1,20 @@
-const fetch = require('isomorphic-unfetch');
+const isomorphicFetch = require('isomorphic-unfetch');
 
-export default (url: string, options?: object, timeout: number = 5000) =>
+const fetch = (url: string, options?: object, timeout: number = 5000) =>
 	Promise.race([
-		fetch(url, options),
+		isomorphicFetch(url, options),
 		new Promise((_, reject) =>
 			setTimeout(() => reject(new Error(`Request timed out: ${url}`)), timeout)
 		),
 	]);
+
+async function fetchJSON(
+	url: string,
+	options?: object,
+	timeout: number = 5000
+) {
+	const res = await fetch(url, options, timeout);
+	return res.json();
+}
+
+export {fetch, fetchJSON};

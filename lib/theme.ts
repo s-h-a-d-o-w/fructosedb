@@ -1,5 +1,4 @@
 export type Theme = {
-	largeThreshold: number;
 	largeDevices: string;
 
 	primaryLight: string;
@@ -13,8 +12,7 @@ export type Theme = {
 
 // http://paletton.com/#uid=34y0u0kn5sr5XTpg7ACsGlQGgbR
 const theme: Theme = {
-	largeThreshold: 45, // em
-	largeDevices: '@media all and (min-width: 45em)',
+	largeDevices: '@media all and (min-width: 800px)',
 
 	primaryLight: '#D7C3EB',
 	primary: '#653399', // almost rebeccapurple

@@ -1,5 +1,5 @@
 import * as querystring from 'querystring';
-import fetch from '../lib/fetch-with-timeout';
+import {fetch} from '../lib/fetch-with-timeout';
 
 export type Food = {
 	ndbno: string;

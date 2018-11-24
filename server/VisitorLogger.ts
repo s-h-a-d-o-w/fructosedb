@@ -5,20 +5,20 @@ const mongoose = require('mongoose');
 
 const isDev = !(process.env.NODE_ENV === 'production');
 
-type LoggerProps = {
+type Props = {
 	VisitorModel: any;
 	ipBuffer: string[];
 	reportInterval: number;
 	visitorInterval: number;
 };
 
-class VisitorLogger implements LoggerProps {
+class VisitorLogger implements Props {
 	VisitorModel = null;
 	ipBuffer = [];
 	reportInterval = 7 * 24 * 60 * 60 * 1000;
 	visitorInterval = 60 * 60 * 1000;
 
-	constructor(opts?: LoggerProps) {
+	constructor(opts?: Props) {
 		if (opts) {
 			this.reportInterval = opts.reportInterval || this.reportInterval;
 			this.visitorInterval = opts.visitorInterval || this.visitorInterval;
@@ -63,15 +63,10 @@ class VisitorLogger implements LoggerProps {
 			this.ipBuffer.push(ip);
 
 			const geo = geoip.lookup(ip);
-			const Visitor = new this.VisitorModel({
+			this.saveVisitor({
 				time: new Date().toLocaleDateString(),
 				country: geo === null ? '--' : geo.country,
 				region: geo === null ? '--' : geo.region,
-			});
-			Visitor.save(function(error) {
-				if (error) {
-					console.error(error);
-				}
 			});
 
 			// Requests within 1 hour are counted as one visit.
@@ -79,6 +74,18 @@ class VisitorLogger implements LoggerProps {
 				//console.log('Removing from visitor ip buffer:', this.ipBuffer.shift());
 			}, this.visitorInterval);
 		}
+	}
+
+	hitsPerProp(visitors, prop: string) {
+		const hitsPer = {};
+		visitors.forEach(
+			(visitor) =>
+				(hitsPer[visitor[prop]] = hitsPer[visitor[prop]]
+					? hitsPer[visitor[prop]] + 1
+					: 1)
+		);
+
+		return hitsPer;
 	}
 
 	report() {
@@ -91,21 +98,8 @@ class VisitorLogger implements LoggerProps {
 						reject(generalError);
 					}
 
-					const hitsPerDay = {};
-					visitors.forEach(
-						(visitor) =>
-							(hitsPerDay[visitor.time] = hitsPerDay[visitor.time]
-								? hitsPerDay[visitor.time] + 1
-								: 1)
-					);
-
-					const hitsPerCountry = {};
-					visitors.forEach(
-						(visitor) =>
-							(hitsPerCountry[visitor.country] = hitsPerCountry[visitor.country]
-								? hitsPerCountry[visitor.country] + 1
-								: 1)
-					);
+					const hitsPerDay = this.hitsPerProp(visitors, 'time');
+					const hitsPerCountry = this.hitsPerProp(visitors, 'country');
 
 					resolve(
 						`
@@ -125,6 +119,15 @@ ${JSON.stringify(hitsPerDay, null, 2)}
 		} else {
 			return 'Database connection failed.';
 		}
+	}
+
+	saveVisitor(visitorInfo: object) {
+		const Visitor = new this.VisitorModel(visitorInfo);
+		Visitor.save(function(error) {
+			if (error) {
+				console.error(error);
+			}
+		});
 	}
 }
 

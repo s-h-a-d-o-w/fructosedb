@@ -5,7 +5,7 @@ import Head from 'next/head';
 import BaseLayout from '../components/BaseLayout';
 import CenteredContent from '../components/CenteredContent';
 import Loading from '../components/Loading';
-import fetch from '../lib/fetch-with-timeout';
+import {fetch} from '../lib/fetch-with-timeout';
 import TranslationDropdown from '../containers/TranslationDropdown';
 import Link from '../components/Link';
 import Email from '../components/Email';

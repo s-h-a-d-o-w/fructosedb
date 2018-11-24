@@ -66,6 +66,27 @@ async function renderAndCache(app, req, res, pagePath, queryParams?) {
 // ==================================
 
 // ==================================
+// HELPERS
+// ==================================
+const renderServerHealth = () =>
+	`
+<pre>
+Platform: ${os.platform()}
+CPUs: ${os.cpuCount()}
+Free Mem: ${os.freemem()}
+Total Mem: ${os.totalmem()}
+Free Mem %: ${os.freememPercentage()}
+Sys uptime: ${os.sysUptime()}
+Proc uptime: ${os.processUptime()}
+
+CPU Load 1 min: ${os.loadavg(1)}
+CPU Load 5 min: ${os.loadavg(5)}
+CPU Load 15 min: ${os.loadavg(15)}
+</pre>
+`;
+// ==================================
+
+// ==================================
 // ROUTES
 // ==================================
 const setupRoutes = (nextApp, expressServer) => {
@@ -82,23 +103,7 @@ const setupRoutes = (nextApp, expressServer) => {
 	});
 
 	expressServer.get('/health', (_, res) => {
-		return res.send(
-			`
-<pre>
-Platform: ${os.platform()}
-CPUs: ${os.cpuCount()}
-Free Mem: ${os.freemem()}
-Total Mem: ${os.totalmem()}
-Free Mem %: ${os.freememPercentage()}
-Sys uptime: ${os.sysUptime()}
-Proc uptime: ${os.processUptime()}
-
-CPU Load 1 min: ${os.loadavg(1)}
-CPU Load 5 min: ${os.loadavg(5)}
-CPU Load 15 min: ${os.loadavg(15)}
-</pre>
-`
-		);
+		return res.send(renderServerHealth());
 	});
 
 	expressServer.get('/visitors', async (_, res) => {
