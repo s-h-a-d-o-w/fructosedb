@@ -24,3 +24,6 @@ Specify variables in `.env`.
 ### Production
 
 See `Dockerfile`. And of course secret values on various platforms.
+
+**Node 8** has to be used because of appmetrics-dash. (**Node 10** support will
+be in the next release)
