@@ -8,10 +8,6 @@ export type HeaderDataItem = {
 	remWidth: number;
 };
 
-type HeaderData = {
-	[key: string]: HeaderDataItem;
-};
-
 type Header = HeaderDataItem & {
 	name: string;
 };
@@ -51,7 +47,7 @@ const headerData = {
 		description: 'F/G ratio',
 		remWidth: 3.5,
 	},
-} as HeaderData;
+} as {[key: string]: HeaderDataItem};
 
 const generateHeaders = (cols: string[], lockedAvoid: boolean): Header[] =>
 	cols.map((col) =>
