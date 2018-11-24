@@ -78,7 +78,7 @@ class VirtualTable extends React.Component<Props, State> {
 						this.state.translation,
 						this.props.lang
 				  );
-		if (!Array.isArray(data)) data = [];
+		if (!Array.isArray(data)) return [];
 
 		// SORT
 		data = Data.sortData(

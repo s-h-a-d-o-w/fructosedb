@@ -4,6 +4,8 @@ import * as LRUCache from 'lru-cache';
 
 import VisitorLogger from './VisitorLogger';
 import {fetchFoodsList, Food} from './usda';
+import * as Express from 'express';
+import * as Next from 'next';
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -34,7 +36,13 @@ const ssrCache = new LRUCache({
 	maxAge: 1000 * 60 * 60, // 1 hour
 });
 
-async function renderAndCache(app, req, res, pagePath, queryParams?) {
+async function renderAndCache(
+	app: Next.Server,
+	req: Express.Request,
+	res: Express.Response,
+	pagePath: string,
+	queryParams?
+) {
 	const key = req.url;
 
 	// If we have a page in the cache, let's serve it
@@ -89,7 +97,7 @@ CPU Load 15 min: ${os.loadavg(15)}
 // ==================================
 // ROUTES
 // ==================================
-const setupRoutes = (nextApp, expressServer) => {
+const setupRoutes = (nextApp, expressServer: Express.Express) => {
 	const visitorLogger = new VisitorLogger();
 	const nextHandle = nextApp.getRequestHandler();
 

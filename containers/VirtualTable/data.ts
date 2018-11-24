@@ -69,14 +69,14 @@ const generateHeaders = (cols: string[], lockedAvoid: boolean): Header[] =>
 
 const sortData = memoize(
 	(data: Food[], sortBy: string, sortAsc: boolean, lockedAvoid: boolean) => {
-		return data.length === 0
-			? data
-			: lockedAvoid
-				? sort(data).by([
-						{desc: 'avoid'},
-						sortAsc ? {asc: sortBy} : {desc: sortBy},
-				  ])
-				: sort(data).by([sortAsc ? {asc: sortBy} : {desc: sortBy}]);
+		let sortCriteria = [];
+
+		if (lockedAvoid) {
+			sortCriteria.push({desc: 'avoid'});
+		}
+		sortCriteria.push(sortAsc ? {asc: sortBy} : {desc: sortBy});
+
+		return sort(data).by(sortCriteria);
 	}
 );
 
