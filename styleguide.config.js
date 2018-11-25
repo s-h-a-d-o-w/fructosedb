@@ -11,7 +11,7 @@ module.exports = {
 		propFilter: (props) =>
 			!props.parent && props.name !== 'innerRef' && props.name !== 'theme',
 	}).parse,
-	require: ['static/styleguide.css'],
+	require: ['static/css/global.css'],
 	// Available theme variables: https://github.com/styleguidist/react-styleguidist/blob/master/src/styles/theme.js
 	theme: {
 		color: {

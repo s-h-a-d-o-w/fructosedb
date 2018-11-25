@@ -27,38 +27,7 @@ export default class extends React.PureComponent {
 					type="font/woff2"
 					crossOrigin="crossorigin"
 				/>
-				<style
-					dangerouslySetInnerHTML={{
-						__html: `
-						/* box-sizing required for border to work within table */
-						html {
-							box-sizing: border-box;
-							font-size: 100%;
-						}
-						*, *:before, *:after {
-							box-sizing: inherit;
-						}
-
-						body {
-							margin: 0;
-						}
-
-						@font-face {
-							font-family: 'Roboto Slab';
-							src: url('/static/fonts/roboto-slab.woff2') format('woff2'),
-								url('/static/fonts/roboto-slab.woff') format('woff');
-							font-display: block;
-						}
-
-						@font-face {
-							font-family: 'Roboto Condensed';
-							src: url('/static/fonts/roboto-condensed.woff2') format('woff2'),
-								url('/static/fonts/roboto-condensed.woff') format('woff');
-							font-display: block;
-						}
-					`,
-					}}
-				/>
+				<link rel="stylesheet" href="/static/css/global.css" />
 				{/* Force favicon refresh on changes */}
 				<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20181018" />
 				<link rel="prefetch" href="/static/images/usda-symbol.svg" />
