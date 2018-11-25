@@ -1,9 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-// Enforce a 1:1 aspect ratio so that spinner stays round
-// even when using percentage for width/height.
-const StyledAspectRatio = styled.div`
+const StyledFillContainer = styled.div`
 	display: flex;
 	width: 100%;
 	height: 100%;
@@ -45,9 +43,8 @@ const StyledIcon = styled.div`
 	}
 `;
 
-// Basically centered (moved up a bit for better visual balance), takes up 20% of the parent container
 export default () => (
-	<StyledAspectRatio>
+	<StyledFillContainer>
 		<StyledIcon />
-	</StyledAspectRatio>
+	</StyledFillContainer>
 );

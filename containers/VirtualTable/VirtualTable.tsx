@@ -7,7 +7,7 @@ import {boundMethod} from 'autobind-decorator';
 import {actions, actionTypes} from '../../store/store.js';
 import {fetchJSON} from '../../lib/fetch-with-timeout';
 import {isEmptyObject} from '../../lib/util';
-import * as TableSymbols from '../../components/TableSymbols';
+import TableIcon from '../../components/TableIcon';
 import {Food} from '../../server/usda';
 
 import StyledTable from './style';
@@ -105,8 +105,9 @@ class VirtualTable extends React.Component<Props, State> {
 	// =================================
 	// RENDER HELPERS
 	// =================================
-	avoidRenderer = ({cellData}) =>
-		cellData ? TableSymbols.Error : TableSymbols.OK;
+	avoidRenderer = ({cellData: avoid}) => (
+		<TableIcon name={avoid ? 'error' : 'ok'} />
+	);
 
 	nameRenderer = ({cellData}: {cellData: string}) => (
 		<div

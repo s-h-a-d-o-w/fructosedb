@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import theme from '../lib/theme';
 
+/**
+ * @component
+ * @example ../docs/examples/Note.md
+ */
 export default styled.p`
 	text-align: justify;
 	text-indent: 1rem;

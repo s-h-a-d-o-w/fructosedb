@@ -1,9 +1,17 @@
-const {createConfig, babel} = require('webpack-blocks');
+const {match, createConfig, babel, css, file} = require('webpack-blocks');
 const typescript = require('@webpack-blocks/typescript');
 const devServer = require('@webpack-blocks/dev-server');
 
 // Based on: https://github.com/rumble-charts/rumble-charts/blob/master/styleguide.config.js
 module.exports = {
+	propsParser: require('react-docgen-typescript').withDefaultConfig({
+		// Discard all props not defined by ourselves but Web API or libraries (e.g. styled-components)
+		// Needs tweaking depending on component architecture:
+		// https://github.com/styleguidist/react-docgen-typescript/issues/49#issuecomment-439638609
+		propFilter: (props) =>
+			!props.parent && props.name !== 'innerRef' && props.name !== 'theme',
+	}).parse,
+	require: ['static/styleguide.css'],
 	// Available theme variables: https://github.com/styleguidist/react-styleguidist/blob/master/src/styles/theme.js
 	theme: {
 		color: {
@@ -23,19 +31,17 @@ module.exports = {
 	},
 	title: 'fructosedb Styleguide',
 	usageMode: 'expand',
-	components: 'components/**/*.{js,jsx,ts,tsx}', // Required for Props & Methods to be parsed
-	sections: [
-		{
-			name: 'Components',
-			content: './docs/components.md',
-			components: function() {
-				return ['./components/Burger.tsx'];
-			},
-		},
+	components: [
+		'./components/Burger.tsx',
+		'./components/Note.tsx',
+		'./components/Paragraph.tsx',
+		'./components/TableIcon.tsx',
 	],
 	webpackConfig: createConfig([
 		devServer(),
 		babel(),
+		match(['*.css', '!*node_modules*'], [css()]),
+		match(['*.eot', '*.ttf', '*.woff', '*.woff2'], [file()]),
 		// Using babel for TS is necessary because of "jsx": "preserve" in tsconfig.json
 		// (Which is required for the next.js build pipeline)
 		typescript({

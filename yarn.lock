@@ -1578,7 +1578,7 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
-awesome-typescript-loader@^5.2.0:
+awesome-typescript-loader@5.2.1, awesome-typescript-loader@^5.2.0:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/awesome-typescript-loader/-/awesome-typescript-loader-5.2.1.tgz#a41daf7847515f4925cdbaa3075d61f289e913fc"
   integrity sha512-slv66OAJB8orL+UUaTI3pKlLorwIvS4ARZzYR9iJJyGsEgOqueMfOMdKySWzZ73vIkEe3fcwFgsKMg4d8zyb1g==
@@ -7807,10 +7807,10 @@ react-docgen-displayname-handler@^2.1.0:
   dependencies:
     ast-types "0.11.5"
 
-react-docgen-typescript@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-1.8.1.tgz#045882aef7b77e629f575bdf0cd94ebeeda0c8a6"
-  integrity sha512-8V8ZoclLm+OKqzX0VYuFizK6i9vaPPJxBeSQkpue0+8ShI3tFMuPT4/G48mQ1YYZbiXsjX8UmLxmFtBnXjCfXQ==
+react-docgen-typescript@1.12.2:
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-1.12.2.tgz#d5fb578d12f6876efdde69176f4ea658e75a9a29"
+  integrity sha512-pcot0jGiMIyhmwNeSU83GvClNwk9NbcnYHcGf4pKMmw5J43d5OzYRcTzrZTGlIOWjYfYazYhvTxjujE625P3Mw==
 
 react-docgen@3.0.0-beta12:
   version "3.0.0-beta12"

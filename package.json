@@ -11,7 +11,7 @@
     "prepare": "patch-package",
     "start": "cross-env NODE_ENV=production yarn build && node server/main.js",
     "style": "yarn styleguidist server",
-    "test": "cross-env TESTRUN=true yarn start"
+    "test": "yarn styleguidist build && cross-env TESTRUN=true yarn start"
   },
   "dependencies": {
     "autobind-decorator": "2.3.1",
@@ -53,6 +53,7 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-typescript": "^1.1.0",
     "appmetrics-dash": "4.0.0",
+    "awesome-typescript-loader": "5.2.1",
     "babel-plugin-inline-react-svg": "0.5.4",
     "babel-plugin-styled-components": "1.5.1",
     "babel-plugin-transform-define": "1.3.0",
@@ -66,7 +67,7 @@
     "patch-package": "5.1.1",
     "postinstall-prepare": "1.0.1",
     "prettier": "1.14.2",
-    "react-docgen-typescript": "1.8.1",
+    "react-docgen-typescript": "1.12.2",
     "react-styleguidist": "7.3.8",
     "rimraf": "2.6.2",
     "svg-inline-loader": "0.8.0",
