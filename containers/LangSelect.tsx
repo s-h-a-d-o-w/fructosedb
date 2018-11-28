@@ -119,8 +119,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 /**
- * TODO: Report that react-docgen-typescript doesn't parse this as well as react-docgen does.
- *
  * @example ../docs/examples/LangSelect.md
  */
 export default connect(
