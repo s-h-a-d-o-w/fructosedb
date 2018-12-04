@@ -1,11 +1,12 @@
 // see: https://github.com/zeit/next.js/blob/master/examples/with-redux/lib/with-redux-store.js
 import React from 'react';
+import * as Redux from 'redux';
 import {initializeStore, actions} from '../store/store';
 
 const isServer = typeof window === 'undefined';
 const __NEXT_REDUX_STORE__ = '__NEXT_REDUX_STORE__';
 
-function getOrCreateStore(initialState) {
+function getOrCreateStore(initialState?: object): Redux.Store {
 	// Always make a new store if server, otherwise state is shared between requests
 	if (isServer) {
 		return initializeStore(initialState);
@@ -16,11 +17,11 @@ function getOrCreateStore(initialState) {
 		window[__NEXT_REDUX_STORE__] = initializeStore(initialState);
 	}
 
-	if (module.hot) {
-		module.hot.accept('../store/store.js', () => {
+	if ((module as any).hot) {
+		(module as any).hot.accept('../store/store', () => {
 			console.log('Replacing reducer');
 			window[__NEXT_REDUX_STORE__].replaceReducer(
-				require('../store/store.js').reducer
+				require('../store/store').reducer
 			);
 		});
 	}
@@ -30,6 +31,8 @@ function getOrCreateStore(initialState) {
 
 export default (App) => {
 	return class AppWithRedux extends React.Component {
+		reduxStore: Redux.Store;
+
 		constructor(props) {
 			super(props);
 			this.reduxStore = getOrCreateStore(props.initialReduxState);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {actions} from '../store/store.js';
+import {actions} from '../store/store';
 import styled from 'styled-components';
 import LangSelect from './LangSelect';
 import theme from '../lib/theme';

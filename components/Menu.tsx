@@ -5,7 +5,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import theme from '../lib/theme';
 import Link from './Link';
 
-const Mobile: any = styled.div`
+const Mobile = styled.div`
 	transition: left 150ms ease-out;
 	left: 0;
 

@@ -4,7 +4,7 @@ import {AutoSizer, Table, Column, SortDirection} from 'react-virtualized';
 import toPX from 'to-px';
 import {boundMethod} from 'autobind-decorator';
 
-import {actions, actionTypes} from '../../store/store.js';
+import {actions, actionTypes} from '../../store/store';
 import {fetchJSON} from '../../lib/fetch-with-timeout';
 import {isEmptyObject} from '../../lib/util';
 import TableIcon from '../../components/TableIcon';
@@ -105,11 +105,11 @@ class VirtualTable extends React.Component<Props, State> {
 	// =================================
 	// RENDER HELPERS
 	// =================================
-	avoidRenderer = ({cellData: avoid}) => (
-		<TableIcon name={avoid ? 'error' : 'ok'} />
+	avoidRenderer = ({cellData}: {cellData?: string}) => (
+		<TableIcon name={cellData ? 'error' : 'ok'} />
 	);
 
-	nameRenderer = ({cellData}: {cellData: string}) => (
+	nameRenderer = ({cellData}: {cellData?: string}) => (
 		<div
 			onClick={this.props.dispatchShowFloat.bind(this, cellData)}
 			onMouseOver={this.props.dispatchShowFloat.bind(this, cellData)}
@@ -224,25 +224,17 @@ const mapStateToProps = ({
 	sortAsc,
 });
 
-const dispatchColAction = (dispatch, {sortBy: col, sortDirection}) =>
-	col === 'avoid'
-		? dispatch({type: actionTypes.TOGGLE_LOCK_AVOID})
-		: dispatch(actions.changeSort(col, sortDirection === SortDirection.ASC));
-
-const dispatchShowFloat = (
-	dispatch,
-	name: string,
-	e: MouseEvent & {target: HTMLElement}
-) => {
-	if (e.target.scrollWidth > e.target.clientWidth) {
-		e.stopPropagation();
-		dispatch(actions.showFloat(name, e.pageX, e.pageY));
-	}
-};
-
 const mapDispatchToProps = (dispatch) => ({
-	dispatchColAction: dispatchColAction.bind(null, dispatch),
-	dispatchShowFloat: dispatchShowFloat.bind(null, dispatch),
+	dispatchColAction: ({sortBy: col, sortDirection}) =>
+		col === 'avoid'
+			? dispatch({type: actionTypes.TOGGLE_LOCK_AVOID})
+			: dispatch(actions.changeSort(col, sortDirection === SortDirection.ASC)),
+	dispatchShowFloat: (name: string, e: MouseEvent & {target: HTMLElement}) => {
+		if (e.target.scrollWidth > e.target.clientWidth) {
+			e.stopPropagation();
+			dispatch(actions.showFloat(name, e.pageX, e.pageY));
+		}
+	},
 });
 
 export default connect(

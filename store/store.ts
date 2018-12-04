@@ -1,8 +1,9 @@
 import {createStore, applyMiddleware} from 'redux';
+import * as Redux from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 
-import {loadState, saveState} from './local-storage.js';
+import {loadState, saveState} from './local-storage';
 import {isEmptyObject} from '../lib/util';
 
 export const actionTypes = {
@@ -99,7 +100,7 @@ export const actions = {
 };
 
 // INITIALIZATION
-const defaultInitialState = {
+export const defaultInitialState = {
 	count: 0,
 	float: {},
 	lastUpdate: 0,
@@ -112,7 +113,9 @@ const defaultInitialState = {
 	sortAsc: true,
 };
 
-export const initializeStore = (initialState = defaultInitialState) => {
+export const initializeStore = (
+	initialState: object = defaultInitialState
+): Redux.Store => {
 	return createStore(
 		// No persistence on the server.
 		typeof window === 'undefined'

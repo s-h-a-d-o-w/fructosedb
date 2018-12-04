@@ -2,11 +2,13 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-const StyledFloat = styled.div.attrs({
+export const VERTICAL_OFFSET = 30;
+
+const StyledFloat = styled.div.attrs<Props>({
 	// This prevents classes from being created with every change
 	style: (props) => ({
 		left: `${props.float ? props.float.x : 0}px`,
-		top: `${props.float ? props.float.y - 30 : 0}px`,
+		top: `${props.float ? props.float.y - VERTICAL_OFFSET : 0}px`,
 	}),
 })`
 	font-family: 'Roboto Condensed', sans-serif;

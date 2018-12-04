@@ -17,20 +17,28 @@ export type Food = {
 	isFruit: boolean;
 };
 
+type Nutrient = {
+	nutrient_id: string;
+	nutrient: string;
+	unit: string;
+	value: string;
+	gm: number | '--';
+};
+
+type ValidNutrient = Nutrient & {
+	gm: number;
+};
+
 type USDAFood = {
 	ndbno: string;
 	name: string;
 	weight: number;
 	measure: string;
-	nutrients: [
-		{
-			nutrient_id: string;
-			nutrient: string;
-			unit: string;
-			value: string;
-			gm: number | '--';
-		}
-	];
+	nutrients: Array<Nutrient>;
+};
+
+type ValidUSDAFood = USDAFood & {
+	nutrients: Array<ValidNutrient>;
 };
 
 type USDAReport = {
@@ -45,10 +53,10 @@ type USDAReport = {
 
 // DATA CALCULATION
 // ------------------------------------
-const nutrientPerServing = (gm: number, weight: number): number =>
+export const nutrientPerServing = (gm: number, weight: number): number =>
 	Math.round(gm * weight) / 100;
 
-const fructoseGlucoseRatio = (
+export const fructoseGlucoseRatio = (
 	fructose: number,
 	sucrose: number,
 	glucose: number
@@ -57,7 +65,7 @@ const fructoseGlucoseRatio = (
 	100;
 
 // See: https://www.foodsmatter.com/miscellaneous_articles/sugar_sweeteners/articles/fructose-intol-joneja-09-14.html
-const shouldAvoid = (
+export const shouldAvoid = (
 	servingSize: number,
 	fructose: number,
 	sucrose: number,
@@ -68,7 +76,8 @@ const shouldAvoid = (
 
 	// No more than 3g per serving (we of course have to estimate based on what
 	// the USDA says the serving size is)
-	let absolute = (servingSize / 100) * fructose > 3;
+	let absolute =
+		(servingSize / 100) * fructose + (servingSize / 100) * sucrose * 0.5 > 3;
 
 	return relative || absolute;
 };
@@ -82,7 +91,7 @@ const shouldAvoid = (
  * For instance - if a given food has the same F/G ratio when raw vs. when cooked, there
  * is no need to list it twice.
  */
-const removeSimilar = (data: Food[]): Food[] => {
+export const removeSimilar = (data: Food[]): Food[] => {
 	let thresholdRatio = 0.1;
 	let thresholdFructose = 1;
 	// Threshold of 5 e.g. removes apple juices -> too short
@@ -138,7 +147,7 @@ const removeSimilar = (data: Food[]): Food[] => {
 
 // Format the data the way the frontend needs it.
 // Discard items that don't contain all needed nutrient info.
-const transformData = (data: USDAFood[], fruitIDs: string[]): Food[] =>
+export const transformData = (data: USDAFood[], fruitIDs: string[]): Food[] =>
 	data
 		.filter(
 			(el) =>
@@ -146,7 +155,7 @@ const transformData = (data: USDAFood[], fruitIDs: string[]): Food[] =>
 				el.nutrients[0].gm !== '--' &&
 				el.nutrients[1].gm !== '--'
 		)
-		.map(({ndbno, name, weight, measure, nutrients}: any) => ({
+		.map(({ndbno, name, weight, measure, nutrients}: ValidUSDAFood) => ({
 			ndbno,
 			name,
 			weight,
@@ -171,7 +180,7 @@ const transformData = (data: USDAFood[], fruitIDs: string[]): Food[] =>
 			isFruit: fruitIDs.includes(ndbno),
 		}));
 
-async function getFruitIDs(): Promise<string[]> {
+export async function getFruitIDs(): Promise<string[]> {
 	// For food group ID see: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
 	const foods = (await getReport(1500, 0, '0900')).foods;
 	const ids: string[] = [];
@@ -179,7 +188,7 @@ async function getFruitIDs(): Promise<string[]> {
 	return ids;
 }
 
-async function getReport(
+export async function getReport(
 	max: number = 1,
 	offset: number = 0,
 	fg: string | string[] = ''
@@ -197,13 +206,13 @@ async function getReport(
 	if (res.status === 200) {
 		return (await res.json()).report;
 	} else {
-		throw `Contacting ${dbURL} failed! (code: ${res.status}`;
+		throw `${res} Contacting ${dbURL} failed! (code: ${res.status}`;
 	}
 }
 
 // Get full list of foods from the USDA DB.
 // Data rearranged as needed by the frontend. (see transformData())
-async function fetchFoodsList(): Promise<Food[]> {
+export async function fetchFoodsList(): Promise<Food[]> {
 	// Included food groups.
 	// Only 10 can be specified at once!
 	// See also: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
@@ -226,5 +235,3 @@ async function fetchFoodsList(): Promise<Food[]> {
 
 	return removeSimilar(transformData(data, await getFruitIDs()));
 }
-
-export {fetchFoodsList};

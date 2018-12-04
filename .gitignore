@@ -1,12 +1,25 @@
 .env
 prod_env.bat
+assets
+
+# various build output
+.next
+styleguide
 
 # TS compiled files
 lib/fetch-with-timeout.js
+lib/fetch-with-timeout.js.map
 server/*.js
+server/*.js.map
+store/*.js
+store/*.js.map
 
 # Webpack analyzer output
 bundles
+
+# ------------------------------
+# Default stuff below
+# ------------------------------
 
 # Logs
 logs
@@ -66,6 +79,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
-# next.js build output
-.next

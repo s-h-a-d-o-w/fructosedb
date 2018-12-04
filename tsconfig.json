@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "noEmit": true,
+    "experimentalDecorators": true,
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
@@ -17,7 +19,13 @@
     "lib": [
       "dom",
       "es2016"
-    ],
-    "experimentalDecorators": true
-  }
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }

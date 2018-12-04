@@ -12,8 +12,6 @@ process.env.BACKEND_URL = !process.env.BACKEND_URL
 	? `http://${ip.address()}:${process.env.PORT}`
 	: process.env.BACKEND_URL;
 
-console.log(process.env.BACKEND_URL);
-
 // Exported values are provided to frontend via transform-define
 module.exports = {
 	'process.env.BACKEND_URL': process.env.BACKEND_URL,

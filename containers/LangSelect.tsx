@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
+
 // @ts-ignore
 import DE from '../static/lang/de.svg';
 // @ts-ignore
 import US from '../static/lang/us.svg';
-
-import {actions} from '../store/store.js';
+import {actions} from '../store/store';
 
 const StyledFlag = styled.div`
 	position: relative;
