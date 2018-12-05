@@ -1,3 +1,5 @@
+import * as jestFetchMock from 'jest-fetch-mock';
+import {fetch as originalFetch} from '../../lib/fetch-with-timeout';
 import {
 	fetchFoodsList,
 	fructoseGlucoseRatio,
@@ -7,11 +9,10 @@ import {
 	transformData,
 } from '../usda';
 
-import {fetch} from '../../lib/fetch-with-timeout';
-import * as jestFetchMock from 'jest-fetch-mock';
-
-jest.mock('../../lib/fetch-with-timeout');
-type JestFetchMock = typeof jestFetchMock;
+jest.mock('../../lib/fetch-with-timeout', () => ({
+	fetch: require('jest-fetch-mock'),
+}));
+const fetch = originalFetch as typeof jestFetchMock;
 
 const fruitIDs = [];
 const usdaData = {
@@ -61,9 +62,12 @@ const usdaData = {
 	},
 };
 
+beforeAll(() => {
+	fetch.mockResponse(JSON.stringify(usdaData));
+});
+
 describe('fetchFoodsList', function() {
 	it('fetches foods correctly', function(done) {
-		(fetch as JestFetchMock).mockResponse(JSON.stringify(usdaData));
 		fetchFoodsList().then((foods) => {
 			expect(foods.length).toEqual(1);
 			done();
@@ -82,7 +86,6 @@ describe('fructoseGlucoseRatio', function() {
 
 describe('getReport', function() {
 	it('extracts report correctly from USDA data', function(done) {
-		(fetch as JestFetchMock).mockResponse(JSON.stringify(usdaData));
 		getReport().then((report) => {
 			expect(report.foods.length).toEqual(1);
 			done();
@@ -90,7 +93,7 @@ describe('getReport', function() {
 	});
 
 	it('throws if request is rejected', async function() {
-		(fetch as JestFetchMock).mockReject(new Error('Request rejected'));
+		fetch.mockRejectOnce(new Error('Request rejected'));
 
 		// See: https://github.com/facebook/jest/issues/3601#issuecomment-411244192
 		await expect(getReport()).rejects.toThrow();
