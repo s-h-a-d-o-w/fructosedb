@@ -14,7 +14,12 @@ async function fetchJSON(
 	timeout: number = 5000
 ) {
 	const res = await fetch(url, options, timeout);
-	return res.json();
+
+	if (res.status === 200) {
+		return await res.json();
+	} else {
+		throw `${res.status} ${url}: ${res.statusText}`;
+	}
 }
 
 export {fetch, fetchJSON};

@@ -1,5 +1,5 @@
 import * as querystring from 'querystring';
-import {fetch} from '../lib/fetch-with-timeout';
+import {fetchJSON} from '../lib/fetch-with-timeout';
 
 export type Food = {
 	ndbno: string;
@@ -201,13 +201,8 @@ export async function getReport(
 		fg, // food group (used for figuring out which are fruits)
 	});
 	const dbURL = `http://api.nal.usda.gov/ndb/nutrients/?${query}`;
-	const res = await fetch(dbURL);
 
-	if (res.status === 200) {
-		return (await res.json()).report;
-	} else {
-		throw `${res} Contacting ${dbURL} failed! (code: ${res.status}`;
-	}
+	return (await fetchJSON(dbURL)).report;
 }
 
 // Get full list of foods from the USDA DB.

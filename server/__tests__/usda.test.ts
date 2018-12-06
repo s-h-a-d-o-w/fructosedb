@@ -1,5 +1,4 @@
 import * as jestFetchMock from 'jest-fetch-mock';
-import {fetch as originalFetch} from '../../lib/fetch-with-timeout';
 import {
 	fetchFoodsList,
 	fructoseGlucoseRatio,
@@ -9,10 +8,8 @@ import {
 	transformData,
 } from '../usda';
 
-jest.mock('../../lib/fetch-with-timeout', () => ({
-	fetch: require('jest-fetch-mock'),
-}));
-const fetch = originalFetch as typeof jestFetchMock;
+jest.mock('isomorphic-unfetch', () => require('jest-fetch-mock'));
+const fetch = require('isomorphic-unfetch') as typeof jestFetchMock;
 
 const fruitIDs = [];
 const usdaData = {
