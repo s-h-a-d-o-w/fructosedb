@@ -13,6 +13,8 @@ export default class extends React.PureComponent {
 					&quot;DFI&quot;) to adjust their diet more easily."
 				/>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta name="theme-color" content="#653399" />
+				<link rel="manifest" href="/site.webmanifest" />
 				<link
 					rel="preload"
 					href="/static/fonts/roboto-slab.woff2"

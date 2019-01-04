@@ -110,6 +110,14 @@ const setupRoutes = (nextApp, expressServer: Express.Express) => {
 		return res.json(foodCache);
 	});
 
+	expressServer.get('/service-worker.js', (req, res) => {
+		return nextApp.serveStatic(
+			req,
+			res,
+			path.join(__dirname, '../.next/service-worker.js')
+		);
+	});
+
 	expressServer.get('/health', (_, res) => {
 		return res.send(renderServerHealth());
 	});
@@ -129,6 +137,14 @@ const setupRoutes = (nextApp, expressServer: Express.Express) => {
 			req,
 			res,
 			path.join(__dirname, '../static/favicon.ico')
+		);
+	});
+
+	expressServer.get('/site.webmanifest', (req, res) => {
+		return nextApp.serveStatic(
+			req,
+			res,
+			path.join(__dirname, '../static/site.webmanifest')
 		);
 	});
 
