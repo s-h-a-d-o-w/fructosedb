@@ -12,6 +12,7 @@ import {Food} from '../../server/usda';
 
 import StyledTable from './style';
 import * as Data from './data';
+import Loading from '../../components/Loading';
 
 type Props = {
 	filter: string;
@@ -34,7 +35,7 @@ type Props = {
 type State = {
 	data: Food[];
 	dataTranslated: Food[];
-	hasMounted: boolean;
+	isFetching: boolean;
 	translation: object;
 };
 
@@ -48,7 +49,7 @@ class VirtualTable extends React.Component<Props, State> {
 	state = {
 		data: [],
 		dataTranslated: [],
-		hasMounted: false,
+		isFetching: false,
 		translation: {},
 	};
 
@@ -57,7 +58,12 @@ class VirtualTable extends React.Component<Props, State> {
 	// =================================
 	@boundMethod
 	fetchData() {
-		fetchJSON(`list`).then((data) => this.setState({data}));
+		fetchJSON(`list`).then((data) =>
+			this.setState({
+				data,
+				isFetching: false,
+			})
+		);
 	}
 
 	@boundMethod
@@ -159,7 +165,9 @@ class VirtualTable extends React.Component<Props, State> {
 	// LIFECYCLE METHODS
 	// =============================
 	componentDidMount() {
-		this.setState({hasMounted: true});
+		this.setState({
+			isFetching: true,
+		});
 		this.fetchData();
 
 		if (this.props.lang !== 'en') this.fetchTranslation();
@@ -178,9 +186,12 @@ class VirtualTable extends React.Component<Props, State> {
 	}
 
 	render() {
-		let data = this.prepareData();
+		const {isFetching} = this.state;
+		const data = this.prepareData();
 
-		return (
+		return isFetching ? (
+			<Loading />
+		) : (
 			<StyledTable innerRef={this.tableRef}>
 				<AutoSizer>
 					{({width, height}) => (

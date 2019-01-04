@@ -18,20 +18,7 @@ const StyledIcon = styled.div`
 	border: 0.5rem rgba(255, 255, 255, 0.25) solid;
 	border-top: 0.5rem rgba(255, 255, 255, 1) solid;
 	border-radius: 50%;
-	animation: delayStart 2s, spCircRot 1s infinite linear;
-
-	/* Prevent brief showing of this for fast connections */
-	@keyframes delayStart {
-		0% {
-			opacity: 0;
-		}
-		50% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
+	animation: spCircRot 1s infinite linear;
 
 	@keyframes spCircRot {
 		from {
