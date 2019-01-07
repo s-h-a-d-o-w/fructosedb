@@ -45,14 +45,8 @@ app.prepare().then(() => {
 				`> ${dev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
 			);
 
-			// First page load appears to be slower than subsequent ones,
-			// so trigger one on startup
+			// Build SSR cache
 			setTimeout(() => spawn('curl', [process.env.BACKEND_URL]), 500);
-			// ... and try to prevent deployment from entering idle mode
-			setInterval(
-				() => spawn('curl', [process.env.BACKEND_URL]),
-				5 * 60 * 1000
-			);
 
 			if ('TESTRUN' in process.env || 'TRAVIS' in process.env) {
 				process.exit(0);
