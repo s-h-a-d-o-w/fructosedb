@@ -11,7 +11,7 @@
     "prepare": "patch-package",
     "start": "cross-env NODE_ENV=production node server/main.js",
     "style": "yarn styleguidist server",
-    "test": "tsc && yarn jest && yarn styleguidist build && yarn build:server && cross-env TESTRUN=true yarn start"
+    "test": "tsc && yarn jest && yarn build && cross-env TESTRUN=true yarn start"
   },
   "dependencies": {
     "autobind-decorator": "2.3.1",
