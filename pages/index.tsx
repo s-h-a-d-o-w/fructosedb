@@ -85,15 +85,6 @@ class Index extends React.Component<IProps, IState> {
 						)}
 					</CenteredContent>
 				</BaseLayout>
-				{/* Preload REST call after fonts (which is done via BaseLayout) */}
-				<Head>
-					<link
-						rel="preload"
-						href="/list"
-						as="fetch"
-						crossOrigin="crossorigin"
-					/>
-				</Head>
 			</>
 		);
 	}

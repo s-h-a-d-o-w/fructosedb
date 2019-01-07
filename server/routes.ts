@@ -103,6 +103,13 @@ const setupRoutes = (nextApp, expressServer: Express.Express) => {
 
 	expressServer.get('/', (req, res) => {
 		visitorLogger.log(req.ip);
+		// Push everything that is needed for FMP and avoids FOUT/FOUC.
+		res.set('Link', [
+			'</static/fonts/roboto-slab.woff2>; rel=preload; as=font; crossorigin=anonymous',
+			'</static/fonts/roboto-condensed.woff2>; rel=preload; as=font; crossorigin=anonymous',
+			'</static/css/global.css>; rel=preload; as=style; crossorigin=anonymous',
+			'</list>; rel=preload; as=fetch; crossorigin=anonymous',
+		]);
 		return dev ? nextHandle(req, res) : renderAndCache(nextApp, req, res, '/');
 	});
 

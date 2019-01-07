@@ -15,20 +15,6 @@ export default class extends React.PureComponent {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta name="theme-color" content="#653399" />
 				<link rel="manifest" href="/site.webmanifest" />
-				<link
-					rel="preload"
-					href="/static/fonts/roboto-slab.woff2"
-					as="font"
-					type="font/woff2"
-					crossOrigin="crossorigin"
-				/>
-				<link
-					rel="preload"
-					href="/static/fonts/roboto-condensed.woff2"
-					as="font"
-					type="font/woff2"
-					crossOrigin="crossorigin"
-				/>
 				<link rel="stylesheet" href="/static/css/global.css" />
 				{/* Force favicon refresh on changes */}
 				<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20181018" />

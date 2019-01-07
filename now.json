@@ -1,5 +1,5 @@
 {
-  "type": "docker",
+  "type": "npm",
   "name": "fructosedb",
   "alias": "www.fructosedb.org",
   "env": {
@@ -9,12 +9,12 @@
   },
   "scale": {
     "bru1": {
-      "min": 2,
-      "max": 2
+      "min": 1,
+      "max": 1
     },
     "sfo1": {
-      "min": 2,
-      "max": 2
+      "min": 1,
+      "max": 1
     }
   }
 }
