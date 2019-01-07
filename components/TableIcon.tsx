@@ -6,7 +6,7 @@ const StyledSVG = styled.svg`
 	height: 1.3em;
 
 	.symbol {
-		stroke-width: 0.7em;
+		stroke-width: 8px;
 		stroke: #fff;
 	}
 `;
