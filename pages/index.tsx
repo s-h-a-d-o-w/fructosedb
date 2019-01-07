@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import screenfull from 'screenfull';
-import Head from 'next/head';
 
 import BaseLayout from '../components/BaseLayout';
 import Options from '../containers/Options';
