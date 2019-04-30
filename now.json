@@ -1,7 +1,7 @@
 {
   "type": "npm",
   "name": "fructosedb",
-  "alias": "www.fructosedb.org",
+  "alias": ["fructosedb.org", "www.fructosedb.org"],
   "env": {
     "USDA_KEY": "@fructosedb-usda-key",
     "DASHBOARD_PATH": "@fructosedb-dashboard-path",
