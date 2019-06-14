@@ -56,7 +56,6 @@
     "@zeit/next-bundle-analyzer": "0.1.1",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-typescript": "^1.1.0",
-    "appmetrics-dash": "4.0.0",
     "awesome-typescript-loader": "5.2.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "23.6.0",

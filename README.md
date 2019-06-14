@@ -10,7 +10,6 @@
 
 - `USDA_KEY` - For accessing USDA REST API
 - `MONGODB_PW` - For logging visitors
-- `DASHBOARD_PATH` - For appmetrics dashboard
 
 #### Optional
 
@@ -24,6 +23,3 @@ Specify variables in `.env`.
 ### Production
 
 See `Dockerfile`. And of course secret values on various platforms.
-
-**Node 8** has to be used because of appmetrics-dash. (**Node 10** support will
-be in the next release)

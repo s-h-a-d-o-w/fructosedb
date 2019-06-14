@@ -1,13 +1,5 @@
 import '../env-config';
 
-// import * as appmetricsDash from 'appmetrics-dash';
-// appmetricsDash.attach({
-// 	// TODO: Use once a version containing the PR for the following has been published on npmjs
-// 	// https://github.com/RuntimeTools/appmetrics-dash/issues/160
-// 	//url: process.env.DASHBOARD_PATH,
-// 	nodereport: null,
-// });
-
 import * as next from 'next';
 import * as express from 'express';
 import * as compression from 'compression';
