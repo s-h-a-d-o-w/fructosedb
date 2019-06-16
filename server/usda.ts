@@ -1,21 +1,7 @@
 import * as querystring from 'querystring';
-import {fetchJSON} from '../lib/fetch-with-timeout';
 
-export type Food = {
-	ndbno: string;
-	name: string;
-	weight: number;
-	measure: string;
-	fructose: number;
-	sucrose: number;
-	glucose: number;
-	fructoseServing: number;
-	sucroseServing: number;
-	glucoseServing: number;
-	ratio: number;
-	avoid: boolean;
-	isFruit: boolean;
-};
+import {fetchJSON} from '../lib/fetch-with-timeout';
+import {Food} from 'types';
 
 type Nutrient = {
 	nutrient_id: string;
@@ -34,11 +20,11 @@ type USDAFood = {
 	name: string;
 	weight: number;
 	measure: string;
-	nutrients: Array<Nutrient>;
+	nutrients: Nutrient[];
 };
 
 type ValidUSDAFood = USDAFood & {
-	nutrients: Array<ValidNutrient>;
+	nutrients: ValidNutrient[];
 };
 
 type USDAReport = {
@@ -92,11 +78,11 @@ export const shouldAvoid = (
  * is no need to list it twice.
  */
 export const removeSimilar = (data: Food[]): Food[] => {
-	let thresholdRatio = 0.1;
-	let thresholdFructose = 1;
+	const thresholdRatio = 0.1;
+	const thresholdFructose = 1;
 	// Threshold of 5 e.g. removes apple juices -> too short
-	let thresholdName = 7; // number of characters that have to match
-	let similar = {};
+	const thresholdName = 7; // number of characters that have to match
+	const similar: number[][] = [];
 
 	// Find similar F/G ratios
 	data = data.sort((a, b) => a.ratio - b.ratio);
@@ -104,6 +90,7 @@ export const removeSimilar = (data: Food[]): Food[] => {
 		// Could also create on demand in loop below - memory use vs. runtime perf
 		similar[i] = [];
 
+		// Check items that follow until F/G ratio diff becomes too big
 		for (
 			let j = i + 1;
 			j < data.length && data[j].ratio - data[i].ratio < thresholdRatio;
@@ -117,11 +104,11 @@ export const removeSimilar = (data: Food[]): Food[] => {
 	}
 
 	// Find similar names among similar ratios
-	let elementsToRemove = {};
-	Reflect.ownKeys(similar).forEach((idx) => {
-		if (similar[idx].length > 0) {
+	let elementsToRemove: null[] = [];
+	similar.forEach((el, idx) => {
+		if (el.length > 0) {
 			const nameBeginning = data[idx].name.substr(0, thresholdName);
-			similar[idx].forEach((innerIdx) => {
+			el.forEach((innerIdx) => {
 				if (nameBeginning === data[innerIdx].name.substr(0, thresholdName))
 					elementsToRemove[innerIdx] = null;
 			});
@@ -129,33 +116,32 @@ export const removeSimilar = (data: Food[]): Food[] => {
 	});
 
 	// Actually remove the likely duplicates
-	let sortedIndices = Reflect.ownKeys(elementsToRemove)
-		.map((idx: string) => parseInt(idx, 10))
-		.sort((a: number, b: number) => a - b);
-
-	console.log(
-		`Removing ${sortedIndices.length} similar items from ${
-			data.length
-		} in total`
-	);
-
-	for (let i = sortedIndices.length - 1; i >= 0; i--)
-		data.splice(sortedIndices[i], 1);
+	for (let i = elementsToRemove.length - 1; i >= 0; i--) {
+		if(elementsToRemove[i] === null) {
+			data.splice(i, 1);
+		}
+	}
 
 	return data;
 };
 
+function removeInvalidData(data: USDAFood[]) {
+	return data.filter(
+		(el) =>
+			el.nutrients[2].gm !== '--' &&
+			el.nutrients[0].gm !== '--' &&
+			el.nutrients[1].gm !== '--'
+	) as ValidUSDAFood[];
+}
+
 // Format the data the way the frontend needs it.
 // Discard items that don't contain all needed nutrient info.
-export const transformData = (data: USDAFood[], fruitIDs: string[]): Food[] =>
-	data
-		.filter(
-			(el) =>
-				el.nutrients[2].gm !== '--' &&
-				el.nutrients[0].gm !== '--' &&
-				el.nutrients[1].gm !== '--'
-		)
-		.map(({ndbno, name, weight, measure, nutrients}: ValidUSDAFood) => ({
+export const transformData = (
+	data: USDAFood[],
+	fruitIDs: string[] = []
+): Food[] =>
+	removeInvalidData(data).map(
+		({ndbno, name, weight, measure, nutrients}: ValidUSDAFood) => ({
 			ndbno,
 			name,
 			weight,
@@ -178,7 +164,8 @@ export const transformData = (data: USDAFood[], fruitIDs: string[]): Food[] =>
 				nutrients[1].gm
 			),
 			isFruit: fruitIDs.includes(ndbno),
-		}));
+		})
+	);
 
 export async function getFruitIDs(): Promise<string[]> {
 	// For food group ID see: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY

@@ -9,6 +9,8 @@ import {fetch} from '../lib/fetch-with-timeout';
 import TranslationDropdown from '../containers/TranslationDropdown';
 import Link from '../components/Link';
 import Email from '../components/Email';
+import {FoodCache} from 'types';
+import {ReduxState} from 'store';
 
 type State = {
 	foodNames: string[];
@@ -22,23 +24,21 @@ type Props = {
 
 class Translate extends React.Component<Props, State> {
 	refData = React.createRef<HTMLPreElement>();
-	state = {
+	state: State = {
 		foodNames: [],
 		hasMounted: false,
 		translatedKeys: [],
 	};
 
-	static props: Props = {
-		langTranslate: 'en',
-	};
-
 	getData = async () => {
 		const res = await fetch('list');
 
-		const foodNames = {};
-		(await res.json()).forEach((el) => (foodNames[el.name] = null));
+		const uniqueFoodNames: {[key: string]: null} = {};
+		((await res.json()) as FoodCache).forEach(
+			(food) => (uniqueFoodNames[food.name] = null)
+		);
 
-		this.setState({foodNames: Object.keys(foodNames)});
+		this.setState({foodNames: Object.keys(uniqueFoodNames)});
 	};
 
 	getTranslation = async () => {
@@ -58,7 +58,7 @@ class Translate extends React.Component<Props, State> {
 		this.getData();
 	}
 
-	componentDidUpdate(prevProps) {
+	componentDidUpdate(prevProps: Props) {
 		if (
 			this.props.langTranslate != prevProps.langTranslate &&
 			this.props.langTranslate !== ''
@@ -67,15 +67,19 @@ class Translate extends React.Component<Props, State> {
 	}
 
 	copyToClipboard = () => {
-		const el = document.createElement('textarea');
-		el.value = this.refData.current.innerText;
-		el.setAttribute('readonly', '');
-		el.style.position = 'absolute';
-		el.style.left = '-9999px';
-		document.body.appendChild(el);
-		el.select();
-		document.execCommand('copy');
-		document.body.removeChild(el);
+		if (this.refData.current) {
+			const el = document.createElement('textarea');
+
+			el.value = this.refData.current.innerText;
+			el.setAttribute('readonly', '');
+			el.style.position = 'absolute';
+			el.style.left = '-9999px';
+
+			document.body.appendChild(el);
+			el.select();
+			document.execCommand('copy');
+			document.body.removeChild(el);
+		}
 	};
 
 	render() {
@@ -152,6 +156,6 @@ class Translate extends React.Component<Props, State> {
 	}
 }
 
-const mapStateToProps = ({langTranslate}) => ({langTranslate});
+const mapStateToProps = ({langTranslate}: ReduxState) => ({langTranslate});
 
 export default connect(mapStateToProps)(Translate);

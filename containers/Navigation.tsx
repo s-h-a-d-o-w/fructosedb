@@ -1,10 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import theme from '../lib/theme';
+import Burger from 'components/Burger';
 // import Link from '../components/Link';
-import Burger from '../components/Burger';
-import Menu from '../components/Menu';
+import Menu from 'components/Menu';
+import theme from 'lib/theme';
 
 const StyledBurger = styled(Burger)`
 	position: fixed;
@@ -57,10 +57,6 @@ export default class extends React.Component {
 	state = {
 		showMenu: false,
 	};
-
-	constructor(props) {
-		super(props);
-	}
 
 	closeMenu = () => {
 		this.setState({showMenu: false});

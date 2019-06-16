@@ -1,50 +1,33 @@
 import * as React from 'react';
+import {boundMethod} from 'autobind-decorator';
 import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
 import {AutoSizer, Table, Column, SortDirection} from 'react-virtualized';
 import toPX from 'to-px';
-import {boundMethod} from 'autobind-decorator';
 
-import {actions, actionTypes} from '../../store/store';
-import {fetchJSON} from '../../lib/fetch-with-timeout';
-import {isEmptyObject} from '../../lib/util';
-import TableIcon from '../../components/TableIcon';
-import {Food} from '../../server/usda';
+import Loading from 'components/Loading';
+import TableIcon from 'components/TableIcon';
+import {fetchJSON} from 'lib/fetch-with-timeout';
+import {isEmptyObject} from 'lib/util';
+import {toggleLockAvoid, changeSort, showFloat, hideFloat} from 'store/actions';
+import {ReduxState} from 'store';
+import {Food} from 'types';
 
 import StyledTable from './style';
 import * as Data from './data';
-import Loading from '../../components/Loading';
 
-type Props = {
-	filter: string;
-	lang: string;
-	lockedAvoid: boolean;
-	onlyFruit: boolean;
-	showServing: boolean;
-	sortBy: string;
-	sortAsc: boolean;
-	dispatchColAction: (
-		object: {
-			sortBy: string;
-			sortDirection: 'ASC' | 'DESC';
-		}
-	) => void;
-	dispatchShowFloat: (name: string, e: Event) => void;
-	dispatchKillFloat: () => void;
-};
+type Props = ReturnType<typeof mapStateToProps> &
+	ReturnType<typeof mapDispatchToProps>;
 
 type State = {
 	data: Food[];
 	dataTranslated: Food[];
 	isFetching: boolean;
-	translation: object;
+	translation: {[key: string]: string};
 };
 
 class VirtualTable extends React.Component<Props, State> {
 	tableRef = React.createRef<HTMLDivElement>();
-
-	static defaultProps = {
-		filter: '',
-	};
 
 	state = {
 		data: [],
@@ -111,18 +94,8 @@ class VirtualTable extends React.Component<Props, State> {
 	// =================================
 	// RENDER HELPERS
 	// =================================
-	avoidRenderer = ({cellData}: {cellData?: string}) => (
+	renderAvoid = ({cellData}: {cellData?: string}) => (
 		<TableIcon name={cellData ? 'error' : 'ok'} />
-	);
-
-	nameRenderer = ({cellData}: {cellData?: string}) => (
-		<div
-			onClick={this.props.dispatchShowFloat.bind(this, cellData)}
-			onMouseOver={this.props.dispatchShowFloat.bind(this, cellData)}
-			onMouseLeave={this.props.dispatchKillFloat}
-		>
-			{cellData}
-		</div>
 	);
 
 	@boundMethod
@@ -155,11 +128,21 @@ class VirtualTable extends React.Component<Props, State> {
 				label={column.description}
 				width={column.remWidth * toPX('rem')}
 				flexGrow={column.name === 'name' ? 1 : 0}
-				{...(column.name === 'avoid' ? {cellRenderer: this.avoidRenderer} : {})}
-				{...(column.name === 'name' ? {cellRenderer: this.nameRenderer} : {})}
+				{...(column.name === 'avoid' ? {cellRenderer: this.renderAvoid} : {})}
+				{...(column.name === 'name' ? {cellRenderer: this.renderName} : {})}
 			/>
 		));
 	}
+
+	renderName = ({cellData}: {cellData?: string}) => (
+		<div
+			onClick={this.props.dispatchShowFloat.bind(this, cellData || '')}
+			onMouseOver={this.props.dispatchShowFloat.bind(this, cellData || '')}
+			onMouseLeave={this.props.dispatchHideFloat}
+		>
+			{cellData}
+		</div>
+	);
 
 	// =============================
 	// LIFECYCLE METHODS
@@ -196,6 +179,8 @@ class VirtualTable extends React.Component<Props, State> {
 				<AutoSizer>
 					{({width, height}) => (
 						<Table
+							// TODO: How would using to-px/browser affect this calculation?
+							// Evaluate generally switching to px...
 							headerHeight={3.0 * toPX('em', this.tableRef.current)}
 							height={height}
 							rowHeight={1.5 * toPX('em', this.tableRef.current)}
@@ -225,7 +210,7 @@ const mapStateToProps = ({
 	showServing,
 	sortBy,
 	sortAsc,
-}) => ({
+}: ReduxState) => ({
 	filter,
 	lang,
 	lockedAvoid,
@@ -235,15 +220,22 @@ const mapStateToProps = ({
 	sortAsc,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	dispatchColAction: ({sortBy: col, sortDirection}) =>
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+	dispatchColAction: ({
+		sortBy: col,
+		sortDirection,
+	}: {
+		sortBy: string;
+		sortDirection: string;
+	}) =>
 		col === 'avoid'
-			? dispatch({type: actionTypes.TOGGLE_LOCK_AVOID})
-			: dispatch(actions.changeSort(col, sortDirection === SortDirection.ASC)),
-	dispatchShowFloat: (name: string, e: MouseEvent & {target: HTMLElement}) => {
-		if (e.target.scrollWidth > e.target.clientWidth) {
+			? dispatch(toggleLockAvoid())
+			: dispatch(changeSort(col, sortDirection === SortDirection.ASC)),
+	dispatchHideFloat: () => dispatch(hideFloat()),
+	dispatchShowFloat: (name: string, e: React.MouseEvent<HTMLDivElement>) => {
+		if (e.currentTarget.scrollWidth > e.currentTarget.clientWidth) {
 			e.stopPropagation();
-			dispatch(actions.showFloat(name, e.pageX, e.pageY));
+			dispatch(showFloat(name, e.pageX, e.pageY));
 		}
 	},
 });

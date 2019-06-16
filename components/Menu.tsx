@@ -1,6 +1,6 @@
 import * as React from 'react';
-import styled from 'styled-components';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import styled from 'styled-components';
 
 import theme from '../lib/theme';
 import Link from './Link';
@@ -58,7 +58,7 @@ type Props = {
 };
 
 export default (props: Props) => {
-	let items = (
+	const items = (
 		<>
 			<Link onClick={props.onClick} href="/">
 				Home

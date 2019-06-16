@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import theme from '../../lib/theme';
+
+import theme from 'lib/theme';
 
 export default styled.div`
 	font-family: 'Roboto Condensed', sans-serif;

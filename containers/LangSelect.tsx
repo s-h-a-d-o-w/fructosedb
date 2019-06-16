@@ -1,12 +1,13 @@
 import * as React from 'react';
+import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-// @ts-ignore
 import DE from '../static/lang/de.svg';
-// @ts-ignore
 import US from '../static/lang/us.svg';
-import {actions} from '../store/store';
+import {changeLanguage} from 'store/actions';
+import {ReduxState} from 'store';
+import {SupportedLanguages} from 'types';
 
 const StyledFlag = styled.div`
 	position: relative;
@@ -45,17 +46,15 @@ const StyledDropDown = styled.div`
 	}
 `;
 
-type Props = {
-	lang: string;
-	dispatchChangeLanguage: (string) => void;
-};
+type Props = ReturnType<typeof mapStateToProps> &
+	ReturnType<typeof mapDispatchToProps>;
 
 type State = {
 	expanded: boolean;
 };
 
 class LangSelect extends React.Component<Props, State> {
-	languages = {
+	static languages = {
 		de: <DE key={'de'} data-key={'de'} />,
 		en: <US key={'en'} data-key={'en'} />,
 	};
@@ -64,17 +63,19 @@ class LangSelect extends React.Component<Props, State> {
 		expanded: false,
 	};
 
-	collapse = (e: Event & {target: HTMLElement}) => {
-		if (
-			e.target.closest('#langDropDown') !== null &&
-			e.target.closest('svg') !== null
-		)
-			this.props.dispatchChangeLanguage(
-				e.target.closest('svg').getAttribute('data-key')
-			);
+	collapse = (e: Event) => {
+		if (e.target && e.target instanceof HTMLElement) {
+			const svgElement = e.target.closest('svg');
+			if (e.target.closest('#langDropDown') !== null && svgElement !== null) {
+				const lang = svgElement.getAttribute('data-key');
+				if (lang && (lang === 'de' || lang === 'en')) {
+					this.props.dispatchChangeLanguage(lang);
+				}
+			}
 
-		this.setState({expanded: false});
-		document.body.removeEventListener('click', this.collapse);
+			this.setState({expanded: false});
+			document.body.removeEventListener('click', this.collapse);
+		}
 	};
 
 	expand = () => {
@@ -89,18 +90,19 @@ class LangSelect extends React.Component<Props, State> {
 	render = () => (
 		<>
 			<StyledFlag onClick={this.expand}>
-				{this.languages[this.props.lang]}
+				{LangSelect.languages[this.props.lang]}
 				{this.state.expanded ? (
 					<StyledDropDown
 						id="langDropDown"
-						numFlags={Reflect.ownKeys(this.languages).length}
+						numFlags={Reflect.ownKeys(LangSelect.languages).length}
 					>
-						{Reflect.ownKeys(this.languages)
-							.sort(
-								(a, b) =>
-									a === this.props.lang ? -1 : b === this.props.lang ? 1 : 0
+						{(Reflect.ownKeys(
+							LangSelect.languages
+						) as (keyof typeof LangSelect.languages)[])
+							.sort((a, b) =>
+								a === this.props.lang ? -1 : b === this.props.lang ? 1 : 0
 							)
-							.map((key) => this.languages[key])}
+							.map((key) => LangSelect.languages[key])}
 					</StyledDropDown>
 				) : (
 					''
@@ -110,12 +112,13 @@ class LangSelect extends React.Component<Props, State> {
 	);
 }
 
-const mapStateToProps = ({lang}) => ({
+const mapStateToProps = ({lang}: ReduxState) => ({
 	lang,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	dispatchChangeLanguage: (value) => dispatch(actions.changeLanguage(value)),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+	dispatchChangeLanguage: (value: SupportedLanguages) =>
+		dispatch(changeLanguage(value)),
 });
 
 /**

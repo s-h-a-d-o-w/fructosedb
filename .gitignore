@@ -1,3 +1,4 @@
+next-env.d.ts
 .env
 prod_env.bat
 assets

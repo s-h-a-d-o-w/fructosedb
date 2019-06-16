@@ -1,7 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
+
+import theme from 'lib/theme';
+
 import Link from './Link';
-import theme from '../lib/theme';
 
 const StyledLogo = styled.div`
 	grid-area: logo;

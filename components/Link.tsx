@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import theme from '../lib/theme';
+
+import theme from 'lib/theme';
 
 export type Props = {
 	children: React.ReactNode;

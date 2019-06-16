@@ -3,19 +3,15 @@ import * as path from 'path';
 import * as LRUCache from 'lru-cache';
 
 import VisitorLogger from './VisitorLogger';
-import {fetchFoodsList, Food} from './usda';
+import {fetchFoodsList} from './usda';
+import {FoodCache} from 'types';
 import * as Express from 'express';
-import * as Next from 'next';
 
 const dev = process.env.NODE_ENV !== 'production';
 
 // ==================================
 // USDA data cache (refresh interval: 24h)
 // ==================================
-interface FoodCache extends Array<Food> {
-	age?: Date;
-}
-
 let foodCache: FoodCache = [];
 const updateFoodCache = async () => {
 	foodCache = await fetchFoodsList();
@@ -37,11 +33,11 @@ const ssrCache = new LRUCache({
 });
 
 async function renderAndCache(
-	app: Next.Server,
+	app: any,
 	req: Express.Request,
 	res: Express.Response,
 	pagePath: string,
-	queryParams?
+	queryParams?: any
 ) {
 	const key = req.url;
 
@@ -97,7 +93,7 @@ CPU Load 15 min: ${os.loadavg(15)}
 // ==================================
 // ROUTES
 // ==================================
-const setupRoutes = (nextApp, expressServer: Express.Express) => {
+const setupRoutes = (nextApp: any, expressServer: Express.Express) => {
 	const visitorLogger = new VisitorLogger();
 	const nextHandle = nextApp.getRequestHandler();
 
@@ -130,13 +126,13 @@ const setupRoutes = (nextApp, expressServer: Express.Express) => {
 	});
 
 	expressServer.get('/visitors', async (_, res) => {
-		let result;
 		try {
-			result = await visitorLogger.report();
+			const result = await visitorLogger.report();
+			return res.send(result);
 		} catch (err) {
-			result = 'Error while fetching visitor information.';
+			console.log(err);
+			return res.send('Error while fetching visitor information.');
 		}
-		return res.send(result);
 	});
 
 	expressServer.get('/favicon.ico', (req, res) => {

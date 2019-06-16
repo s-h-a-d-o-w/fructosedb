@@ -1,20 +1,30 @@
-import {SchemaDefinition} from 'mongoose';
-
-const geoip = require('geoip-lite');
-const mongoose = require('mongoose');
+import * as geoip from 'geoip-lite';
+import * as mongoose from 'mongoose';
 
 const isDev = !(process.env.NODE_ENV === 'production');
 
 type Props = {
-	VisitorModel: any;
+	VisitorModel?: any;
 	ipBuffer: string[];
 	reportInterval: number;
 	visitorInterval: number;
 };
 
+type VisitorData = {
+	time: string;
+	country: string;
+	region: string;
+};
+
+type Visitor = mongoose.Document &
+	VisitorData &
+	{
+		[key in keyof VisitorData]: VisitorData[key];
+	};
+
 class VisitorLogger implements Props {
-	VisitorModel = null;
-	ipBuffer = [];
+	VisitorModel?: mongoose.Model<Visitor>;
+	ipBuffer: string[] = [];
 	reportInterval = 7 * 24 * 60 * 60 * 1000;
 	visitorInterval = 60 * 60 * 1000;
 
@@ -46,14 +56,17 @@ class VisitorLogger implements Props {
 				time: String,
 				country: String,
 				region: String,
-			} as SchemaDefinition);
+			});
 
-			this.VisitorModel = mongoose.model('VisitorModel', VisitorSchema);
+			this.VisitorModel = mongoose.model<Visitor>(
+				'VisitorModel',
+				VisitorSchema
+			);
 		});
 	}
 
-	log(ip) {
-		if (this.VisitorModel === null) {
+	log(ip: string) {
+		if (!this.VisitorModel) {
 			console.error('No database connection!');
 			return;
 		}
@@ -76,8 +89,8 @@ class VisitorLogger implements Props {
 		}
 	}
 
-	hitsPerProp(visitors, prop: string) {
-		const hitsPer = {};
+	hitsPerProp(visitors: Visitor[], prop: keyof VisitorData) {
+		const hitsPer: {[key: string]: number} = {};
 		visitors.forEach(
 			(visitor) =>
 				(hitsPer[visitor[prop]] = hitsPer[visitor[prop]]
@@ -89,8 +102,8 @@ class VisitorLogger implements Props {
 	}
 
 	report() {
-		if (this.VisitorModel !== null) {
-			return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
+			if (this.VisitorModel) {
 				this.VisitorModel.find((err, visitors) => {
 					if (err) {
 						let generalError = 'Error generating visitor report';
@@ -115,19 +128,21 @@ ${JSON.stringify(hitsPerDay, null, 2)}
 `
 					);
 				});
-			});
-		} else {
-			return 'Database connection failed.';
-		}
-	}
-
-	saveVisitor(visitorInfo: object) {
-		const Visitor = new this.VisitorModel(visitorInfo);
-		Visitor.save(function(error) {
-			if (error) {
-				console.error(error);
+			} else {
+				reject('Database connection failed.');
 			}
 		});
+	}
+
+	saveVisitor(visitorInfo: VisitorData) {
+		if (this.VisitorModel) {
+			const Visitor = new this.VisitorModel(visitorInfo);
+			Visitor.save(function(error) {
+				if (error) {
+					console.error(error);
+				}
+			});
+		}
 	}
 }
 

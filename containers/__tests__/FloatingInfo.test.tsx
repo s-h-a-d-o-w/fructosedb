@@ -1,19 +1,20 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {mount} from 'enzyme';
+import {render} from '@testing-library/react';
+import * as Redux from 'redux';
+import {Provider} from 'react-redux';
+import 'jest-styled-components';
 
-// TODO: Keep an eye on following issue to expand snapshot in the future:
-// https://github.com/styled-components/jest-styled-components/issues/191#issuecomment-439387211
-// import 'jest-styled-components';
+import {initialState, initializeStore} from 'store';
 
 import FloatingInfo, {VERTICAL_OFFSET} from '../FloatingInfo';
-import {defaultInitialState, initializeStore} from '../../store/store';
 
-let store;
+let store: Redux.Store;
 
 describe('<FloatingInfo>', () => {
 	beforeEach(() => {
 		store = initializeStore(
-			Object.assign(defaultInitialState, {
+			Object.assign({}, initialState, {
 				float: {
 					x: 100,
 					y: 100,
@@ -24,26 +25,34 @@ describe('<FloatingInfo>', () => {
 	});
 
 	it('snapshots correctly', () => {
-		// @ts-ignore
-		const wrapper = shallow(<FloatingInfo store={store} />).dive().dive();
-		expect(wrapper.instance()).toMatchSnapshot();
+		const {container} = render(
+			<Provider store={store}>
+				<FloatingInfo />
+			</Provider>
+		);
+		expect(container.firstChild).toMatchSnapshot();
 	});
 
 	it('sets "top" to the correct offset', () => {
-		// @ts-ignore
-		const wrapper = shallow(<FloatingInfo store={store} />).dive().dive();
-		expect((wrapper.prop('style') as CSSStyleDeclaration).top).toEqual(`${100 - VERTICAL_OFFSET}px`);
+		const wrapper = mount(
+			<Provider store={store}>
+				<FloatingInfo />
+			</Provider>
+		);
+		expect((wrapper.find('div').prop('style') as CSSStyleDeclaration).top).toBe(
+			`${100 - VERTICAL_OFFSET}px`
+		);
 	});
 
-	it('returns null if float is empty', () => {
-		store = initializeStore(
-			Object.assign(defaultInitialState, {
-				float: {},
-			})
+	it("doesn't render if float is empty", () => {
+		store = initializeStore(initialState);
+
+		const wrapper = mount(
+			<Provider store={store}>
+				<FloatingInfo />
+			</Provider>
 		);
 
-		// @ts-ignore
-		const wrapper = shallow(<FloatingInfo store={store} />).dive();
-		expect(wrapper.getElement()).toEqual(null);
+		expect(wrapper.find('div').length).toEqual(0);
 	});
 });

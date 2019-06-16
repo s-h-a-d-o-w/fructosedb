@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "baseUrl": ".",
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": [
@@ -9,7 +12,8 @@
   },
   "include": [
     "lib/fetch-with-timeout.ts",
-    "server/**/*"
+    "server/**/*",
+    "types/**/*"
   ],
   "exclude": [
     "node_modules",

@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import screenfull from 'screenfull';
 
-import theme from '../lib/theme';
+import theme from 'lib/theme';
 
 const StyledIcon = styled.div`
 	display: block;
@@ -34,13 +34,15 @@ export default class FullscreenButton extends React.Component<Props, State> {
 		fullscreen: false,
 	};
 
-	toggleFullScreen = (e) => {
+	toggleFullScreen: React.MouseEventHandler = (e) => {
 		e.preventDefault();
 
-		if (this.state.fullscreen) {
-			screenfull.exit();
-		} else {
-			screenfull.request(this.props.target.current);
+		if (screenfull) {
+			if (this.state.fullscreen) {
+				screenfull.exit();
+			} else if (this.props.target.current) {
+				screenfull.request(this.props.target.current);
+			}
 		}
 
 		this.setState((prevState) => ({fullscreen: !prevState.fullscreen}));

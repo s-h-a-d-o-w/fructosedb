@@ -1,19 +1,13 @@
-// see: https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
+// Based on: https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
 import throttle from 'lodash/throttle';
+import {ReduxState} from 'store';
 
-export const loadState = (defaultState) => {
-	try {
-		return localStorage.getItem('state') === null
-			? defaultState
-			: Object.assign(
-					{},
-					defaultState,
-					JSON.parse(localStorage.getItem('state'))
-			  );
-	} catch (e) {
-		console.error(e);
-		return defaultState;
-	}
+export const loadState = (defaultState: ReduxState): ReduxState => {
+	const storedState = localStorage.getItem('state');
+
+	return storedState === null
+		? defaultState
+		: {...defaultState, ...JSON.parse(storedState)};
 };
 
 export const saveState = throttle((state) => {

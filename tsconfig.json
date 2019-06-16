@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
     "noEmit": true,
     "experimentalDecorators": true,
     "target": "esnext",
@@ -19,9 +20,14 @@
     "lib": [
       "dom",
       "es2016"
-    ]
+    ],
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "exclude": [
+    "server/**/*",
     "node_modules",
     "**/*.spec.ts",
     "**/*.spec.tsx",

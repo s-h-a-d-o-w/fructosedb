@@ -3,12 +3,13 @@ import '../env-config';
 import * as next from 'next';
 import * as express from 'express';
 import * as compression from 'compression';
-import {spawn} from 'child_process';
 
 import {setupRoutes, updateFoodCache} from './routes.js';
 
 const port = process.env.PORT;
 const dev = process.env.NODE_ENV !== 'production';
+// TODO: Wait for proper types for Next.js server
+// @ts-ignore
 const app = next({dev});
 
 // TODO: Might want to cache SSR renderings at some point
@@ -31,14 +32,10 @@ app.prepare().then(() => {
 
 	setupRoutes(app, server);
 	updateFoodCache().then(() => {
-		server.listen(port, (err) => {
-			if (err) throw err;
+		server.listen(port, () => {
 			console.log(
 				`> ${dev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
 			);
-
-			// Build SSR cache
-			setTimeout(() => spawn('curl', [process.env.BACKEND_URL]), 500);
 
 			if ('TESTRUN' in process.env || 'TRAVIS' in process.env) {
 				process.exit(0);

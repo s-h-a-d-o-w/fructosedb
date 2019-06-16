@@ -1,12 +1,21 @@
 // see: https://github.com/zeit/next.js/blob/master/examples/with-redux/lib/with-redux-store.js
 import React from 'react';
+import NextApp, {AppContext} from 'next/app';
 import * as Redux from 'redux';
-import {initializeStore, actions} from '../store/store';
+
+import {initializeStore, ReduxState} from 'store';
+import {rehydrate} from 'store/actions';
 
 const isServer = typeof window === 'undefined';
 const __NEXT_REDUX_STORE__ = '__NEXT_REDUX_STORE__';
 
-function getOrCreateStore(initialState?: object): Redux.Store {
+declare global {
+	interface Window {
+		__NEXT_REDUX_STORE__: Redux.Store;
+	}
+}
+
+function getOrCreateStore(initialState?: object): Redux.Store<ReduxState> {
 	// Always make a new store if server, otherwise state is shared between requests
 	if (isServer) {
 		return initializeStore(initialState);
@@ -18,27 +27,29 @@ function getOrCreateStore(initialState?: object): Redux.Store {
 	}
 
 	if ((module as any).hot) {
-		(module as any).hot.accept('../store/store', () => {
+		(module as any).hot.accept('store', () => {
 			console.log('Replacing reducer');
-			window[__NEXT_REDUX_STORE__].replaceReducer(
-				require('../store/store').reducer
-			);
+			window[__NEXT_REDUX_STORE__].replaceReducer(require('store').reducer);
 		});
 	}
 
 	return window[__NEXT_REDUX_STORE__];
 }
 
-export default (App) => {
-	return class AppWithRedux extends React.Component {
-		reduxStore: Redux.Store;
+type Props = React.ComponentProps<typeof NextApp> & {
+	initialReduxState: ReduxState;
+};
 
-		constructor(props) {
+export default (App: typeof NextApp) => {
+	return class AppWithRedux extends React.Component<Props> {
+		reduxStore: Redux.Store<ReduxState>;
+
+		constructor(props: Props) {
 			super(props);
 			this.reduxStore = getOrCreateStore(props.initialReduxState);
 		}
 
-		static async getInitialProps(appContext) {
+		static async getInitialProps(appContext: AppContext) {
 			// Get or Create the store with `undefined` as initialState
 			// This allows you to set a custom default initialState
 			const reduxStore = getOrCreateStore();
@@ -60,7 +71,7 @@ export default (App) => {
 		componentDidMount() {
 			// Rehydrating with persisted data needs to happen after initialization
 			// so that the initial state from SSR and on the client matches.
-			if (!isServer) this.reduxStore.dispatch(actions.rehydrate());
+			if (!isServer) this.reduxStore.dispatch(rehydrate());
 		}
 
 		render() {

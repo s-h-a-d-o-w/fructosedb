@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import theme from '../lib/theme';
+
+import theme from 'lib/theme';
 
 const Burger = styled.div`
 	width: 3rem;

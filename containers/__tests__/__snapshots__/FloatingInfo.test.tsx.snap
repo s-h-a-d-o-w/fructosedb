@@ -1,129 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FloatingInfo> snapshots correctly 1`] = `
-StyledComponent {
-  "attrs": Object {
-    "style": Object {
-      "left": "100px",
-      "top": "70px",
-    },
-  },
-  "context": Object {
-    "__styled-components-stylesheet__": undefined,
-    "__styled-components__": undefined,
-    "__styled-components__next__": undefined,
-  },
-  "props": Object {
-    "children": "unit test",
-    "dispatch": [Function],
-    "float": Object {
-      "content": "unit test",
-      "x": 100,
-      "y": 100,
-    },
-    "store": Object {
-      "dispatch": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
-      Symbol(observable): [Function],
-    },
-    "storeSubscription": Subscription {
-      "listeners": Object {
-        "clear": [Function],
-        "get": [Function],
-        "notify": [Function],
-        "subscribe": [Function],
-      },
-      "onStateChange": [Function],
-      "parentSub": undefined,
-      "store": Object {
-        "dispatch": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-        Symbol(observable): [Function],
-      },
-      "unsubscribe": [Function],
-    },
-  },
-  "refs": Object {},
-  "setState": [Function],
-  "state": Object {
-    "generatedClassName": "efjvMC",
-    "theme": Object {},
-  },
-  "unsubscribeId": -1,
-  "updater": Updater {
-    "_callbacks": Array [],
-    "_renderer": ReactShallowRenderer {
-      "_context": Object {
-        "__styled-components-stylesheet__": undefined,
-        "__styled-components__": undefined,
-        "__styled-components__next__": undefined,
-      },
-      "_element": <FloatingInfo__StyledFloat
-        dispatch={[Function]}
-        float={
-          Object {
-            "content": "unit test",
-            "x": 100,
-            "y": 100,
-          }
-        }
-        store={
-          Object {
-            "dispatch": [Function],
-            "getState": [Function],
-            "replaceReducer": [Function],
-            "subscribe": [Function],
-            Symbol(observable): [Function],
-          }
-        }
-        storeSubscription={
-          Subscription {
-            "listeners": Object {
-              "clear": [Function],
-              "get": [Function],
-              "notify": [Function],
-              "subscribe": [Function],
-            },
-            "onStateChange": [Function],
-            "parentSub": undefined,
-            "store": Object {
-              "dispatch": [Function],
-              "getState": [Function],
-              "replaceReducer": [Function],
-              "subscribe": [Function],
-              Symbol(observable): [Function],
-            },
-            "unsubscribe": [Function],
-          }
-        }
-      >
-        unit test
-      </FloatingInfo__StyledFloat>,
-      "_forcedUpdate": false,
-      "_instance": [Circular],
-      "_newState": Object {
-        "generatedClassName": "efjvMC",
-        "theme": Object {},
-      },
-      "_rendered": <div
-        className="FloatingInfo__StyledFloat-u1yha0-0 efjvMC"
-        style={
-          Object {
-            "left": "100px",
-            "top": "70px",
-          }
-        }
-      >
-        unit test
-      </div>,
-      "_rendering": false,
-      "_updater": [Circular],
-    },
-  },
-  Symbol(enzyme.__setState__): [Function],
+.c0 {
+  font-family: 'Roboto Condensed',sans-serif;
+  position: absolute;
+  z-index: 10000;
+  max-width: 30vw;
+  padding: 0.5vw;
+  background-color: white;
+  color: black;
+  pointer-events: none;
 }
+
+<div
+  class="c0"
+  style="left: 100px; top: 70px;"
+>
+  unit test
+</div>
 `;

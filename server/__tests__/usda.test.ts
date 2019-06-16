@@ -11,7 +11,6 @@ import {
 jest.mock('isomorphic-unfetch', () => require('jest-fetch-mock'));
 const fetch = require('isomorphic-unfetch') as typeof jestFetchMock;
 
-const fruitIDs = [];
 const usdaData = {
 	report: {
 		sr: '1',
@@ -99,7 +98,7 @@ describe('getReport', function() {
 
 describe('removeSimilar', function() {
 	it('should remove similar foods', function() {
-		let baseFood = transformData(usdaData.report.foods, fruitIDs);
+		let baseFood = transformData(usdaData.report.foods);
 
 		// Duplicate and modify slightly
 		baseFood = baseFood.concat(baseFood);
@@ -128,7 +127,7 @@ describe('shouldAvoid', function() {
 
 describe('transformData', function() {
 	it('should transform valid non-fruit correctly', function() {
-		const transformedFood = transformData(usdaData.report.foods, fruitIDs);
+		const transformedFood = transformData(usdaData.report.foods);
 		expect(typeof transformedFood[0].fructoseServing).toEqual('number');
 		expect(transformedFood[0].isFruit).toEqual(false);
 	});
@@ -138,7 +137,7 @@ describe('transformData', function() {
 		const invalidFood = usdaData.report.foods.slice();
 		(invalidFood[0].nutrients[0].gm as any) = '--';
 
-		var transformedFood = transformData(invalidFood, fruitIDs);
+		var transformedFood = transformData(invalidFood);
 		expect(transformedFood.length).toEqual(0);
 	});
 });

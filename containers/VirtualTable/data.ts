@@ -1,7 +1,7 @@
 import memoize from 'memoize-one';
 import sort from 'fast-sort';
 
-import {Food} from '../../server/usda';
+import {Food} from 'types';
 
 export type HeaderDataItem = {
 	description: string;
@@ -77,7 +77,7 @@ const sortData = memoize(
 );
 
 const translateData = memoize(
-	(data: Food[], translation: object, lang: string): Food[] =>
+	(data: Food[], translation: {[key: string]: string}, lang: string): Food[] =>
 		lang === 'en'
 			? data
 			: data.map((el) => Object.assign({}, el, {name: translation[el.name]}))

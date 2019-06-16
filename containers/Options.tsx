@@ -1,9 +1,13 @@
 import * as React from 'react';
+import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {actions} from '../store/store';
 import styled from 'styled-components';
+
+import theme from 'lib/theme';
+import {ReduxState} from 'store';
+import {changeFilter, toggleFruit, toggleServing} from 'store/actions';
+
 import LangSelect from './LangSelect';
-import theme from '../lib/theme';
 
 const StyledOptions = styled.div`
 	display: flex;
@@ -44,17 +48,11 @@ const StyledTextBox = styled.input`
 	}
 `;
 
-type Props = {
-	filter: string;
-	onlyFruit: boolean;
-	showServing: boolean;
-	dispatchFilter: (string) => void;
-	dispatchFruit: () => void;
-	dispatchServing: () => void;
-};
+type Props = ReturnType<typeof mapStateToProps> &
+	ReturnType<typeof mapDispatchToProps>;
 
 class Options extends React.Component<Props> {
-	handleFilter = (e) => {
+	handleFilter: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		this.props.dispatchFilter(e.target.value);
 	};
 
@@ -85,16 +83,16 @@ class Options extends React.Component<Props> {
 	);
 }
 
-const mapStateToProps = ({filter, onlyFruit, showServing}) => ({
+const mapStateToProps = ({filter, onlyFruit, showServing}: ReduxState) => ({
 	filter,
 	onlyFruit,
 	showServing,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	dispatchFilter: (value) => dispatch(actions.changeFilter(value)),
-	dispatchFruit: () => dispatch(actions.toggleFruit()),
-	dispatchServing: () => dispatch(actions.toggleServing()),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+	dispatchFilter: (value: string) => dispatch(changeFilter(value)),
+	dispatchFruit: () => dispatch(toggleFruit()),
+	dispatchServing: () => dispatch(toggleServing()),
 });
 
 export default connect(
