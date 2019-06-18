@@ -116,11 +116,15 @@ export const removeSimilar = (data: Food[]): Food[] => {
 	});
 
 	// Actually remove the likely duplicates
+	let countTotal = data.length;
+	let countRemoved = 0;
 	for (let i = elementsToRemove.length - 1; i >= 0; i--) {
 		if(elementsToRemove[i] === null) {
 			data.splice(i, 1);
+			countRemoved++;
 		}
 	}
+	console.log(`Removed ${countRemoved}/${countTotal} items because of similarity.`);
 
 	return data;
 };
