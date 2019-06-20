@@ -18,19 +18,6 @@ const StyledBurger = styled(Burger)`
 	}
 `;
 
-const StyledNav = styled.nav`
-	grid-area: nav;
-
-	display: grid;
-	justify-items: end;
-	grid-template-rows: auto auto 1fr;
-
-	& * {
-		margin-top: 0.5rem;
-		margin-right: 0.5rem;
-	}
-`;
-
 /*
 const StyledSupport = styled.nav`
 	text-align: right;
@@ -69,24 +56,20 @@ export default class extends React.Component {
 	render = () => (
 		<>
 			<StyledBurger onClick={this.openMenu} />
-			{this.state.showMenu ? (
+			{this.state.showMenu && (
 				<>
 					<StyledLightbox onClick={this.closeMenu} />
 					<Menu onClick={this.closeMenu} desktop={false} />
 				</>
-			) : (
-				''
 			)}
-			<StyledNav>
-				<Menu desktop={true} />
-				{/*
+			<Menu desktop={true} />
+			{/*
 				<StyledSupport>
 					<Link target="_blank" href="/support">
 						❤️Support Us
 					</Link>
 				</StyledSupport>
 				*/}
-			</StyledNav>
 		</>
 	);
 }

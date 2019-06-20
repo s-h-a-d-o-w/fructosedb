@@ -12,7 +12,7 @@ type Header = HeaderDataItem & {
 	name: string;
 };
 
-const headerData = {
+const headerData: {[key: string]: HeaderDataItem} = {
 	name: {description: 'Name', remWidth: 0},
 	avoid: {description: '🔒', remWidth: 1.5},
 	measure: {
@@ -47,7 +47,7 @@ const headerData = {
 		description: 'F/G ratio',
 		remWidth: 3.5,
 	},
-} as {[key: string]: HeaderDataItem};
+};
 
 const generateHeaders = (cols: string[], lockedAvoid: boolean): Header[] =>
 	cols.map((col) =>

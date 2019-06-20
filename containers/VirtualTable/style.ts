@@ -17,6 +17,8 @@ export default styled.div`
 	}
 	.ReactVirtualized__Table__headerColumn {
 		outline: 0;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 
 	.ReactVirtualized__Table__headerColumn:first-child {

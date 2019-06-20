@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import theme from '../lib/theme';
 import Link from './Link';
 
-const Mobile = styled.div`
+const StyledMobile = styled.nav`
 	transition: left 150ms ease-out;
 	left: 0;
 
@@ -45,7 +45,20 @@ const Mobile = styled.div`
 	}
 `;
 
-const Desktop = styled.div`
+const StyledNavLayout = styled.div`
+	grid-area: nav;
+
+	display: grid;
+	justify-items: end;
+	grid-template-rows: auto auto 1fr;
+
+	& * {
+		margin-top: 0.5rem;
+		margin-right: 0.5rem;
+	}
+`;
+
+const StyledDesktop = styled.nav`
 	display: none;
 	${theme.largeDevices} {
 		display: inline-block;
@@ -73,7 +86,9 @@ export default (props: Props) => {
 	);
 
 	return props.desktop ? (
-		<Desktop>{items}</Desktop>
+		<StyledNavLayout>
+			<StyledDesktop>{items}</StyledDesktop>
+		</StyledNavLayout>
 	) : (
 		<ReactCSSTransitionGroup
 			transitionName="menu"
@@ -82,7 +97,7 @@ export default (props: Props) => {
 			transitionEnter={false}
 			transitionLeave={false}
 		>
-			<Mobile>{items}</Mobile>
+			<StyledMobile>{items}</StyledMobile>
 		</ReactCSSTransitionGroup>
 	);
 };
