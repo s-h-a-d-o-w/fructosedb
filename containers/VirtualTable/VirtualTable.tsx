@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {boundMethod} from 'autobind-decorator';
+import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {AutoSizer, Table, Column, SortDirection} from 'react-virtualized';
@@ -21,7 +23,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 type State = {
 	data: Food[];
-	dataTranslated: Food[];
+	dataProcessed: Food[];
 	isFetching: boolean;
 	translation: {[key: string]: string};
 };
@@ -31,7 +33,7 @@ class VirtualTable extends React.Component<Props, State> {
 
 	state = {
 		data: [],
-		dataTranslated: [],
+		dataProcessed: [],
 		isFetching: false,
 		translation: {},
 	};
@@ -56,8 +58,7 @@ class VirtualTable extends React.Component<Props, State> {
 		);
 	}
 
-	@boundMethod
-	prepareData(): Food[] {
+	prepareData = () => {
 		// TRANSLATE
 		let data: Food[] =
 			this.props.lang !== 'en' && isEmptyObject(this.state.translation)
@@ -67,7 +68,6 @@ class VirtualTable extends React.Component<Props, State> {
 						this.state.translation,
 						this.props.lang
 				  );
-		if (!Array.isArray(data)) return [];
 
 		// SORT
 		data = Data.sortData(
@@ -88,8 +88,12 @@ class VirtualTable extends React.Component<Props, State> {
 			data = data.filter((el) => el.isFruit);
 		}
 
-		return data;
-	}
+		this.setState({
+			dataProcessed: data,
+		});
+	};
+
+	debouncedPrepareData = debounce(this.prepareData, 200);
 
 	// =================================
 	// RENDER HELPERS
@@ -156,7 +160,7 @@ class VirtualTable extends React.Component<Props, State> {
 		if (this.props.lang !== 'en') this.fetchTranslation();
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(prevProps: Props, prevState: State) {
 		// On page load, data will probably arrive AFTER the language was already set.
 		// In which case, state.translation will be empty.
 		if (
@@ -166,13 +170,19 @@ class VirtualTable extends React.Component<Props, State> {
 		) {
 			this.fetchTranslation();
 		}
+
+		if (prevProps.filter !== this.props.filter) {
+			this.debouncedPrepareData();
+		} else if (
+			prevState.data !== this.state.data ||
+			!isEqual(prevProps, this.props)
+		) {
+			this.prepareData();
+		}
 	}
 
 	render() {
-		const {isFetching} = this.state;
-		const data = this.prepareData();
-
-		return isFetching ? (
+		return this.state.isFetching ? (
 			<Loading />
 		) : (
 			<StyledTable innerRef={this.tableRef}>
@@ -184,8 +194,8 @@ class VirtualTable extends React.Component<Props, State> {
 							headerHeight={3.0 * toPX('em', this.tableRef.current)}
 							height={height}
 							rowHeight={1.5 * toPX('em', this.tableRef.current)}
-							rowGetter={({index}) => data[index]}
-							rowCount={data.length}
+							rowGetter={({index}) => this.state.dataProcessed[index]}
+							rowCount={this.state.dataProcessed.length}
 							sort={this.props.dispatchColAction}
 							sortBy={this.props.sortBy}
 							sortDirection={
