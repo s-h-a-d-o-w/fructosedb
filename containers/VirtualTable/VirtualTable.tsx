@@ -185,7 +185,7 @@ class VirtualTable extends React.Component<Props, State> {
 		return this.state.isFetching ? (
 			<Loading />
 		) : (
-			<StyledTable innerRef={this.tableRef}>
+			<StyledTable ref={this.tableRef}>
 				<AutoSizer>
 					{({width, height}) => (
 						<Table

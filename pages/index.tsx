@@ -61,7 +61,7 @@ class Index extends React.Component<Props, State> {
 						{/* Containers that use gridArea can't be made to use fullscreen as expected,
 							a nested container is required. */}
 						{this.state.hasMounted ? (
-							<FullScreenContainer innerRef={this.refContent}>
+							<FullScreenContainer ref={this.refContent}>
 								<Options />
 								<Table />
 								{screenfull && screenfull.enabled ? (

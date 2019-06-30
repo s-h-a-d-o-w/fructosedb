@@ -14,7 +14,6 @@ export default function Head() {
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
 			<meta name="theme-color" content="#653399" />
 			<link rel="manifest" href="/site.webmanifest" />
-			<link rel="stylesheet" href="/static/css/global.css" />
 			{/* Force favicon refresh on changes */}
 			<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20181018" />
 			<link rel="prefetch" href="/static/images/usda-symbol.svg" />
