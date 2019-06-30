@@ -6,13 +6,13 @@ import {ReduxState} from 'store';
 
 export const VERTICAL_OFFSET = 30;
 
-const StyledFloat = styled.div.attrs<Props>({
-	// This prevents classes from being created with every change
-	style: (props: Props) => ({
+const StyledFloat = styled.div.attrs<Props>((props) => ({
+	// This prevents new classes from being created with every change
+	style: {
 		left: `${props.float ? props.float.x : 0}px`,
 		top: `${props.float ? props.float.y - VERTICAL_OFFSET : 0}px`,
-	}),
-})`
+	},
+}))`
 	font-family: 'Roboto Condensed', sans-serif;
 
 	position: absolute;
