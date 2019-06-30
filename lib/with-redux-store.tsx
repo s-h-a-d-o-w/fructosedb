@@ -55,6 +55,7 @@ export default (App: typeof NextApp) => {
 			const reduxStore = getOrCreateStore();
 
 			// Provide the store to getInitialProps of pages
+			// @ts-ignore Passes locally but not on Travis CI for some reason.
 			appContext.ctx.reduxStore = reduxStore;
 
 			let appProps = {};
