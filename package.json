@@ -7,7 +7,7 @@
     "analyze": "cross-env BUNDLE_ANALYZE=browser yarn build",
     "build": "rimraf .next && yarn build:server && next build",
     "build:server": "tsc -p tsconfig.server.json",
-    "dev": "rimraf node_modules/.cache && yarn build:server && node server/main.js",
+    "dev": "rimraf node_modules/.cache .next && yarn build:server && node server/main.js",
     "prepare": "patch-package",
     "start": "cross-env NODE_ENV=production node .",
     "style": "yarn styleguidist server",

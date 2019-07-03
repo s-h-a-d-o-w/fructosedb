@@ -64,18 +64,18 @@ class LangSelect extends React.Component<Props, State> {
 	};
 
 	collapse = (e: Event) => {
-		if (e.target && e.target instanceof HTMLElement) {
-			const svgElement = e.target.closest('svg');
-			if (e.target.closest('#langDropDown') !== null && svgElement !== null) {
+		if (e.target && e.target instanceof Element) {
+			const svgElement = e.target.closest('#langDropDown > svg');
+			if (svgElement !== null) {
 				const lang = svgElement.getAttribute('data-key');
 				if (lang && (lang === 'de' || lang === 'en')) {
 					this.props.dispatchChangeLanguage(lang);
 				}
 			}
-
-			this.setState({expanded: false});
-			document.body.removeEventListener('click', this.collapse);
 		}
+
+		this.setState({expanded: false});
+		document.body.removeEventListener('click', this.collapse);
 	};
 
 	expand = () => {
