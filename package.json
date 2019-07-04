@@ -11,7 +11,9 @@
     "prepare": "patch-package",
     "start": "cross-env NODE_ENV=production node .",
     "style": "yarn styleguidist server",
-    "test": "tsc && yarn jest && yarn build && cross-env TESTRUN=true yarn start"
+    "test": "tsc && yarn jest && yarn build && cross-env TESTRUN=true yarn start",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "autobind-decorator": "2.3.1",
@@ -32,7 +34,8 @@
     "redux-thunk": "2.3.0",
     "screenfull": "4.2.0",
     "styled-components": "4.3.2",
-    "to-px": "1.1.0"
+    "to-px": "1.1.0",
+    "snyk": "^1.189.0"
   },
   "//": "!!! babel-core bridge is essential for jest !!!",
   "devDependencies": {
@@ -94,5 +97,6 @@
     "webpack": "4.26.1",
     "webpack-blocks": "2.0.1",
     "why-did-you-update": "0.1.1"
-  }
+  },
+  "snyk": true
 }
