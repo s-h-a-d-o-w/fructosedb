@@ -29,6 +29,7 @@ type State = {
 };
 
 class VirtualTable extends React.Component<Props, State> {
+	isFetchingTranslation = false;
 	tableRef = React.createRef<HTMLDivElement>();
 
 	state = {
@@ -53,16 +54,21 @@ class VirtualTable extends React.Component<Props, State> {
 
 	@boundMethod
 	fetchTranslation() {
-		fetchJSON(`static/lang/${this.props.lang}.json`).then((translation) =>
-			this.setState({translation})
-		);
+		if (!this.isFetchingTranslation) {
+			this.isFetchingTranslation = true;
+			fetchJSON(`static/lang/${this.props.lang}.json`).then((translation) =>
+				this.setState({translation}, () => {
+					this.isFetchingTranslation = false;
+				})
+			);
+		}
 	}
 
 	prepareData = () => {
 		// TRANSLATE
 		let data: Food[] =
 			this.props.lang !== 'en' && isEmptyObject(this.state.translation)
-				? this.state.data
+				? []
 				: Data.translateData(
 						this.state.data,
 						this.state.translation,
@@ -175,6 +181,7 @@ class VirtualTable extends React.Component<Props, State> {
 			this.debouncedPrepareData();
 		} else if (
 			prevState.data !== this.state.data ||
+			prevState.translation !== this.state.translation ||
 			!isEqual(prevProps, this.props)
 		) {
 			this.prepareData();
