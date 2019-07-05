@@ -1,6 +1,5 @@
 const path = require('path');
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
-const withCSS = require('@zeit/next-css');
 const withOffline = require('next-offline');
 
 module.exports = withOffline(
