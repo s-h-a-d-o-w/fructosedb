@@ -1,10 +1,8 @@
 .env
 .next
-.babelrc
 *.json
 *.bat
 Dockerfile
-.travis.yml
 
 .gitignore
 .prettierignore

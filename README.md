@@ -4,6 +4,12 @@
 
 # fructosedb
 
+### TODO
+
+- Add tooltip for foods that are recommended and not recommended
+- Offer German translations for all texts
+- Remove lock functionality
+
 ### Environment Variables
 
 #### Required

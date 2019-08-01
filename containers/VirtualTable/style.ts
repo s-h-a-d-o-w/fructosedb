@@ -27,7 +27,6 @@ export default styled.div`
 	.ReactVirtualized__Table__rowColumn:first-child {
 		text-align: center;
 		font-size: 0.7rem;
-		color: green;
 	}
 
 	.ReactVirtualized__Table__rowColumn,

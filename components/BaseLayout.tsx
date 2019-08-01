@@ -7,9 +7,9 @@ import theme from 'lib/theme';
 import FructoseHead from './Head';
 import {Logo} from './Logo';
 
-type IStyledBaseProps = {
+type StyledBaseProps = {
 	hasMounted: boolean;
-} & IProps;
+};
 
 const StyledBase = styled.div`
 	display: grid;
@@ -41,17 +41,17 @@ const StyledBase = styled.div`
 		But once this has mounted, it should be dismissed because fade in effects  
 		are only inteded to soften the inital page load.
 	 */
-	${(props: IStyledBaseProps) =>
+	${(props: StyledBaseProps) =>
 		props.hasMounted ? '' : '& > * {animation: fadeIn 250ms ease-in;}'};
 `;
 
-type IProps = {
+type Props = {
 	children: React.ReactNode;
 	onClick?: () => void;
 	onTouchStart?: () => void;
 };
 
-export default class BaseLayout extends React.Component<IProps> {
+export default class BaseLayout extends React.Component<Props> {
 	state = {
 		hasMounted: false,
 	};

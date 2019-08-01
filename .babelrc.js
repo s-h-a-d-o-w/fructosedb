@@ -38,5 +38,4 @@ module.exports = {
 		],
 		['transform-define', require('./env-config.js')],
 	],
-
 };

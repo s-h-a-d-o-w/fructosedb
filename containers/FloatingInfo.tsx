@@ -6,13 +6,7 @@ import {ReduxState} from 'store';
 
 export const VERTICAL_OFFSET = 30;
 
-const StyledFloat = styled.div.attrs<Props>((props) => ({
-	// This prevents new classes from being created with every change
-	style: {
-		left: `${props.float ? props.float.x : 0}px`,
-		top: `${props.float ? props.float.y - VERTICAL_OFFSET : 0}px`,
-	},
-}))`
+const StyledFloat = styled.div`
 	font-family: 'Roboto Condensed', sans-serif;
 
 	position: absolute;
@@ -32,7 +26,14 @@ type Props = ReturnType<typeof mapStateToProps>;
 // won't be visible if content is empty
 const FloatingInfo: React.FC<Props> = (props) =>
 	props.float ? (
-		<StyledFloat {...props}>{props.float.content}</StyledFloat>
+		<StyledFloat
+			style={{
+				left: props.float.x,
+				top: props.float.y - VERTICAL_OFFSET,
+			}}
+		>
+			{props.float.content}
+		</StyledFloat>
 	) : null;
 
 const mapStateToProps = ({float}: ReduxState) => ({
