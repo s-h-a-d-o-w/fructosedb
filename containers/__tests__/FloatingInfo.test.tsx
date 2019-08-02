@@ -34,14 +34,14 @@ describe('<FloatingInfo>', () => {
 	});
 
 	it('sets "top" to the correct offset', () => {
-		const wrapper = mount(
+		const {container} = render(
 			<Provider store={store}>
 				<FloatingInfo />
 			</Provider>
 		);
-		expect((wrapper.find('div').prop('style') as CSSStyleDeclaration).top).toBe(
-			`${100 - VERTICAL_OFFSET}px`
-		);
+
+		// @ts-ignore
+		expect(container.firstChild.style.top).toBe(`${100 - VERTICAL_OFFSET}px`);
 	});
 
 	it("doesn't render if float is empty", () => {

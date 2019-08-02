@@ -13,3 +13,6 @@ deploy:
     skip_cleanup: true
     on:
       master: true
+notifications:
+  email:
+    - ao@variations-of-shadow.com
