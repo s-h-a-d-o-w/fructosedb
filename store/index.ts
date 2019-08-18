@@ -49,11 +49,6 @@ export const reducer = (
 					y: action.y,
 				},
 			};
-		case 'TOGGLE_LOCK_AVOID':
-			return {
-				...state,
-				lockedAvoid: !state.lockedAvoid,
-			};
 		case 'TOGGLE_FRUIT':
 			return {
 				...state,
@@ -85,7 +80,6 @@ export const initialState = {
 	lang: 'en' as SupportedLanguages,
 	langTranslate: 'en',
 	light: false,
-	lockedAvoid: false,
 	onlyFruit: false,
 	showServing: false,
 	sortBy: 'name',

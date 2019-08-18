@@ -14,7 +14,7 @@ type Header = HeaderDataItem & {
 
 const headerData: {[key: string]: HeaderDataItem} = {
 	name: {description: 'Name', remWidth: 0},
-	avoid: {description: '🔒', remWidth: 1.5},
+	avoid: {description: '', remWidth: 1.5},
 	measure: {
 		description: 'Serving Size',
 		remWidth: 4,
@@ -49,31 +49,19 @@ const headerData: {[key: string]: HeaderDataItem} = {
 	},
 };
 
-const generateHeaders = (cols: string[], lockedAvoid: boolean): Header[] =>
+const generateHeaders = (cols: string[]): Header[] =>
 	cols.map((col) =>
 		Object.assign(
 			{},
 			headerData[col],
 			{name: col},
-			col === 'avoid'
-				? lockedAvoid
-					? {description: '🔒'}
-					: {description: '🔓'}
-				: {}
 		)
 	);
 
 const sortData = memoize(
-	(data: Food[], sortBy: string, sortAsc: boolean, lockedAvoid: boolean) => {
-		let sortCriteria = [];
-
-		if (lockedAvoid) {
-			sortCriteria.push({desc: 'avoid'});
-		}
-		sortCriteria.push(sortAsc ? {asc: sortBy} : {desc: sortBy});
-
-		return sort(data).by(sortCriteria);
-	}
+	(data: Food[], sortBy: string, sortAsc: boolean) => (
+		sortAsc ? sort(data).asc(sortBy) : sort(data).desc(sortBy)
+	)
 );
 
 const translateData = memoize(

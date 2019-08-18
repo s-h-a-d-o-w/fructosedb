@@ -11,7 +11,7 @@ import Loading from 'components/Loading';
 import TableIcon from 'components/TableIcon';
 import {fetchJSON} from 'lib/fetch-with-timeout';
 import {isEmptyObject} from 'lib/util';
-import {toggleLockAvoid, changeSort, showFloat, hideFloat} from 'store/actions';
+import {changeSort, showFloat, hideFloat} from 'store/actions';
 import {ReduxState} from 'store';
 import {Food} from 'types';
 
@@ -79,8 +79,7 @@ class VirtualTable extends React.Component<Props, State> {
 		data = Data.sortData(
 			data,
 			this.props.sortBy,
-			this.props.sortAsc,
-			this.props.lockedAvoid
+			this.props.sortAsc
 		);
 
 		// FILTER
@@ -120,12 +119,10 @@ class VirtualTable extends React.Component<Props, State> {
 						'sucroseServing',
 						'glucoseServing',
 						'ratio',
-					],
-					this.props.lockedAvoid
+					]
 			  )
 			: Data.generateHeaders(
-					['avoid', 'name', 'fructose', 'sucrose', 'glucose', 'ratio'],
-					this.props.lockedAvoid
+					['avoid', 'name', 'fructose', 'sucrose', 'glucose', 'ratio']
 			  );
 
 		return headers.map((column) => (
@@ -222,7 +219,6 @@ class VirtualTable extends React.Component<Props, State> {
 const mapStateToProps = ({
 	filter,
 	lang,
-	lockedAvoid,
 	onlyFruit,
 	showServing,
 	sortBy,
@@ -230,7 +226,6 @@ const mapStateToProps = ({
 }: ReduxState) => ({
 	filter,
 	lang,
-	lockedAvoid,
 	onlyFruit,
 	showServing,
 	sortBy,
@@ -246,7 +241,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 		sortDirection: string;
 	}) =>
 		col === 'avoid'
-			? dispatch(toggleLockAvoid())
+			? () => {}
 			: dispatch(changeSort(col, sortDirection === SortDirection.ASC)),
 	dispatchHideFloat: () => dispatch(hideFloat()),
 	dispatchShowFloat: (name: string, e: React.MouseEvent<HTMLDivElement>) => {
