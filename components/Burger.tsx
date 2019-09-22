@@ -3,45 +3,43 @@ import styled from 'styled-components';
 
 import theme from 'lib/theme';
 
-const Burger = styled.div`
+type Props = {
+	onClick: () => void;
+};
+
+const StyledBurgerContainer = styled.button`
+	border: 0;
+	cursor: pointer; // In case of small window on desktop
+	background-color: ${theme.primaryLight};
+
+	position: fixed;
+	left: 0;
+	top: 0;
+
 	width: 3rem;
 	height: 3rem;
 	padding: 0.4rem;
-	background-color: ${theme.primaryLight};
 
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
 
-	.burgerLine {
-		width: 1.9rem;
-		height: 4px;
-		background-color: ${theme.primaryDark};
+	${theme.largeDevices} {
+		display: none;
 	}
 `;
 
-const BurgerLine = styled.div`
+const StyledBurgerLine = styled.div`
 	width: 1.9rem;
 	height: 4px;
 	background-color: ${theme.primaryDark};
 `;
 
-type Props = {
-	onClick: () => void;
-};
-
-/**
- * Used to toggle mobile menu.
- * @param props
- * @example ../docs/examples/Burger.md
- */
-export default (props: Props) => {
-	return (
-		<Burger {...props}>
-			<BurgerLine />
-			<BurgerLine />
-			<BurgerLine />
-		</Burger>
-	);
-};
+export const Burger: React.FC<Props> = ({onClick}) => (
+	<StyledBurgerContainer onClick={onClick}>
+		<StyledBurgerLine />
+		<StyledBurgerLine />
+		<StyledBurgerLine />
+	</StyledBurgerContainer>
+);

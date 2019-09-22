@@ -7,7 +7,10 @@ import theme from 'lib/theme';
 import {ReduxState} from 'store';
 import {changeFilter, toggleFruit, toggleServing} from 'store/actions';
 
-import LangSelect from './LangSelect';
+import {LangSelect} from './LangSelect';
+
+type Props = ReturnType<typeof mapStateToProps> &
+	ReturnType<typeof mapDispatchToProps>;
 
 const StyledOptions = styled.div`
 	display: flex;
@@ -48,45 +51,45 @@ const StyledTextBox = styled.input`
 	}
 `;
 
-type Props = ReturnType<typeof mapStateToProps> &
-	ReturnType<typeof mapDispatchToProps>;
-
-class Options extends React.Component<Props> {
-	handleFilter: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		this.props.dispatchFilter(e.target.value);
-	};
-
-	render = () => (
-		<StyledOptions>
-			<input
-				type="checkbox"
-				id="showServing"
-				checked={this.props.showServing}
-				onChange={this.props.dispatchServing}
-			/>
-			<label htmlFor="showServing">Per Serving</label>
-			<input
-				type="checkbox"
-				id="onlyFruit"
-				checked={this.props.onlyFruit}
-				onChange={this.props.dispatchFruit}
-			/>
-			<label htmlFor="onlyFruit">Only Fruit</label>
-			<StyledTextBox
-				type="text"
-				placeholder="Filter"
-				onChange={this.handleFilter}
-				value={this.props.filter}
-			/>
-			<LangSelect />
-		</StyledOptions>
-	);
-}
-
-const mapStateToProps = ({filter, onlyFruit, showServing}: ReduxState) => ({
+const _Options: React.FC<Props> = ({
+	dispatchFilter,
+	dispatchFruit,
+	dispatchServing,
 	filter,
 	onlyFruit,
-	showServing,
+	showServingSize,
+}) => (
+	<StyledOptions>
+		<input
+			type="checkbox"
+			id="showServing"
+			checked={showServingSize}
+			onChange={dispatchServing}
+		/>
+		<label htmlFor="showServing">Per Serving</label>
+		<input
+			type="checkbox"
+			id="onlyFruit"
+			checked={onlyFruit}
+			onChange={dispatchFruit}
+		/>
+		<label htmlFor="onlyFruit">Only Fruit</label>
+		<StyledTextBox
+			type="text"
+			placeholder="Filter"
+			onChange={(e) => {
+				dispatchFilter(e.target.value);
+			}}
+			value={filter}
+		/>
+		<LangSelect />
+	</StyledOptions>
+);
+
+const mapStateToProps = ({filter, onlyFruit, showServingSize}: ReduxState) => ({
+	filter,
+	onlyFruit,
+	showServingSize,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -95,7 +98,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	dispatchServing: () => dispatch(toggleServing()),
 });
 
-export default connect(
+export const Options = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Options);
+)(_Options);

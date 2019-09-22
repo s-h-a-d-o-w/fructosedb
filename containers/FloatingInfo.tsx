@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import {ReduxState} from 'store';
 
+type Props = ReturnType<typeof mapStateToProps>;
+
 export const VERTICAL_OFFSET = 30;
 
 const StyledFloat = styled.div`
@@ -20,19 +22,17 @@ const StyledFloat = styled.div`
 	pointer-events: none;
 `;
 
-type Props = ReturnType<typeof mapStateToProps>;
-
 // Always rendered (not as much adding/removing from DOM, more concise code),
 // won't be visible if content is empty
-const FloatingInfo: React.FC<Props> = (props) =>
-	props.float ? (
+const FloatingInfo: React.FC<Props> = ({float}) =>
+	float ? (
 		<StyledFloat
 			style={{
-				left: props.float.x,
-				top: props.float.y - VERTICAL_OFFSET,
+				left: float.x,
+				top: float.y - VERTICAL_OFFSET,
 			}}
 		>
-			{props.float.content}
+			{float.content}
 		</StyledFloat>
 	) : null;
 

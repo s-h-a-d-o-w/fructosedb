@@ -1,22 +1,10 @@
 import * as React from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
 
-import Burger from 'components/Burger';
-// import Link from '../components/Link';
-import Menu from 'components/Menu';
-import theme from 'lib/theme';
-
-const StyledBurger = styled(Burger)`
-	position: fixed;
-	left: 0;
-	top: 0;
-
-	cursor: pointer; // In case of small window on desktop
-
-	${theme.largeDevices} {
-		display: none;
-	}
-`;
+import {Burger} from 'components/Burger';
+// import {Link} from '../components/Link';
+import {NavigationContent} from 'components/NavigationContent';
 
 /*
 const StyledSupport = styled.nav`
@@ -40,29 +28,27 @@ const StyledLightbox = styled.div`
 	opacity: 0.5;
 `;
 
-export default class extends React.Component {
-	state = {
-		showMenu: false,
-	};
+export const Navigation: React.FC = () => {
+	const [showMenu, setShowMenu] = useState(false);
 
-	closeMenu = () => {
-		this.setState({showMenu: false});
-	};
+	function closeMenu() {
+		setShowMenu(false);
+	}
 
-	openMenu = () => {
-		this.setState({showMenu: true});
-	};
+	function openMenu() {
+		setShowMenu(true);
+	}
 
-	render = () => (
+	return (
 		<>
-			<StyledBurger onClick={this.openMenu} />
-			{this.state.showMenu && (
+			<Burger onClick={openMenu} />
+			{showMenu && (
 				<>
-					<StyledLightbox onClick={this.closeMenu} />
-					<Menu onClick={this.closeMenu} desktop={false} />
+					<StyledLightbox onClick={closeMenu} />
+					<NavigationContent onClick={closeMenu} desktop={false} />
 				</>
 			)}
-			<Menu desktop={true} />
+			<NavigationContent desktop={true} />
 			{/*
 				<StyledSupport>
 					<Link target="_blank" href="/support">
@@ -72,4 +58,4 @@ export default class extends React.Component {
 				*/}
 		</>
 	);
-}
+};

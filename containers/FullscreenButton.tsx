@@ -1,8 +1,13 @@
 import * as React from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
 import screenfull from 'screenfull';
 
 import theme from 'lib/theme';
+
+type Props = {
+	target: React.RefObject<HTMLElement>;
+};
 
 const StyledIcon = styled.div`
 	display: block;
@@ -21,62 +26,50 @@ const StyledIcon = styled.div`
 	}
 `;
 
-type Props = {
-	target: React.RefObject<HTMLElement>;
-};
+export const FullscreenButton: React.FC<Props> = ({target}) => {
+	const [isFullscreen, setIsFullscreen] = useState(false);
 
-type State = {
-	fullscreen: boolean;
-};
-
-export default class FullscreenButton extends React.Component<Props, State> {
-	state = {
-		fullscreen: false,
-	};
-
-	toggleFullScreen: React.MouseEventHandler = (e) => {
+	const toggleFullScreen: React.MouseEventHandler = (e) => {
 		e.preventDefault();
 
 		if (screenfull) {
-			if (this.state.fullscreen) {
+			if (isFullscreen) {
 				screenfull.exit();
-			} else if (this.props.target.current) {
-				screenfull.request(this.props.target.current);
+			} else if (target.current) {
+				screenfull.request(target.current);
 			}
 		}
 
-		this.setState((prevState) => ({fullscreen: !prevState.fullscreen}));
+		setIsFullscreen((prevFullscreen) => !prevFullscreen);
 	};
 
-	render() {
-		return (
-			<StyledIcon onClick={this.toggleFullScreen}>
-				{this.state.fullscreen ? (
-					<svg width="100%" viewBox="0 0 20 20">
-						<defs>
-							<mask id="exitMask">
-								<rect x="6" width="8" height="20" fill="white" />
-								<rect y="6" width="20" height="8" fill="white" />
-								<rect x="8" width="4" height="20" fill="black" />
-								<rect y="8" width="20" height="4" fill="black" />
-							</mask>
-						</defs>
-						<rect width="20" height="20" mask="url(#exitMask)" />
-					</svg>
-				) : (
-					<svg width="100%" viewBox="0 0 20 20">
-						<defs>
-							<mask id="fsMask">
-								<rect width="20" height="20" fill="white" />
-								<rect x="2" y="2" width="16" height="16" fill="black" />
-								<rect x="8" width="4" height="20" fill="black" />
-								<rect y="8" width="20" height="4" fill="black" />
-							</mask>
-						</defs>
-						<rect width="20" height="20" mask="url(#fsMask)" />
-					</svg>
-				)}
-			</StyledIcon>
-		);
-	}
-}
+	return (
+		<StyledIcon onClick={toggleFullScreen}>
+			{isFullscreen ? (
+				<svg width="100%" viewBox="0 0 20 20">
+					<defs>
+						<mask id="exitMask">
+							<rect x="6" width="8" height="20" fill="white" />
+							<rect y="6" width="20" height="8" fill="white" />
+							<rect x="8" width="4" height="20" fill="black" />
+							<rect y="8" width="20" height="4" fill="black" />
+						</mask>
+					</defs>
+					<rect width="20" height="20" mask="url(#exitMask)" />
+				</svg>
+			) : (
+				<svg width="100%" viewBox="0 0 20 20">
+					<defs>
+						<mask id="fsMask">
+							<rect width="20" height="20" fill="white" />
+							<rect x="2" y="2" width="16" height="16" fill="black" />
+							<rect x="8" width="4" height="20" fill="black" />
+							<rect y="8" width="20" height="4" fill="black" />
+						</mask>
+					</defs>
+					<rect width="20" height="20" mask="url(#fsMask)" />
+				</svg>
+			)}
+		</StyledIcon>
+	);
+};

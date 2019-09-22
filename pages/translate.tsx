@@ -2,13 +2,13 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import Head from 'next/head';
 
-import BaseLayout from '../components/BaseLayout';
-import CenteredContent from '../components/CenteredContent';
-import Loading from '../components/Loading';
+import {BaseLayout} from '../containers/BaseLayout';
+import {CenteredContent} from '../components/CenteredContent';
+import {Loading} from '../components/Loading';
 import {fetch} from '../lib/fetch-with-timeout';
 import TranslationDropdown from '../containers/TranslationDropdown';
-import Link from '../components/Link';
-import Email from '../components/Email';
+import {Link} from '../components/Link';
+import {Email} from '../containers/Email';
 import {FoodCache} from 'types';
 import {ReduxState} from 'store';
 

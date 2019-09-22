@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import styled from 'styled-components';
 
 import theme from 'lib/theme';
@@ -23,8 +23,8 @@ const StyledA = styled.a`
 
 // Next.js Link apparently injects href only into <a> child elements,
 // not generic elements, such as styled components
-export default (props: Props) => (
-	<Link href={props.href}>
-		<StyledA onClick={props.onClick} {...props} />
-	</Link>
+export const Link: React.FC<Props> = (props) => (
+	<NextLink href={props.href}>
+		<StyledA {...props} />
+	</NextLink>
 );

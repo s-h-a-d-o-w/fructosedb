@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import theme from 'lib/theme';
 
-import Link from './Link';
+import {Link} from './Link';
 
 const StyledLogo = styled.div`
 	grid-area: logo;
@@ -17,19 +17,11 @@ const StyledLogo = styled.div`
 	}
 `;
 
-const Fructose = styled.span`
-	color: ${theme.primaryLight};
-`;
-
-const DB = styled.span`
-	color: white;
-`;
-
 export const Logo = () => (
 	<StyledLogo>
 		<Link href="/">
-			<Fructose>fructose</Fructose>
-			<DB>db</DB>
+			<span style={{color: theme.primaryLight}}>fructose</span>
+			<span style={{color: 'white'}}>db</span>
 		</Link>
 	</StyledLogo>
 );

@@ -30,7 +30,7 @@ const StyledIcon = styled.div`
 	}
 `;
 
-export default () => (
+export const Loading: React.FC = () => (
 	<StyledFillContainer>
 		<StyledIcon />
 	</StyledFillContainer>

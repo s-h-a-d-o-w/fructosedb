@@ -1,11 +1,12 @@
 import * as React from 'react';
+import {useState, useEffect} from 'react';
 import styled from 'styled-components';
 
-import Navigation from 'containers/Navigation';
+import {Navigation} from 'containers/Navigation';
 import theme from 'lib/theme';
 
-import FructoseHead from './Head';
-import {Logo} from './Logo';
+import {Head as FructoseHead} from '../components/Head';
+import {Logo} from '../components/Logo';
 
 type StyledBaseProps = {
 	hasMounted: boolean;
@@ -42,38 +43,28 @@ const StyledBase = styled.div`
 		are only inteded to soften the inital page load.
 	 */
 	${(props: StyledBaseProps) =>
-		props.hasMounted ? '' : '& > * {animation: fadeIn 250ms ease-in;}'};
+		props.hasMounted ? '' : '& > * {animation: fadeIn 500ms ease-in;}'};
 `;
 
 type Props = {
-	children: React.ReactNode;
 	onClick?: () => void;
 	onTouchStart?: () => void;
 };
 
-export default class BaseLayout extends React.Component<Props> {
-	state = {
-		hasMounted: false,
-	};
+export const BaseLayout: React.FC<Props> = ({children, ...restProps}) => {
+	const [hasMounted, setHasMounted] = useState(false);
+	useEffect(function() {
+		setHasMounted(true);
+	}, []);
 
-	componentDidMount() {
-		this.setState({
-			hasMounted: true,
-		});
-	}
-
-	render() {
-		let {children, ...restProps} = this.props;
-
-		return (
-			<>
-				<FructoseHead />
-				<StyledBase {...restProps} hasMounted={this.state.hasMounted}>
-					<Logo />
-					<Navigation />
-					{children}
-				</StyledBase>
-			</>
-		);
-	}
-}
+	return (
+		<>
+			<FructoseHead />
+			<StyledBase {...restProps} hasMounted={hasMounted}>
+				<Logo />
+				<Navigation />
+				{children}
+			</StyledBase>
+		</>
+	);
+};

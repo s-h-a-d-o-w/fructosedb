@@ -6,7 +6,7 @@ import theme from 'lib/theme';
  * @component
  * @example ../docs/examples/Note.md
  */
-export default styled.p`
+export const Note = styled.p`
 	text-align: justify;
 	text-indent: 1rem;
 

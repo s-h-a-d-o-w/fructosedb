@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import theme from 'lib/theme';
 
-export default styled.article`
+export const Article = styled.article`
 	margin-top: 2rem;
 	margin-bottom: 3rem;
 	padding: 0 2rem;

@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import BaseLayout from '../components/BaseLayout';
-import CenteredContent from '../components/CenteredContent';
-import Article from '../components/Article';
-import Paragraph from '../components/Paragraph';
-import Email from '../components/Email';
+import {BaseLayout} from '../containers/BaseLayout';
+import {CenteredContent} from '../components/CenteredContent';
+import {Article} from '../components/Article';
+import {Paragraph} from '../components/Paragraph';
+import {Email} from '../containers/Email';
 
 export default () => (
 	<BaseLayout>

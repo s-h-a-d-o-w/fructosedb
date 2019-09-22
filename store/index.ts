@@ -57,7 +57,7 @@ export const reducer = (
 		case 'TOGGLE_SERVING':
 			return {
 				...state,
-				showServing: !state.showServing,
+				showServingSize: !state.showServingSize,
 			};
 		default:
 			return state;
@@ -81,7 +81,7 @@ export const initialState = {
 	langTranslate: 'en',
 	light: false,
 	onlyFruit: false,
-	showServing: false,
+	showServingSize: false,
 	sortBy: 'name',
 	sortAsc: true,
 };

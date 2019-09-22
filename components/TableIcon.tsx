@@ -1,6 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+type Props = {
+	// Not supported by react-docgen:
+	name: keyof typeof icons;
+};
+
 const StyledSVG = styled.svg`
 	width: 1.3em;
 	height: 1.3em;
@@ -28,13 +33,8 @@ const ok = (
 
 const icons = {error, ok};
 
-type Props = {
-	// Not supported by react-docgen:
-	name: keyof typeof icons;
-};
-
 /**
  * @component
  * @example ../docs/examples/TableIcon.md
  */
-export default (props: Props) => icons[props.name];
+export const TableIcon: React.FC<Props> = ({name}) => icons[name];

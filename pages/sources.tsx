@@ -1,11 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import BaseLayout from '../components/BaseLayout';
-import CenteredContent from '../components/CenteredContent';
-import Article from '../components/Article';
-import Paragraph from '../components/Paragraph';
-import Note from '../components/Note';
+import {BaseLayout} from '../containers/BaseLayout';
+import {CenteredContent} from '../components/CenteredContent';
+import {Article} from '../components/Article';
+import {Paragraph} from '../components/Paragraph';
+import {Note} from '../components/Note';
 
 const StyledUSDASymbol = styled.img`
 	width: 2rem;

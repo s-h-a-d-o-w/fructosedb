@@ -1,7 +1,8 @@
 import memoize from 'memoize-one';
-import sort from 'fast-sort';
+import fastSort from 'fast-sort';
 
 import {Food} from 'types';
+import {Translation} from './Table';
 
 export type HeaderDataItem = {
 	description: string;
@@ -49,26 +50,36 @@ const headerData: {[key: string]: HeaderDataItem} = {
 	},
 };
 
-const generateHeaders = (cols: string[]): Header[] =>
-	cols.map((col) =>
-		Object.assign(
-			{},
-			headerData[col],
-			{name: col},
-		)
-	);
+const filter = memoize((data: Food[], term: string, onlyFruit: boolean) => {
+	console.log('filter', data, term, onlyFruit);
+	let nextData = data.slice();
 
-const sortData = memoize(
-	(data: Food[], sortBy: string, sortAsc: boolean) => (
-		sortAsc ? sort(data).asc(sortBy) : sort(data).desc(sortBy)
-	)
+	if (term !== '') {
+		nextData = nextData.filter(
+			(el) => el.name.toLowerCase().indexOf(term.toLowerCase()) >= 0
+		);
+	}
+	if (onlyFruit) {
+		nextData = nextData.filter((el) => el.isFruit);
+	}
+
+	return nextData;
+});
+
+const generateHeaders = (cols: string[]): Header[] =>
+	cols.map((col) => Object.assign({}, headerData[col], {name: col}));
+
+const sort = memoize((data: Food[], sortBy: string, sortAsc: boolean) =>
+	sortAsc
+		? fastSort(data.slice()).asc(sortBy)
+		: fastSort(data.slice()).desc(sortBy)
 );
 
-const translateData = memoize(
-	(data: Food[], translation: {[key: string]: string}, lang: string): Food[] =>
+const translate = memoize(
+	(data: Food[], translation: Translation, lang: string): Food[] =>
 		lang === 'en'
 			? data
 			: data.map((el) => Object.assign({}, el, {name: translation[el.name]}))
 );
 
-export {generateHeaders, sortData, translateData};
+export {filter, generateHeaders, sort, translate};

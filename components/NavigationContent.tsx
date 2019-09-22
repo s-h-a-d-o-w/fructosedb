@@ -3,9 +3,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styled from 'styled-components';
 
 import theme from '../lib/theme';
-import Link from './Link';
+import {Link} from './Link';
 
-const StyledMobile = styled.nav`
+type Props = {
+	desktop: boolean;
+	onClick?: () => void;
+};
+
+const StyledNavMobile = styled.nav`
 	transition: left 150ms ease-out;
 	left: 0;
 
@@ -58,36 +63,31 @@ const StyledNavLayout = styled.div`
 	}
 `;
 
-const StyledDesktop = styled.nav`
+const StyledNavDesktop = styled.nav`
 	display: none;
 	${theme.largeDevices} {
 		display: inline-block;
 	}
 `;
 
-type Props = {
-	desktop: boolean;
-	onClick?: () => void;
-};
-
-export default (props: Props) => {
+export const NavigationContent: React.FC<Props> = ({desktop, onClick}) => {
 	const items = (
 		<>
-			<Link onClick={props.onClick} href="/">
+			<Link onClick={onClick} href="/">
 				Home
 			</Link>
-			<Link onClick={props.onClick} href="/sources">
+			<Link onClick={onClick} href="/sources">
 				How We Calculate
 			</Link>
-			<Link onClick={props.onClick} href="/about">
+			<Link onClick={onClick} href="/about">
 				About Us
 			</Link>
 		</>
 	);
 
-	return props.desktop ? (
+	return desktop ? (
 		<StyledNavLayout>
-			<StyledDesktop>{items}</StyledDesktop>
+			<StyledNavDesktop>{items}</StyledNavDesktop>
 		</StyledNavLayout>
 	) : (
 		<ReactCSSTransitionGroup
@@ -97,7 +97,7 @@ export default (props: Props) => {
 			transitionEnter={false}
 			transitionLeave={false}
 		>
-			<StyledMobile>{items}</StyledMobile>
+			<StyledNavMobile>{items}</StyledNavMobile>
 		</ReactCSSTransitionGroup>
 	);
 };
