@@ -1,11 +1,15 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import screenfull from 'screenfull';
+import {Screenfull} from 'screenfull';
 
 import theme from 'lib/theme';
 
 type Props = {
+	// Requiring screenfull via props allows us to use it without checking
+	// whether it is enabled every time.
+	screenfull: Screenfull;
+
 	target: React.RefObject<HTMLElement>;
 };
 
@@ -26,18 +30,30 @@ const StyledIcon = styled.div`
 	}
 `;
 
-export const FullscreenButton: React.FC<Props> = ({target}) => {
-	const [isFullscreen, setIsFullscreen] = useState(false);
+export const FullscreenButton: React.FC<Props> = ({screenfull, target}) => {
+	const [isFullscreen, setIsFullscreen] = useState(screenfull.isFullscreen);
+
+	// Need to update this button for when user doesn't exit fullscreen using it but
+	// instead using some native, device-specific way.
+	useEffect(function() {
+		function fullscreenChangeCallback() {
+			setIsFullscreen(screenfull.isFullscreen);
+		}
+
+		screenfull.on('change', fullscreenChangeCallback);
+
+		return function() {
+			screenfull.off('change', fullscreenChangeCallback);
+		};
+	}, []);
 
 	const toggleFullScreen: React.MouseEventHandler = (e) => {
 		e.preventDefault();
 
-		if (screenfull) {
-			if (isFullscreen) {
-				screenfull.exit();
-			} else if (target.current) {
-				screenfull.request(target.current);
-			}
+		if (isFullscreen) {
+			screenfull.exit();
+		} else if (target.current) {
+			screenfull.request(target.current);
 		}
 
 		setIsFullscreen((prevFullscreen) => !prevFullscreen);

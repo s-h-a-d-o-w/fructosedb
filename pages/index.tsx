@@ -64,8 +64,8 @@ class Index extends React.Component<Props, State> {
 							<FullscreenContainer ref={this.refContent}>
 								<Options />
 								<Table />
-								{screenfull && screenfull.enabled ? (
-									<FullscreenButton target={this.refContent} />
+								{screenfull.isEnabled ? (
+									<FullscreenButton screenfull={screenfull} target={this.refContent} />
 								) : (
 									''
 								)}
