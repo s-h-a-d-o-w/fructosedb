@@ -30,7 +30,7 @@ const StyledIcon = styled.div`
 	}
 `;
 
-export const FullscreenButton: React.FC<Props> = ({screenfull, target}) => {
+export const FullscreenButton = React.memo(({screenfull, target}: Props) => {
 	const [isFullscreen, setIsFullscreen] = useState(screenfull.isFullscreen);
 
 	// Need to update this button for when user doesn't exit fullscreen using it but
@@ -88,4 +88,4 @@ export const FullscreenButton: React.FC<Props> = ({screenfull, target}) => {
 			)}
 		</StyledIcon>
 	);
-};
+});

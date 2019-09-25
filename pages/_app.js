@@ -7,8 +7,11 @@ import withReduxStore from '../lib/with-redux-store';
 
 if (typeof window !== 'undefined') {
 	if (process.env.NODE_ENV !== 'production') {
-		const {whyDidYouUpdate} = require('why-did-you-update');
-		//whyDidYouUpdate(React);
+		// const whyDidYouRender = require("@welldone-software/why-did-you-render");
+		// whyDidYouRender(React,  {
+		// 	collapseGroups: true,
+		// 	include: [/.*/],
+		// });
 	}
 
 	console.info('Built on:', process.env.BUILD_TIMESTAMP);

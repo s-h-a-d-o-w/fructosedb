@@ -51,7 +51,6 @@ const headerData: {[key: string]: HeaderDataItem} = {
 };
 
 const filter = memoize((data: Food[], term: string, onlyFruit: boolean) => {
-	console.log('filter', data, term, onlyFruit);
 	let nextData = data.slice();
 
 	if (term !== '') {

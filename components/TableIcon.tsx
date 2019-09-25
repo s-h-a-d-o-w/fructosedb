@@ -37,4 +37,4 @@ const icons = {error, ok};
  * @component
  * @example ../docs/examples/TableIcon.md
  */
-export const TableIcon: React.FC<Props> = ({name}) => icons[name];
+export const TableIcon = React.memo(({name}: Props) => icons[name]);

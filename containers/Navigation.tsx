@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import styled from 'styled-components';
 
 import {Burger} from 'components/Burger';
@@ -28,16 +28,11 @@ const StyledLightbox = styled.div`
 	opacity: 0.5;
 `;
 
-export const Navigation: React.FC = () => {
+export const Navigation = React.memo(() => {
 	const [showMenu, setShowMenu] = useState(false);
 
-	function closeMenu() {
-		setShowMenu(false);
-	}
-
-	function openMenu() {
-		setShowMenu(true);
-	}
+	const closeMenu = useCallback(() => setShowMenu(false), []);
+	const openMenu = useCallback(() => setShowMenu(true), []);
 
 	return (
 		<>
@@ -58,4 +53,4 @@ export const Navigation: React.FC = () => {
 				*/}
 		</>
 	);
-};
+});

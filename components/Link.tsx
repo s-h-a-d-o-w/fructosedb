@@ -23,8 +23,8 @@ const StyledA = styled.a`
 
 // Next.js Link apparently injects href only into <a> child elements,
 // not generic elements, such as styled components
-export const Link: React.FC<Props> = (props) => (
+export const Link = React.memo((props: Props) => (
 	<NextLink href={props.href}>
 		<StyledA {...props} />
 	</NextLink>
-);
+));

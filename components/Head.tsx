@@ -1,7 +1,7 @@
 import * as React from 'react';
 import NextHead from 'next/head';
 
-export const Head: React.FC = () => (
+export const Head = React.memo(() => (
 	<NextHead>
 		<title>fructosedb - find low fructose foods</title>
 		<meta
@@ -18,4 +18,4 @@ export const Head: React.FC = () => (
 		<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20181018" />
 		<link rel="prefetch" href="/static/images/usda-symbol.svg" />
 	</NextHead>
-);
+));

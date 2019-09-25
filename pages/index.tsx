@@ -16,6 +16,13 @@ import {isEmptyObject} from 'lib/util';
 import {hideFloat} from 'store/actions';
 import {ReduxState} from 'store';
 
+type Props = ReturnType<typeof mapStateToProps> &
+	ReturnType<typeof mapDispatchToProps>;
+
+type State = {
+	hasMounted: boolean;
+};
+
 const FullscreenContainer = styled.div`
 	/* If background-color isn't set, :-webkit-full-screen (default: white) will be aplied */
 	background-color: ${theme.primary};
@@ -26,13 +33,6 @@ const FullscreenContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
-
-type Props = ReturnType<typeof mapStateToProps> &
-	ReturnType<typeof mapDispatchToProps>;
-
-type State = {
-	hasMounted: boolean;
-};
 
 class Index extends React.Component<Props, State> {
 	refContent = React.createRef<HTMLDivElement>();
@@ -65,7 +65,10 @@ class Index extends React.Component<Props, State> {
 								<Options />
 								<Table />
 								{screenfull.isEnabled ? (
-									<FullscreenButton screenfull={screenfull} target={this.refContent} />
+									<FullscreenButton
+										screenfull={screenfull}
+										target={this.refContent}
+									/>
 								) : (
 									''
 								)}
