@@ -3,6 +3,9 @@ const {match, createConfig, babel, css, file} = require('webpack-blocks');
 const typescript = require('@webpack-blocks/typescript');
 const devServer = require('@webpack-blocks/dev-server');
 
+// TODO: Figure out why this suddenly doesn't work any more due to broken lodash export
+// local-storage.js:32 Uncaught TypeError: throttle_1.default is not a function
+
 // Based on: https://github.com/rumble-charts/rumble-charts/blob/master/styleguide.config.js
 module.exports = {
 	// Without propsParser react-docgen-typescript, styleguidist throws Syntax Errors.
