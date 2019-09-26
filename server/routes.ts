@@ -9,6 +9,12 @@ import * as Express from 'express';
 
 const dev = process.env.NODE_ENV !== 'production';
 
+const cacheAges = {
+	usda: 24 * 1000 * 60 * 60, // 24h
+	ssr: 1000 * 60 * 60, // 1h
+	http: 24 * 60 * 60, // 24h
+};
+
 // ==================================
 // USDA data cache (refresh interval: 24h)
 // ==================================
@@ -19,7 +25,7 @@ const updateFoodCache = async () => {
 	console.log(foodCache.age.toISOString(), 'Updated cache.');
 
 	// Update cache every 24h
-	setTimeout(updateFoodCache, 24 * 1000 * 60 * 60);
+	setTimeout(updateFoodCache, cacheAges.usda);
 };
 // ==================================
 
@@ -29,7 +35,7 @@ const updateFoodCache = async () => {
 // See https://github.com/zeit/next.js/blob/master/examples/ssr-caching/server.js
 const ssrCache = new LRUCache({
 	max: 100,
-	maxAge: 1000 * 60 * 60, // 1 hour
+	maxAge: cacheAges.ssr, // 1 hour
 });
 
 async function renderAndCache(
@@ -136,7 +142,7 @@ const setupRoutes = (nextApp: any, expressServer: Express.Express) => {
 			return res.send(result);
 		} catch (err) {
 			console.log(err);
-			return res.send('Error while fetching visitor information.');
+			return res.send('error while fetching visitor information.');
 		}
 	});
 
@@ -157,6 +163,7 @@ const setupRoutes = (nextApp: any, expressServer: Express.Express) => {
 	});
 
 	expressServer.get('*', (req, res) => {
+		res.setHeader('Cache-Control', `public, max-age=${cacheAges.http}`);
 		return nextHandle(req, res);
 	});
 };

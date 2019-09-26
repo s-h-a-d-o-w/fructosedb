@@ -54,7 +54,7 @@ const FoodsTable: React.FC<Props> = ({
 	sortAsc,
 	sortBy,
 }) => {
-	const [isFetchingData, setIsFetchingData] = useState(false);
+	const [isFetchingRawData, setIsFetchingRawData] = useState(false);
 	const [isFetchingTranslation, setIsFetchingTranslation] = useState(false);
 	const [rawData, setRawData] = useState<Food[]>([]);
 	const [data, setData] = useState<Food[]>([]);
@@ -63,7 +63,7 @@ const FoodsTable: React.FC<Props> = ({
 	const tableRef = useRef(null);
 
 	useEffect(function() {
-		fetchURL('list', setIsFetchingData, setRawData);
+		fetchURL('list', setIsFetchingRawData, setRawData);
 	}, []);
 
 	// Debounced data preparation here instead of debouncing the filter input,
@@ -115,7 +115,7 @@ const FoodsTable: React.FC<Props> = ({
 
 	const [debouncedUpdateData] = useDebouncedCallback(updateData, 200);
 
-	return isFetchingData ? (
+	return isFetchingRawData || isFetchingTranslation ? (
 		<Loading />
 	) : (
 		<StyledTable ref={tableRef}>
