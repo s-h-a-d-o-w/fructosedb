@@ -4,11 +4,12 @@ import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-import DE from '../static/lang/de.svg';
-import US from '../static/lang/us.svg';
 import {changeLanguage} from 'store/actions';
 import {ReduxState} from 'store';
 import {SupportedLanguages} from 'types';
+
+import DE from '../static/lang/de.svg';
+import US from '../static/lang/us.svg';
 
 type Props = ReturnType<typeof mapStateToProps> &
 	ReturnType<typeof mapDispatchToProps>;

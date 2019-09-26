@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
+
 import {changeTranslationTarget} from '../store/actions';
 
 class TranslationDropdown extends React.Component<any> {

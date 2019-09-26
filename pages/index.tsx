@@ -10,7 +10,7 @@ import {Loading} from 'components/Loading';
 import FloatingInfo from 'containers/FloatingInfo';
 import {FullscreenButton} from 'containers/FullscreenButton';
 import {Options} from 'containers/Options';
-import Table from 'containers/Table';
+import {FoodsTable} from 'containers/FoodsTable';
 import theme from 'lib/theme';
 import {isEmptyObject} from 'lib/util';
 import {hideFloat} from 'store/actions';
@@ -63,7 +63,7 @@ class Index extends React.Component<Props, State> {
 						{this.state.hasMounted ? (
 							<FullscreenContainer ref={this.refContent}>
 								<Options />
-								<Table />
+								<FoodsTable />
 								{screenfull.isEnabled ? (
 									<FullscreenButton
 										screenfull={screenfull}

@@ -2,7 +2,8 @@ import memoize from 'memoize-one';
 import fastSort from 'fast-sort';
 
 import {Food} from 'types';
-import {Translation} from './Table';
+
+import {Translation} from './FoodsTable';
 
 export type HeaderDataItem = {
 	description: string;

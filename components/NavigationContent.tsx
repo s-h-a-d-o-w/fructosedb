@@ -2,7 +2,8 @@ import * as React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styled from 'styled-components';
 
-import theme from '../lib/theme';
+import theme from 'lib/theme';
+
 import {Link} from './Link';
 
 type Props = {

@@ -6,12 +6,11 @@ import {
 	Dispatch as ReactDispatch,
 	SetStateAction,
 } from 'react';
-
-import {useDebouncedCallback} from 'use-debounce';
 import {connect} from 'react-redux';
-import {Dispatch as ReduxDispatch} from 'redux';
 import {AutoSizer, Table, SortDirection} from 'react-virtualized';
+import {Dispatch as ReduxDispatch} from 'redux';
 import toPX from 'to-px';
+import {useDebouncedCallback} from 'use-debounce';
 
 import {Loading} from 'components/Loading';
 import {fetchJSON} from 'lib/fetch-with-timeout';
@@ -43,7 +42,7 @@ function fetchURL(
 	});
 }
 
-const FoodsTable: React.FC<Props> = ({
+const _FoodsTable: React.FC<Props> = ({
 	dispatchColAction,
 	dispatchHideFloat,
 	dispatchShowFloat,
@@ -182,7 +181,7 @@ const mapDispatchToProps = (dispatch: ReduxDispatch) => ({
 	},
 });
 
-export default connect(
+export const FoodsTable = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(FoodsTable);
+)(_FoodsTable);

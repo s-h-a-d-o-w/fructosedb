@@ -5,7 +5,7 @@ import toPX from 'to-px';
 import * as Icons from 'components/Icons';
 
 import * as Data from './data';
-import {Props as TableProps} from './Table';
+import {Props as TableProps} from './FoodsTable';
 
 const renderAvoid: TableCellRenderer = ({cellData}) =>
 	cellData ? Icons.error : Icons.ok;
