@@ -105,7 +105,7 @@ const setupRoutes = (nextApp: any, expressServer: Express.Express) => {
 			Link: [
 				'</static/fonts/roboto-slab.woff2>; rel=preload; as=font; crossorigin=anonymous',
 				'</static/fonts/roboto-condensed.woff2>; rel=preload; as=font; crossorigin=anonymous',
-				'</static/css/global.css>; rel=preload; as=style; crossorigin=anonymous',
+				'</static/css/global.css>; rel=preload; as=style',
 				'</list>; rel=preload; as=fetch; crossorigin=anonymous',
 			],
 			'X-Frame-Options': 'sameorigin',
