@@ -1,14 +1,14 @@
-import {TableIcon} from '../../components/TableIcon';
-import * as Data from './data';
+import * as React from 'react';
 import {Column, SortDirection, TableCellRenderer} from 'react-virtualized';
 import toPX from 'to-px';
-import * as React from 'react';
 
+import * as Icons from 'components/Icons';
+
+import * as Data from './data';
 import {Props as TableProps} from './Table';
 
-const renderAvoid: TableCellRenderer = ({cellData}) => (
-	<TableIcon name={cellData ? 'error' : 'ok'} />
-);
+const renderAvoid: TableCellRenderer = ({cellData}) =>
+	cellData ? Icons.error : Icons.ok;
 
 export const renderColumns = ({
 	dispatchHideFloat,
