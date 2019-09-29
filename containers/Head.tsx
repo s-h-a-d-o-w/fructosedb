@@ -3,7 +3,7 @@ import NextHead from 'next/head';
 
 import {useTypedSelector} from 'store';
 
-export const Head = () => {
+export const Head = React.memo(() => {
 	const lang = useTypedSelector((state) => state.lang);
 
 	return (
@@ -40,4 +40,4 @@ export const Head = () => {
 			<link rel="prefetch" href="/static/images/usda-symbol.svg" />
 		</NextHead>
 	);
-};
+});

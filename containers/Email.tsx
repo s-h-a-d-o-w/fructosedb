@@ -3,13 +3,10 @@ import {useEffect, useState} from 'react';
 
 export const Email: React.FC = () => {
 	const [isObfuscated, setIsObfuscated] = useState(true);
+
 	useEffect(function() {
 		setIsObfuscated(false);
 	}, []);
-
-	function removeObfuscation() {
-		setIsObfuscated(false);
-	}
 
 	return (
 		<a
@@ -18,9 +15,6 @@ export const Email: React.FC = () => {
 					? 'mailto:solomon.odonkoh@googleit.com'
 					: 'mailto:ao@variations-of-shadow.com'
 			}
-			onClick={removeObfuscation}
-			onContextMenu={removeObfuscation}
-			onMouseOver={removeObfuscation}
 		>
 			📧
 		</a>

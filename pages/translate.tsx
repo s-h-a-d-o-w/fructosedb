@@ -6,7 +6,7 @@ import {BaseLayout} from '../containers/BaseLayout';
 import {CenteredContent} from '../components/CenteredContent';
 import {Loading} from '../components/Loading';
 import {fetch} from '../lib/fetch-with-timeout';
-import TranslationDropdown from '../containers/TranslationDropdown';
+import {TranslationDropdown} from '../containers/TranslationDropdown';
 import {Link} from '../components/Link';
 import {Email} from '../containers/Email';
 import {FoodCache} from 'types';

@@ -1,10 +1,7 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-import {ReduxState} from 'store';
-
-type Props = ReturnType<typeof mapStateToProps>;
+import {useTypedSelector} from 'store';
 
 export const VERTICAL_OFFSET = 30;
 
@@ -22,10 +19,10 @@ const StyledFloat = styled.div`
 	pointer-events: none;
 `;
 
-// Always rendered (not as much adding/removing from DOM, more concise code),
-// won't be visible if content is empty
-const FloatingInfo: React.FC<Props> = ({float}) =>
-	float ? (
+export const FloatingInfo: React.FC = () => {
+	const float = useTypedSelector((state) => state.float);
+
+	return float ? (
 		<StyledFloat
 			style={{
 				left: float.x,
@@ -35,9 +32,4 @@ const FloatingInfo: React.FC<Props> = ({float}) =>
 			{float.content}
 		</StyledFloat>
 	) : null;
-
-const mapStateToProps = ({float}: ReduxState) => ({
-	float,
-});
-
-export default connect(mapStateToProps)(FloatingInfo);
+};

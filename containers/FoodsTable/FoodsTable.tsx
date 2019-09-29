@@ -166,6 +166,9 @@ const mapStateToProps = ({
 	sortAsc,
 });
 
+// TODO: Migrate to hooks
+// Problem: dispatchHideFloat and dispatchShowFloat trigger full page "rerenders",
+// even when combined with useCallback.
 const mapDispatchToProps = (dispatch: ReduxDispatch) => ({
 	dispatchColAction: ({
 		sortBy: col,

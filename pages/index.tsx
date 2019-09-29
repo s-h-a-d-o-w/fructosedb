@@ -1,28 +1,21 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import {injectIntl, IntlShape} from 'react-intl';
-import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
+import {useCallback, useEffect, useRef, useState} from 'react';
+import {useIntl} from 'react-intl';
+import {useDispatch} from 'react-redux';
 import screenfull from 'screenfull';
+import styled from 'styled-components';
 
 import {BaseLayout} from 'containers/BaseLayout';
 import {CenteredContent} from 'components/CenteredContent';
 import {Loading} from 'components/Loading';
-import FloatingInfo from 'containers/FloatingInfo';
+import {FloatingInfo} from 'containers/FloatingInfo';
 import {FullscreenButton} from 'containers/FullscreenButton';
 import {Options} from 'containers/Options';
 import {FoodsTable} from 'containers/FoodsTable';
 import theme from 'lib/theme';
 import {isEmptyObject} from 'lib/util';
 import {hideFloat} from 'store/actions';
-import {ReduxState} from 'store';
-
-type Props = ReturnType<typeof mapStateToProps> &
-	ReturnType<typeof mapDispatchToProps> & {intl: IntlShape};
-
-type State = {
-	hasMounted: boolean;
-};
+import {useTypedSelector} from 'store';
 
 const FullscreenContainer = styled.div`
 	/* If background-color isn't set, :-webkit-full-screen (default: white) will be aplied */
@@ -35,73 +28,56 @@ const FullscreenContainer = styled.div`
 	flex-direction: column;
 `;
 
-class Index extends React.Component<Props, State> {
-	refContent = React.createRef<HTMLDivElement>();
-	state = {
-		hasMounted: false,
-	};
+const Index: React.FC = () => {
+	console.log('index.tsx');
 
-	componentDidMount() {
-		// Options are meaningless if the user can't do anything with them.
-		// But they'd still show long before the table due to SSR.
-		this.setState({
-			hasMounted: true,
-		});
-	}
+	const dispatch = useDispatch();
+	const float = useTypedSelector((state) => state.float);
+	const lang = useTypedSelector((state) => state.lang);
 
-	hideFloat = () => {
-		if (this.props.float && !isEmptyObject(this.props.float))
-			this.props.dispatchHideFloat();
-	};
+	const [hasMounted, setHasMounted] = useState(false);
 
-	render() {
-		return (
-			<>
-				<BaseLayout onClick={this.hideFloat} onTouchStart={this.hideFloat}>
-					<CenteredContent>
-						{this.state.hasMounted &&
-						// When locale and language aren't in sync, rendering doesn't make sense and
-						// causes unnecessary fetches.
-						// This happens when a user's language selection is different from their browser's
-						// locale.
-						this.props.intl.locale === this.props.lang ? (
-							/* Containers that use gridArea can't be made to use
-							fullscreen as expected, a nested container is required. */
-							<FullscreenContainer ref={this.refContent}>
-								<Options />
-								<FoodsTable />
-								{screenfull.isEnabled ? (
-									<FullscreenButton
-										screenfull={screenfull}
-										target={this.refContent}
-									/>
-								) : (
-									''
-								)}
-								<FloatingInfo />
-							</FullscreenContainer>
+	const intl = useIntl();
+
+	const refContent = useRef(null);
+
+	useEffect(() => {
+		setHasMounted(true);
+	}, []);
+
+	const dispatchHideFloat = useCallback(() => {
+		if (float && !isEmptyObject(float)) {
+			dispatch(hideFloat());
+		}
+	}, [dispatch]);
+
+	return (
+		<BaseLayout onClick={dispatchHideFloat} onTouchStart={dispatchHideFloat}>
+			<CenteredContent>
+				{hasMounted &&
+				// When locale and language aren't in sync, rendering doesn't make sense and
+				// causes unnecessary fetches.
+				// This happens when a user's language selection is different from their browser's
+				// locale.
+				intl.locale === lang ? (
+					/* Containers that use gridArea can't be made to use
+						fullscreen as expected, a nested container is required. */
+					<FullscreenContainer ref={refContent}>
+						<Options />
+						<FoodsTable />
+						{screenfull.isEnabled ? (
+							<FullscreenButton screenfull={screenfull} target={refContent} />
 						) : (
-							<Loading />
+							''
 						)}
-					</CenteredContent>
-				</BaseLayout>
-			</>
-		);
-	}
-}
+						<FloatingInfo />
+					</FullscreenContainer>
+				) : (
+					<Loading />
+				)}
+			</CenteredContent>
+		</BaseLayout>
+	);
+};
 
-const mapStateToProps = ({float, lang}: ReduxState) => ({
-	float,
-	lang,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-	dispatchHideFloat: () => dispatch(hideFloat()),
-});
-
-export default injectIntl(
-	connect(
-		mapStateToProps,
-		mapDispatchToProps
-	)(Index)
-);
+export default Index;

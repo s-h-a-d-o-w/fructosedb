@@ -1,18 +1,13 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {Dispatch} from 'redux';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import styled from 'styled-components';
 
 import {changeLanguage} from 'store/actions';
-import {ReduxState} from 'store';
-import {SupportedLanguages} from 'types';
+import {useTypedSelector} from 'store';
 
 import DE from '../static/lang/de.svg';
 import US from '../static/lang/us.svg';
-
-type Props = ReturnType<typeof mapStateToProps> &
-	ReturnType<typeof mapDispatchToProps>;
 
 const StyledFlag = styled.div`
 	position: relative;
@@ -56,7 +51,13 @@ const languages = {
 	en: <US key={'en'} data-key={'en'} />,
 };
 
-const _LangSelect: React.FC<Props> = ({dispatchChangeLanguage, lang}) => {
+/**
+ * @example ../docs/examples/LangSelect.md
+ */
+export const LangSelect: React.FC = () => {
+	const dispatch = useDispatch();
+	const lang = useTypedSelector((state) => state.lang);
+
 	const [isExpanded, setIsExpanded] = useState(false);
 
 	const collapse = (e: Event) => {
@@ -65,7 +66,7 @@ const _LangSelect: React.FC<Props> = ({dispatchChangeLanguage, lang}) => {
 			if (svgElement !== null) {
 				const lang = svgElement.getAttribute('data-key');
 				if (lang && (lang === 'de' || lang === 'en')) {
-					dispatchChangeLanguage(lang);
+					dispatch(changeLanguage(lang));
 				}
 			}
 		}
@@ -99,20 +100,3 @@ const _LangSelect: React.FC<Props> = ({dispatchChangeLanguage, lang}) => {
 		</>
 	);
 };
-
-const mapStateToProps = ({lang}: ReduxState) => ({
-	lang,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-	dispatchChangeLanguage: (value: SupportedLanguages) =>
-		dispatch(changeLanguage(value)),
-});
-
-/**
- * @example ../docs/examples/LangSelect.md
- */
-export const LangSelect = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(_LangSelect);

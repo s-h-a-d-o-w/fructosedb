@@ -7,7 +7,7 @@ import 'jest-styled-components';
 
 import {initialState, initializeStore} from 'store';
 
-import FloatingInfo, {VERTICAL_OFFSET} from '../FloatingInfo';
+import {FloatingInfo, VERTICAL_OFFSET} from '../FloatingInfo';
 
 let store: Redux.Store;
 

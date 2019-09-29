@@ -1,7 +1,6 @@
 // See: https://github.com/zeit/next.js/blob/master/examples/with-redux/pages/_app.js
 import React from 'react';
 import App from 'next/app';
-import { IntlProvider } from 'react-intl'
 import {Provider} from 'react-redux';
 
 import {DynamicIntlProvider} from "containers/DynamicIntlProvider";
@@ -13,6 +12,7 @@ if (typeof window !== 'undefined') {
 		// whyDidYouRender(React,  {
 		// 	collapseGroups: true,
 		// 	include: [/.*/],
+		// 	exclude: [/FormattedMessage/]
 		// });
 	}
 

@@ -53,6 +53,7 @@ type Props = {
 
 export const BaseLayout: React.FC<Props> = ({children, ...restProps}) => {
 	const [hasMounted, setHasMounted] = useState(false);
+
 	useEffect(function() {
 		setHasMounted(true);
 	}, []);

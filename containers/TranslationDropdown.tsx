@@ -1,17 +1,18 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 
 import {changeTranslationTarget} from '../store/actions';
 
-class TranslationDropdown extends React.Component<any> {
-	handleChange: EventListener = (event) => {
-		if (event.target instanceof HTMLSelectElement) {
-			this.props.dispatch(changeTranslationTarget(event.target.value));
-		}
-	};
+export const TranslationDropdown: React.FC = () => {
+	const dispatch = useDispatch();
 
-	componentDidMount() {
-		let that = this;
+	useEffect(() => {
+		function handleChange(event: Event) {
+			if (event.target instanceof HTMLSelectElement) {
+				dispatch(changeTranslationTarget(event.target.value));
+			}
+		}
 
 		// google-translate.js fetches external assets from Google, which
 		// may take a while...
@@ -24,18 +25,14 @@ class TranslationDropdown extends React.Component<any> {
 
 				document
 					.getElementsByClassName('goog-te-combo')[0]
-					.addEventListener('change', that.handleChange);
+					.addEventListener('change', handleChange);
 
 				return;
 			}
 
 			setTimeout(waitForGoogleTranslate, 100);
 		})();
-	}
+	}, []);
 
-	render() {
-		return <div id="google_translate_element" />;
-	}
-}
-
-export default connect()(TranslationDropdown);
+	return <div id="google_translate_element" />;
+};

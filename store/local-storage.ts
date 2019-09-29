@@ -11,7 +11,6 @@ export const loadState = (defaultState: ReduxState): ReduxState => {
 };
 
 export const saveState = throttle((state) => {
-	console.log('saving state', state);
 	try {
 		localStorage.setItem('reduxState_v1', JSON.stringify(state));
 	} catch (e) {
