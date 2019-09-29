@@ -3,7 +3,7 @@ node_js:
   - '10'
 cache: yarn
 script: yarn test
-before_deploy: npm install now --no-save # Install Now CLI on Travis
+before_deploy: npm install now@15.6.2 --no-save # Install Now CLI on Travis
 deploy:
   - provider: script
     script:
