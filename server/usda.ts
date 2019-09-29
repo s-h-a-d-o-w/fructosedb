@@ -216,8 +216,6 @@ export async function getReport(
 export async function fetchFoodsList(): Promise<Food[]> {
 	let data: USDAFood[] = [];
 
-	console.log(process.env);
-
 	if (isDev && !isTest) {
 		data = getDataDump();
 	} else {

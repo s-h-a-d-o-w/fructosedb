@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import {injectIntl, IntlShape} from 'react-intl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import screenfull from 'screenfull';
@@ -17,7 +18,7 @@ import {hideFloat} from 'store/actions';
 import {ReduxState} from 'store';
 
 type Props = ReturnType<typeof mapStateToProps> &
-	ReturnType<typeof mapDispatchToProps>;
+	ReturnType<typeof mapDispatchToProps> & {intl: IntlShape};
 
 type State = {
 	hasMounted: boolean;
@@ -58,9 +59,14 @@ class Index extends React.Component<Props, State> {
 			<>
 				<BaseLayout onClick={this.hideFloat} onTouchStart={this.hideFloat}>
 					<CenteredContent>
-						{/* Containers that use gridArea can't be made to use fullscreen as expected,
-							a nested container is required. */}
-						{this.state.hasMounted ? (
+						{this.state.hasMounted &&
+						// When locale and language aren't in sync, rendering doesn't make sense and
+						// causes unnecessary fetches.
+						// This happens when a user's language selection is different from their browser's
+						// locale.
+						this.props.intl.locale === this.props.lang ? (
+							/* Containers that use gridArea can't be made to use
+							fullscreen as expected, a nested container is required. */
 							<FullscreenContainer ref={this.refContent}>
 								<Options />
 								<FoodsTable />
@@ -84,15 +90,18 @@ class Index extends React.Component<Props, State> {
 	}
 }
 
-const mapStateToProps = ({float}: ReduxState) => ({
+const mapStateToProps = ({float, lang}: ReduxState) => ({
 	float,
+	lang,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	dispatchHideFloat: () => dispatch(hideFloat()),
 });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Index);
+export default injectIntl(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(Index)
+);

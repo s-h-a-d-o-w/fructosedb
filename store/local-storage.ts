@@ -3,7 +3,7 @@ import throttle from 'lodash/throttle';
 import {ReduxState} from 'store';
 
 export const loadState = (defaultState: ReduxState): ReduxState => {
-	const storedState = localStorage.getItem('state');
+	const storedState = localStorage.getItem('reduxState_v1');
 
 	return storedState === null
 		? defaultState
@@ -11,8 +11,9 @@ export const loadState = (defaultState: ReduxState): ReduxState => {
 };
 
 export const saveState = throttle((state) => {
+	console.log('saving state', state);
 	try {
-		localStorage.setItem('state', JSON.stringify(state));
+		localStorage.setItem('reduxState_v1', JSON.stringify(state));
 	} catch (e) {
 		console.error(e);
 	}

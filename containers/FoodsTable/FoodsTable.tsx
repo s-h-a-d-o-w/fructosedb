@@ -81,6 +81,7 @@ const _FoodsTable: React.FC<Props> = ({
 	useEffect(
 		function() {
 			if (!isFetchingTranslation) {
+				console.log('fetching lang', lang);
 				if (lang !== 'en') {
 					fetchURL(
 						`static/lang/${lang}.json`,

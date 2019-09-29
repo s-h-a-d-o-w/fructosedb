@@ -1,3 +1,4 @@
+import {TypedUseSelectorHook, useSelector} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import * as Redux from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
@@ -92,20 +93,17 @@ export const initializeStore = (
 	locale: string | null,
 	state: object = initialState
 ): Redux.Store => {
-	return createStore(
-		// No persistence on the server.
-		typeof window === 'undefined'
-			? reducer
-			: (state: ReduxState = initialState, action: Action) => {
-					const nextState = reducer.call(null, state, action);
-
-					// Need to skip @@INIT, since that would obviously overwrite whatever state there
-					// might be in local storage before we can even use it for rehydration.
-					if (action.type !== '@@INIT') saveState(nextState);
-
-					return nextState;
-			  },
+	const store = createStore(
+		reducer,
 		{...state, lang: locale ? (locale as SupportedLanguages) : 'en'},
 		composeWithDevTools(applyMiddleware(thunkMiddleware))
 	);
+
+	if (typeof window !== 'undefined') {
+		store.subscribe(() => saveState(store.getState()));
+	}
+
+	return store;
 };
+
+export const useTypedSelector: TypedUseSelectorHook<ReduxState> = useSelector;

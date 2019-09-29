@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import {Navigation} from 'containers/Navigation';
 import theme from 'lib/theme';
 
-import {Head as FructoseHead} from '../components/Head';
+import {Head as FructoseHead} from './Head';
 import {Logo} from '../components/Logo';
 
 type StyledBaseProps = {

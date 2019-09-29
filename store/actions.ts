@@ -48,7 +48,6 @@ export const toggleServing = () =>
 	} as const);
 
 export type Action =
-	| {type: '@@INIT'}
 	| ReturnType<typeof changeFilter>
 	| ReturnType<typeof changeLanguage>
 	| ReturnType<typeof changeSort>
