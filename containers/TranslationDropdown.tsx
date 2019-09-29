@@ -5,11 +5,7 @@ import {changeTranslationTarget} from '../store/actions';
 
 class TranslationDropdown extends React.Component<any> {
 	handleChange: EventListener = (event) => {
-		// @ts-ignore
-		window.schas = event.target;
-		console.log(event.target);
 		if (event.target instanceof HTMLSelectElement) {
-			console.log(event.target.value);
 			this.props.dispatch(changeTranslationTarget(event.target.value));
 		}
 	};

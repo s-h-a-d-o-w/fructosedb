@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {FormattedMessage} from 'react-intl';
 
 import {BaseLayout} from '../containers/BaseLayout';
 import {CenteredContent} from '../components/CenteredContent';
@@ -11,7 +12,7 @@ export default () => (
 		<CenteredContent>
 			<Article>
 				<Paragraph>
-					Creator:{' '}
+					<FormattedMessage id="aboutCreator" />:{' '}
 					<a
 						target="_blank"
 						href="https://www.linkedin.com/in/andreas-opferkuch/"
@@ -20,8 +21,7 @@ export default () => (
 					</a>
 				</Paragraph>
 				<Paragraph>
-					Especially medical professionals who find our information lacking for
-					whatever reason are welcome to reach out via <Email />.
+					<FormattedMessage id="aboutContactText" /> <Email />.
 				</Paragraph>
 			</Article>
 		</CenteredContent>

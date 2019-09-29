@@ -1,8 +1,10 @@
 // See: https://github.com/zeit/next.js/blob/master/examples/with-redux/pages/_app.js
 import React from 'react';
 import App from 'next/app';
+import { IntlProvider } from 'react-intl'
 import {Provider} from 'react-redux';
 
+import {DynamicIntlProvider} from "containers/DynamicIntlProvider";
 import withReduxStore from '../lib/with-redux-store';
 
 if (typeof window !== 'undefined') {
@@ -18,11 +20,29 @@ if (typeof window !== 'undefined') {
 }
 
 class MyApp extends App {
+	// See https://github.com/zeit/next.js/tree/canary/examples/with-react-intl
+	static async getInitialProps ({Component, router, ctx}) {
+		let pageProps = {};
+
+		if (Component.getInitialProps) {
+			pageProps = await Component.getInitialProps(ctx);
+		}
+
+		// Get the `locale` and `messages` from the request object on the server.
+		// In the browser, use the same values that the server serialized.
+		const {req} = ctx;
+		const {locale, messages} = req || window.__NEXT_DATA__.props;
+
+		return {pageProps, locale, messages};
+	}
+
 	render() {
-		const {Component, pageProps, reduxStore} = this.props;
+		const {Component, locale, messages, pageProps, reduxStore} = this.props;
 		return (
 			<Provider store={reduxStore}>
-				<Component {...pageProps} />
+				<DynamicIntlProvider locale={locale} messages={messages}>
+					<Component {...pageProps} />
+				</DynamicIntlProvider>
 			</Provider>
 		);
 	}

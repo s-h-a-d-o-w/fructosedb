@@ -6,6 +6,7 @@ import {
 	Dispatch as ReactDispatch,
 	SetStateAction,
 } from 'react';
+import {useIntl} from 'react-intl';
 import {connect} from 'react-redux';
 import {AutoSizer, Table, SortDirection} from 'react-virtualized';
 import {Dispatch as ReduxDispatch} from 'redux';
@@ -58,6 +59,8 @@ const _FoodsTable: React.FC<Props> = ({
 	const [rawData, setRawData] = useState<Food[]>([]);
 	const [data, setData] = useState<Food[]>([]);
 	const [translation, setTranslation] = useState<Translation>({});
+
+	const intl = useIntl();
 
 	const tableRef = useRef(null);
 
@@ -136,6 +139,7 @@ const _FoodsTable: React.FC<Props> = ({
 						{renderColumns({
 							dispatchHideFloat,
 							dispatchShowFloat,
+							intl,
 							showServingSize,
 						})}
 					</Table>

@@ -7,7 +7,7 @@ import {fetchFoodsList} from './usda';
 import {FoodCache} from 'types';
 import * as Express from 'express';
 
-const dev = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV !== 'production';
 
 const cacheAges = {
 	usda: 24 * 1000 * 60 * 60, // 24h
@@ -117,7 +117,9 @@ const setupRoutes = (nextApp: any, expressServer: Express.Express) => {
 			'X-Frame-Options': 'sameorigin',
 		});
 
-		return dev ? nextHandle(req, res) : renderAndCache(nextApp, req, res, '/');
+		return isDev
+			? nextHandle(req, res)
+			: renderAndCache(nextApp, req, res, '/');
 	});
 
 	expressServer.get('/list', (_, res) => {

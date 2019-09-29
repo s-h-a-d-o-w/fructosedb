@@ -8,6 +8,7 @@ import {ReduxState} from 'store';
 import {changeFilter, toggleFruit, toggleServing} from 'store/actions';
 
 import {LangSelect} from './LangSelect';
+import {FormattedMessage} from 'react-intl';
 
 type Props = ReturnType<typeof mapStateToProps> &
 	ReturnType<typeof mapDispatchToProps>;
@@ -66,14 +67,18 @@ const _Options: React.FC<Props> = ({
 			checked={showServingSize}
 			onChange={dispatchServing}
 		/>
-		<label htmlFor="showServing">Per Serving</label>
+		<label htmlFor="showServing">
+			<FormattedMessage id="optionsPerServing" />
+		</label>
 		<input
 			type="checkbox"
 			id="onlyFruit"
 			checked={onlyFruit}
 			onChange={dispatchFruit}
 		/>
-		<label htmlFor="onlyFruit">Only Fruit</label>
+		<label htmlFor="onlyFruit">
+			<FormattedMessage id="optionsOnlyFruit" />
+		</label>
 		<StyledTextBox
 			type="text"
 			placeholder="Filter"

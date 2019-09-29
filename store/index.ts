@@ -86,13 +86,17 @@ export const initialState = {
 	sortAsc: true,
 };
 
-export const initializeStore = (state: object = initialState): Redux.Store => {
+// Locale is needed so that we can set the default language to
+// match the SSRed content.
+export const initializeStore = (
+	locale: string | null,
+	state: object = initialState
+): Redux.Store => {
 	return createStore(
 		// No persistence on the server.
 		typeof window === 'undefined'
 			? reducer
-			: (state: ReduxState = initialState,
-			   action: Action) => {
+			: (state: ReduxState = initialState, action: Action) => {
 					const nextState = reducer.call(null, state, action);
 
 					// Need to skip @@INIT, since that would obviously overwrite whatever state there
@@ -101,7 +105,7 @@ export const initializeStore = (state: object = initialState): Redux.Store => {
 
 					return nextState;
 			  },
-		state,
+		{...state, lang: locale ? (locale as SupportedLanguages) : 'en'},
 		composeWithDevTools(applyMiddleware(thunkMiddleware))
 	);
 };

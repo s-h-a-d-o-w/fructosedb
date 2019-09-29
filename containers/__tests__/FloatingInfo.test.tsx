@@ -14,6 +14,7 @@ let store: Redux.Store;
 describe('<FloatingInfo>', () => {
 	beforeEach(() => {
 		store = initializeStore(
+			'en',
 			Object.assign({}, initialState, {
 				float: {
 					x: 100,
@@ -45,7 +46,7 @@ describe('<FloatingInfo>', () => {
 	});
 
 	it("doesn't render if float is empty", () => {
-		store = initializeStore(initialState);
+		store = initializeStore('en', initialState);
 
 		const wrapper = mount(
 			<Provider store={store}>

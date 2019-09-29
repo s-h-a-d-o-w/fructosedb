@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {FormattedMessage} from 'react-intl';
 import styled from 'styled-components';
 
 import theme from 'lib/theme';
@@ -75,13 +76,13 @@ export const NavigationContent: React.FC<Props> = ({desktop, onClick}) => {
 	const items = (
 		<>
 			<Link onClick={onClick} href="/">
-				Home
+				<FormattedMessage id="navigationHome" />
 			</Link>
 			<Link onClick={onClick} href="/sources">
-				How We Calculate
+				<FormattedMessage id="navigationCalculate" />
 			</Link>
 			<Link onClick={onClick} href="/about">
-				About Us
+				<FormattedMessage id="navigationAbout" />
 			</Link>
 		</>
 	);

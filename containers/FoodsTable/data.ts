@@ -6,7 +6,6 @@ import {Food} from 'types';
 import {Translation} from './FoodsTable';
 
 export type HeaderDataItem = {
-	description: string;
 	remWidth: number;
 };
 
@@ -15,38 +14,30 @@ type Header = HeaderDataItem & {
 };
 
 const headerData: {[key: string]: HeaderDataItem} = {
-	name: {description: 'Name', remWidth: 0},
-	avoid: {description: '', remWidth: 1.5},
+	name: {remWidth: 0},
+	avoid: {remWidth: 1.5},
 	measure: {
-		description: 'Serving Size',
 		remWidth: 4,
 	},
 	fructose: {
-		description: 'Fruct. per 100g',
 		remWidth: 4.5,
 	},
 	sucrose: {
-		description: 'Sucr. per 100g',
 		remWidth: 4.5,
 	},
 	glucose: {
-		description: 'Gluc. per 100g',
 		remWidth: 4.5,
 	},
 	fructoseServing: {
-		description: 'Fruct. p. Serving',
 		remWidth: 4.5,
 	},
 	sucroseServing: {
-		description: 'Sucr. p. Serving',
 		remWidth: 4.5,
 	},
 	glucoseServing: {
-		description: 'Gluc. p. Serving',
 		remWidth: 4.5,
 	},
 	ratio: {
-		description: 'F/G ratio',
 		remWidth: 3.5,
 	},
 };

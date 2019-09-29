@@ -4,13 +4,14 @@ import * as next from 'next';
 import * as express from 'express';
 import * as compression from 'compression';
 
+import {i18n} from './i18n';
 import {setupRoutes, updateFoodCache} from './routes.js';
 
 const port = process.env.PORT;
-const dev = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV !== 'production';
 // TODO: Wait for proper types for Next.js server
 // @ts-ignore
-const app = next({dev});
+const app = next({dev: isDev});
 
 // TODO: Might want to cache SSR renderings at some point
 // But first check what cache-less page load performance is like!
@@ -25,6 +26,7 @@ process.on('unhandledRejection', (reason, p) => {
 app.prepare().then(() => {
 	const server = express();
 	server.use(compression());
+	server.use(i18n);
 
 	// Make it possible to get visitor's IP for logging - see VisitorLogger.
 	// See: https://stackoverflow.com/a/14631683/5040168
@@ -34,7 +36,7 @@ app.prepare().then(() => {
 	updateFoodCache().then(() => {
 		server.listen(port, () => {
 			console.log(
-				`> ${dev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
+				`> ${isDev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
 			);
 
 			if ('TESTRUN' in process.env || 'TRAVIS' in process.env) {

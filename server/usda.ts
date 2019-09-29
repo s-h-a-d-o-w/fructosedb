@@ -3,6 +3,9 @@ import * as querystring from 'querystring';
 import {fetchJSON} from '../lib/fetch-with-timeout';
 import {Food} from 'types';
 
+const isDev = process.env.NODE_ENV !== 'production';
+const isTest = process.env.NODE_ENV === 'test';
+
 type Nutrient = {
 	nutrient_id: string;
 	nutrient: string;
@@ -119,12 +122,14 @@ export const removeSimilar = (data: Food[]): Food[] => {
 	let countTotal = data.length;
 	let countRemoved = 0;
 	for (let i = elementsToRemove.length - 1; i >= 0; i--) {
-		if(elementsToRemove[i] === null) {
+		if (elementsToRemove[i] === null) {
 			data.splice(i, 1);
 			countRemoved++;
 		}
 	}
-	console.log(`Removed ${countRemoved}/${countTotal} items because of similarity.`);
+	console.log(
+		`Removed ${countRemoved}/${countTotal} items because of similarity.`
+	);
 
 	return data;
 };
@@ -170,6 +175,16 @@ export const transformData = (
 			isFruit: fruitIDs.includes(ndbno),
 		})
 	);
+// ------------------------------------
+
+// Used in dev env or if calls to USDA DB fail.
+function getDataDump() {
+	const fs = require('fs');
+	const path = require('path');
+	return JSON.parse(
+		fs.readFileSync(path.join(__dirname, '../assets/usdaDataDump.json'), 'utf8')
+	);
+}
 
 export async function getFruitIDs(): Promise<string[]> {
 	// For food group ID see: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
@@ -199,23 +214,35 @@ export async function getReport(
 // Get full list of foods from the USDA DB.
 // Data rearranged as needed by the frontend. (see transformData())
 export async function fetchFoodsList(): Promise<Food[]> {
-	// Included food groups.
-	// Only 10 can be specified at once!
-	// See also: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
-	// prettier-ignore
-	let foodGroups = [
-		['3500', '1800', '1300', '1400', '0800', '2000', '0100', '1500', '0900', '1700'],
-		['1600', '2200', '1200', '1000', '0500', '0700', '2500', '0200', '1900', '1100']
-	];
-
 	let data: USDAFood[] = [];
-	for (let fg of foodGroups) {
-		// Dummy report fetch gives us total number of foods
-		let total: number = (await getReport(1, 0, fg)).total;
 
-		for (let offset = 0; offset < total; offset += 1500) {
-			let report: USDAReport = await getReport(1500, offset, fg);
-			data = data.concat(report.foods);
+	console.log(process.env);
+
+	if (isDev && !isTest) {
+		data = getDataDump();
+	} else {
+		try {
+			// Included food groups.
+			// Only 10 can be specified at once!
+			// See also: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
+			// prettier-ignore
+			let foodGroups = [
+				['3500', '1800', '1300', '1400', '0800', '2000', '0100', '1500', '0900', '1700'],
+				['1600', '2200', '1200', '1000', '0500', '0700', '2500', '0200', '1900', '1100']
+			];
+
+			for (let fg of foodGroups) {
+				// Dummy report fetch gives us total number of foods
+				let total: number = (await getReport(1, 0, fg)).total;
+
+				for (let offset = 0; offset < total; offset += 1500) {
+					let report: USDAReport = await getReport(1500, offset, fg);
+					data = data.concat(report.foods);
+				}
+			}
+		} catch (error) {
+			console.error(error);
+			data = getDataDump();
 		}
 	}
 

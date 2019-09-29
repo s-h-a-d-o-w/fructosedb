@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {IntlShape} from 'react-intl';
 import {Column, SortDirection, TableCellRenderer} from 'react-virtualized';
 import toPX from 'to-px';
 
@@ -13,11 +14,12 @@ const renderAvoid: TableCellRenderer = ({cellData}) =>
 export const renderColumns = ({
 	dispatchHideFloat,
 	dispatchShowFloat,
+	intl,
 	showServingSize,
 }: Pick<
 	TableProps,
 	'dispatchHideFloat' | 'dispatchShowFloat' | 'showServingSize'
->) => {
+> & {intl: IntlShape}) => {
 	const headers = showServingSize
 		? Data.generateHeaders([
 				'avoid',
@@ -39,14 +41,16 @@ export const renderColumns = ({
 
 	return headers.map((column) => (
 		<Column
-			key={column.name}
 			dataKey={column.name}
 			defaultSortDirection={
 				column.name === 'name' ? SortDirection.ASC : SortDirection.DESC
 			}
-			label={column.description}
-			width={column.remWidth * toPX('rem')}
 			flexGrow={column.name === 'name' ? 1 : 0}
+			key={column.name}
+			label={
+				column.name === 'avoid' ? '' : intl.formatMessage({id: column.name})
+			}
+			width={column.remWidth * toPX('rem')}
 			{...(column.name === 'avoid' ? {cellRenderer: renderAvoid} : {})}
 			{...(column.name === 'name'
 				? {
@@ -57,8 +61,27 @@ export const renderColumns = ({
 						),
 				  }
 				: {})}
+			{...(column.name === 'measure'
+				? {
+						cellRenderer: renderMeasure.bind(null, intl),
+				  }
+				: {})}
 		/>
 	));
+};
+
+const renderMeasure = (intl: IntlShape, {cellData}: {cellData?: string}) => {
+	if (intl.locale !== 'en' && cellData) {
+		const chunks = cellData.split(' ');
+		chunks[1] = intl.formatMessage({
+			id: chunks[1],
+			defaultMessage: intl.formatMessage({id: 'unit(s)'}),
+			// defaultMessage: chunks[1],
+		});
+		return chunks.join(' ');
+	} else {
+		return cellData;
+	}
 };
 
 const renderName = (

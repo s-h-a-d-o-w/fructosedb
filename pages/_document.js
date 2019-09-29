@@ -14,8 +14,12 @@ export default class MyDocument extends Document {
 			});
 
 		const initialProps = await Document.getInitialProps(ctx);
+		const {
+			req: { locale }
+		} = ctx;
 		return {
 			...initialProps,
+			locale,
 			styles: [...initialProps.styles, ...sheet.getStyleElement()],
 		};
 	}
