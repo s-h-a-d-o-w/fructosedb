@@ -8,6 +8,8 @@ assets
 styleguide
 
 # TS compiled files
+lang/*.js
+lang/*.js.map
 lib/fetch-with-timeout.js
 lib/fetch-with-timeout.js.map
 server/*.js
