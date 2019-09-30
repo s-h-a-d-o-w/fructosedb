@@ -85,11 +85,7 @@ export default (App: typeof NextApp) => {
       // Rehydrating with persisted data needs to happen after initialization
       // so that the initial state from SSR and on the client matches.
       if (!isServer) {
-        const langBeforeRehydration = this.reduxStore.getState().lang;
         this.reduxStore.dispatch(rehydrate());
-        const langAfterRehydration = this.reduxStore.getState().lang;
-
-        console.log(langBeforeRehydration, langAfterRehydration);
       }
     }
 

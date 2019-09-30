@@ -29,8 +29,6 @@ const FullscreenContainer = styled.div`
 `;
 
 const Index: React.FC = () => {
-  console.log('index.tsx');
-
   const dispatch = useDispatch();
   const float = useTypedSelector((state) => state.float);
   const lang = useTypedSelector((state) => state.lang);
