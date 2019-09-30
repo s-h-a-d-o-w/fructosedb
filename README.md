@@ -17,8 +17,8 @@
 
 #### Optional
 
-- `BACKEND_URL` (default: `http://localhost`)
 - `PORT` - default: `3000`
+- `BACKEND_URL` - Only used for the "server up" notification in the terminal. If not set, `os.networkInterfaces()` is used.
 
 ### Development
 
@@ -26,4 +26,4 @@ Specify variables in `.env`.
 
 ### Production
 
-See `Dockerfile`. And of course secret values on various platforms.
+Currently deployed using zeit's now. Just use secrets for the env variables above on whatever target platform.
