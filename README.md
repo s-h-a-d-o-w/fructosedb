@@ -6,9 +6,7 @@
 
 ### TODO
 
-- Add tooltip for foods that are recommended and not recommended
-- Offer German translations for all texts
-- Remove lock functionality
+- Add tooltip on the icon for which foods are recommended and which aren't.
 
 ### Environment Variables
 
