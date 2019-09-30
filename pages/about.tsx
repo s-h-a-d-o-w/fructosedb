@@ -8,22 +8,22 @@ import {Paragraph} from '../components/Paragraph';
 import {Email} from '../containers/Email';
 
 export default () => (
-	<BaseLayout>
-		<CenteredContent>
-			<Article>
-				<Paragraph>
-					<FormattedMessage id="aboutCreator" />:{' '}
-					<a
-						target="_blank"
-						href="https://www.linkedin.com/in/andreas-opferkuch/"
-					>
-						Andreas Opferkuch
-					</a>
-				</Paragraph>
-				<Paragraph>
-					<FormattedMessage id="aboutContactText" /> <Email />.
-				</Paragraph>
-			</Article>
-		</CenteredContent>
-	</BaseLayout>
+  <BaseLayout>
+    <CenteredContent>
+      <Article>
+        <Paragraph>
+          <FormattedMessage id="aboutCreator" />:{' '}
+          <a
+            target="_blank"
+            href="https://www.linkedin.com/in/andreas-opferkuch/"
+          >
+            Andreas Opferkuch
+          </a>
+        </Paragraph>
+        <Paragraph>
+          <FormattedMessage id="aboutContactText" /> <Email />.
+        </Paragraph>
+      </Article>
+    </CenteredContent>
+  </BaseLayout>
 );

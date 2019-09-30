@@ -19,29 +19,29 @@ const app = next({dev: isDev});
 
 // At some point, this will become Node default behavior anyway.
 process.on('unhandledRejection', (reason, p) => {
-	console.log('Unhandled Rejection at:', p, 'reason:', reason);
-	process.exit(1);
+  console.log('Unhandled Rejection at:', p, 'reason:', reason);
+  process.exit(1);
 });
 
 app.prepare().then(() => {
-	const server = express();
-	server.use(compression());
-	server.use(i18n);
+  const server = express();
+  server.use(compression());
+  server.use(i18n);
 
-	// Make it possible to get visitor's IP for logging - see VisitorLogger.
-	// See: https://stackoverflow.com/a/14631683/5040168
-	server.enable('trust proxy');
+  // Make it possible to get visitor's IP for logging - see VisitorLogger.
+  // See: https://stackoverflow.com/a/14631683/5040168
+  server.enable('trust proxy');
 
-	setupRoutes(app, server);
-	updateFoodCache().then(() => {
-		server.listen(port, () => {
-			console.log(
-				`> ${isDev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
-			);
+  setupRoutes(app, server);
+  updateFoodCache().then(() => {
+    server.listen(port, () => {
+      console.log(
+        `> ${isDev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
+      );
 
-			if ('TESTRUN' in process.env || 'TRAVIS' in process.env) {
-				process.exit(0);
-			}
-		});
-	});
+      if ('TESTRUN' in process.env || 'TRAVIS' in process.env) {
+        process.exit(0);
+      }
+    });
+  });
 });

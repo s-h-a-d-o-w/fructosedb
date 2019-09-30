@@ -5,6 +5,6 @@ import styled from 'styled-components';
  * @example ../docs/examples/Paragraph.md
  */
 export const Paragraph = styled.p`
-	text-align: justify;
-	text-indent: 1rem;
+  text-align: justify;
+  text-indent: 1rem;
 `;

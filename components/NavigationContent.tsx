@@ -8,98 +8,98 @@ import theme from 'lib/theme';
 import {Link} from './Link';
 
 type Props = {
-	desktop: boolean;
-	onClick?: () => void;
+  desktop: boolean;
+  onClick?: () => void;
 };
 
 const StyledNavMobile = styled.nav`
-	transition: left 150ms ease-out;
-	left: 0;
+  transition: left 150ms ease-out;
+  left: 0;
 
-	background-color: ${theme.primary};
+  background-color: ${theme.primary};
 
-	position: absolute;
-	top: 0;
-	z-index: 1001;
-	width: 60vw;
-	height: 100vh;
-	padding: 2%;
+  position: absolute;
+  top: 0;
+  z-index: 1001;
+  width: 60vw;
+  height: 100vh;
+  padding: 2%;
 
-	text-align: right;
+  text-align: right;
 
-	flex-direction: column;
+  flex-direction: column;
 
-	display: flex;
-	${theme.largeDevices} {
-		display: none;
-	}
+  display: flex;
+  ${theme.largeDevices} {
+    display: none;
+  }
 
-	a {
-		margin-top: 1rem;
-		margin-right: 1rem;
-	}
+  a {
+    margin-top: 1rem;
+    margin-right: 1rem;
+  }
 
-	// ReactCSSTransitionGroup classes
-	&.menu-appear {
-		// initial value
-		left: -60vw;
-	}
+  // ReactCSSTransitionGroup classes
+  &.menu-appear {
+    // initial value
+    left: -60vw;
+  }
 
-	&.menu-appear.menu-appear-active {
-		// animation target (see also transition property above)
-		// set briefly after inital value
-		left: 0;
-	}
+  &.menu-appear.menu-appear-active {
+    // animation target (see also transition property above)
+    // set briefly after inital value
+    left: 0;
+  }
 `;
 
 const StyledNavLayout = styled.div`
-	grid-area: nav;
+  grid-area: nav;
 
-	display: grid;
-	justify-items: end;
-	grid-template-rows: auto auto 1fr;
+  display: grid;
+  justify-items: end;
+  grid-template-rows: auto auto 1fr;
 
-	& * {
-		margin-top: 0.5rem;
-		margin-right: 0.5rem;
-	}
+  & * {
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 const StyledNavDesktop = styled.nav`
-	display: none;
-	${theme.largeDevices} {
-		display: inline-block;
-	}
+  display: none;
+  ${theme.largeDevices} {
+    display: inline-block;
+  }
 `;
 
 export const NavigationContent: React.FC<Props> = ({desktop, onClick}) => {
-	const items = (
-		<>
-			<Link onClick={onClick} href="/">
-				<FormattedMessage id="navigationHome" />
-			</Link>
-			<Link onClick={onClick} href="/sources">
-				<FormattedMessage id="navigationCalculate" />
-			</Link>
-			<Link onClick={onClick} href="/about">
-				<FormattedMessage id="navigationAbout" />
-			</Link>
-		</>
-	);
+  const items = (
+    <>
+      <Link onClick={onClick} href="/">
+        <FormattedMessage id="navigationHome" />
+      </Link>
+      <Link onClick={onClick} href="/sources">
+        <FormattedMessage id="navigationCalculate" />
+      </Link>
+      <Link onClick={onClick} href="/about">
+        <FormattedMessage id="navigationAbout" />
+      </Link>
+    </>
+  );
 
-	return desktop ? (
-		<StyledNavLayout>
-			<StyledNavDesktop>{items}</StyledNavDesktop>
-		</StyledNavLayout>
-	) : (
-		<ReactCSSTransitionGroup
-			transitionName="menu"
-			transitionAppear={true}
-			transitionAppearTimeout={20} // Value has no consequence on animation
-			transitionEnter={false}
-			transitionLeave={false}
-		>
-			<StyledNavMobile>{items}</StyledNavMobile>
-		</ReactCSSTransitionGroup>
-	);
+  return desktop ? (
+    <StyledNavLayout>
+      <StyledNavDesktop>{items}</StyledNavDesktop>
+    </StyledNavLayout>
+  ) : (
+    <ReactCSSTransitionGroup
+      transitionName="menu"
+      transitionAppear={true}
+      transitionAppearTimeout={20} // Value has no consequence on animation
+      transitionEnter={false}
+      transitionLeave={false}
+    >
+      <StyledNavMobile>{items}</StyledNavMobile>
+    </ReactCSSTransitionGroup>
+  );
 };

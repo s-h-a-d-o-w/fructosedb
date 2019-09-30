@@ -6,8 +6,7 @@ script: yarn test
 before_deploy: npm install now@15.6.2 --no-save # Install Now CLI on Travis
 deploy:
   - provider: script
-    script:
-      now remove --token $NOW_TOKEN fructosedb --safe --yes;
+    script: now remove --token $NOW_TOKEN fructosedb --safe --yes;
       now --token $NOW_TOKEN;
       now alias --token $NOW_TOKEN;
     skip_cleanup: true

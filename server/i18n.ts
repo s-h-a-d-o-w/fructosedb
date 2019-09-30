@@ -14,20 +14,20 @@ import {Request, Response} from 'express';
 
 // Get the supported languages by looking for translations in the `lang/` dir.
 const supportedLanguages = (glob.sync(
-	join(__dirname, '../lang/*.ts')
+  join(__dirname, '../lang/*.ts')
 ) as string[]).map((f) => basename(f, '.ts'));
 
 // We need to load and expose the translations on the request for the user's
 // locale. These will only be used in production, in dev the `defaultMessage` in
 // each message description in the source code will be used.
 const getMessages = (locale: string) => {
-	return require(join(__dirname, `../lang/${locale}`)).default;
+  return require(join(__dirname, `../lang/${locale}`)).default;
 };
 
 export const i18n = (req: Request, _: Response, next: Function) => {
-	const accept = accepts(req);
-	const locale: string = accept.language(supportedLanguages) || 'en';
-	req.locale = locale;
-	req.messages = getMessages(locale);
-	next();
+  const accept = accepts(req);
+  const locale: string = accept.language(supportedLanguages) || 'en';
+  req.locale = locale;
+  req.messages = getMessages(locale);
+  next();
 };

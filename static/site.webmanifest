@@ -1,16 +1,16 @@
 {
-	"name": "fructosedb",
-	"short_name": "fructosedb",
-	"start_url": ".",
-	"display": "standalone",
-	"background_color": "#210340",
-	"theme_color": "#653399",
-	"description": "A list of foods with their fructose and glucose content that allows people suffering from fructose malabsorption to adjust their diet more easily.",
-	"icons": [
-		{
-			"src": "static/images/icon512.png",
-			"sizes": "512x512",
-			"type": "image/png"
-		}
-	]
+  "name": "fructosedb",
+  "short_name": "fructosedb",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#210340",
+  "theme_color": "#653399",
+  "description": "A list of foods with their fructose and glucose content that allows people suffering from fructose malabsorption to adjust their diet more easily.",
+  "icons": [
+    {
+      "src": "static/images/icon512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

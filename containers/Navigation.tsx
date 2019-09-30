@@ -17,40 +17,40 @@ const StyledSupport = styled.nav`
 */
 
 const StyledLightbox = styled.div`
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
 
-	background-color: black;
-	opacity: 0.5;
+  background-color: black;
+  opacity: 0.5;
 `;
 
 export const Navigation = React.memo(() => {
-	const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
-	const closeMenu = useCallback(() => setShowMenu(false), []);
-	const openMenu = useCallback(() => setShowMenu(true), []);
+  const closeMenu = useCallback(() => setShowMenu(false), []);
+  const openMenu = useCallback(() => setShowMenu(true), []);
 
-	return (
-		<>
-			<Burger onClick={openMenu} />
-			{showMenu && (
-				<>
-					<StyledLightbox onClick={closeMenu} />
-					<NavigationContent onClick={closeMenu} desktop={false} />
-				</>
-			)}
-			<NavigationContent desktop={true} />
-			{/*
+  return (
+    <>
+      <Burger onClick={openMenu} />
+      {showMenu && (
+        <>
+          <StyledLightbox onClick={closeMenu} />
+          <NavigationContent onClick={closeMenu} desktop={false} />
+        </>
+      )}
+      <NavigationContent desktop={true} />
+      {/*
 				<StyledSupport>
 					<Link target="_blank" href="/support">
 						❤️Support Us
 					</Link>
 				</StyledSupport>
 				*/}
-		</>
-	);
+    </>
+  );
 });

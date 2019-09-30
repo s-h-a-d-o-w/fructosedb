@@ -7,10 +7,10 @@ import theme from 'lib/theme';
  * @example ../docs/examples/Note.md
  */
 export const Note = styled.p`
-	text-align: justify;
-	text-indent: 1rem;
+  text-align: justify;
+  text-indent: 1rem;
 
-	background-color: white;
-	color: ${theme.primary};
-	padding: 1rem 1.5rem;
+  background-color: white;
+  color: ${theme.primary};
+  padding: 1rem 1.5rem;
 `;
