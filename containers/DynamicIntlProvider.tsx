@@ -28,7 +28,10 @@ class _DynamicIntlProvider extends React.Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     const {lang} = this.props;
     if (prevProps.lang !== lang) {
-      import(`../lang/${lang}`).then((module) => {
+      /* webpackChunkName: "ui-translation" */
+      /* webpackInclude: /\.js$/ */
+      /* webpackMode: "lazy-once" */
+      import(`../lang/${lang}.js`).then((module) => {
         // Causes React warning but is necessary and works.
         this.setState({locale: lang, messages: module.default});
       });
