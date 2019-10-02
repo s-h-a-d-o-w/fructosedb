@@ -181,8 +181,10 @@ export const transformData = (
 function getDataDump() {
   const fs = require('fs');
   const path = require('path');
+
+  console.log('Using USDA data dump from repo.');
   return JSON.parse(
-    fs.readFileSync(path.join(__dirname, '../assets/usdaDataDump.json'), 'utf8')
+    fs.readFileSync(path.join(__dirname, 'data/usdaDataDump.json'), 'utf8')
   );
 }
 
