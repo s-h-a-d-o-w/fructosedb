@@ -210,7 +210,14 @@ export async function getReport(
   });
   const dbURL = `http://api.nal.usda.gov/ndb/nutrients/?${query}`;
 
-  return (await fetchJSON(dbURL)).report;
+  let response;
+  try {
+    response = await fetchJSON(dbURL);
+  } catch (error) {
+    throw error;
+  }
+
+  return response.report;
 }
 
 // Get full list of foods from the USDA DB.

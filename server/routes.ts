@@ -1,11 +1,11 @@
+import * as Express from 'express';
 import * as os from 'os-utils';
 import * as path from 'path';
 import * as LRUCache from 'lru-cache';
 
-import VisitorLogger from './VisitorLogger';
+import {FoodCache} from '../types';
 import {fetchFoodsList} from './usda';
-import {FoodCache} from 'types';
-import * as Express from 'express';
+import VisitorLogger from './VisitorLogger';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
