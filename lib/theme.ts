@@ -1,17 +1,5 @@
-export type Theme = {
-  largeDevices: string;
-
-  primaryLight: string;
-  primary: string;
-  primaryDark: string;
-
-  secondaryLight: string;
-  secondary: string;
-  secondaryDark: string;
-};
-
 // http://paletton.com/#uid=34y0u0kn5sr5XTpg7ACsGlQGgbR
-const theme: Theme = {
+const theme = {
   largeDevices: '@media all and (min-width: 800px)',
 
   primaryLight: '#D7C3EB',
