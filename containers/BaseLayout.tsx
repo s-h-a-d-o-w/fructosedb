@@ -43,7 +43,7 @@ const StyledBase = styled.div`
 		are only inteded to soften the inital page load.
 	 */
   ${(props: StyledBaseProps) =>
-    props.hasMounted ? '' : '& > * {animation: fadeIn 500ms ease-in;}'};
+    props.hasMounted ? '' : '& > * {animation: fadeIn 500ms ease-in;}'}
 `;
 
 type Props = {

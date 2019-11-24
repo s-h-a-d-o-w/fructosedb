@@ -1,10 +1,24 @@
 #!/bin/bash
+set -e
 
-COMMIT_SHA=`git rev-parse HEAD`
+export CAPROVER_APP=fructosedb
+export CAPROVER_TAR_FILE=./caprover_deployment.tar
 
-# http://dokku.viewdocs.io/dokku/deployment/methods/images/#deploying-an-image-from-ci
+if [[ -z "${TRAVIS}" ]]; then
+    yarn build
+fi
 
-# Note: The image must be tagged `dokku/<app-name>:<version>`
-docker build -t dokku/fructosedb:$COMMIT_SHA .
+yarn build
+export TESTRUN=TRUE
+yarn start
 
-docker save dokku/fructosedb:$COMMIT_SHA | ssh any.dokku.letit.run "docker load | dokku tags:deploy fructosedb $COMMIT_SHA"
+# TODO: Potentially make --exclude-vcs-ignores work.
+tar -cvf ./caprover_deployment.tar --exclude=.git --exclude=.idea --exclude=coverage/* --exclude=node_modules/* .
+
+export CAPROVER_URL=$CAPROVER_MACHINE_01
+caprover deploy
+
+export CAPROVER_URL=$CAPROVER_MACHINE_02
+caprover deploy
+
+rm caprover_deployment.tar

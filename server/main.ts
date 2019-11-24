@@ -35,9 +35,7 @@ app.prepare().then(() => {
   setupRoutes(app, server);
   updateFoodCache().then(() => {
     server.listen(port, () => {
-      console.log(
-        `> ${isDev ? 'Dev' : 'Prod'} ready @ ${process.env.BACKEND_URL}`
-      );
+      console.log(`> ${isDev ? 'Dev' : 'Prod'} ready @ PORT ${port}`);
 
       if ('TESTRUN' in process.env || 'TRAVIS' in process.env) {
         process.exit(0);
