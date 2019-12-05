@@ -4,21 +4,20 @@ set -e
 export CAPROVER_APP=fructosedb
 export CAPROVER_TAR_FILE=./caprover_deployment.tar
 
-if [[ -z "${TRAVIS}" ]]; then
-    yarn build
-fi
-
 yarn build
 export TESTRUN=TRUE
 yarn start
 
 # TODO: Potentially make --exclude-vcs-ignores work.
+echo "Creating archive out of repo and build artifacts..."
 tar -cvf ./caprover_deployment.tar --exclude=.git --exclude=.idea --exclude=coverage/* --exclude=node_modules/* .
 
+echo "Deploying to machine 01..."
 export CAPROVER_URL=$CAPROVER_MACHINE_01
-caprover deploy
+caprover deploy > /dev/null
 
+echo "Deploying to machine 02..."
 export CAPROVER_URL=$CAPROVER_MACHINE_02
-caprover deploy
+caprover deploy > /dev/null
 
 rm caprover_deployment.tar

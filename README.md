@@ -22,8 +22,4 @@
 
 ### Development
 
-Specify variables in `.env`.
-
-### Production
-
-Currently deployed using zeit's now. Just use secrets for the env variables above on whatever target platform.
+Variables can be specified in `.env`.
