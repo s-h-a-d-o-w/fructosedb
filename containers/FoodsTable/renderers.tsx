@@ -1,6 +1,11 @@
 import * as React from 'react';
 import {IntlShape} from 'react-intl';
-import {Column, SortDirection, TableCellRenderer} from 'react-virtualized';
+import {
+  Column,
+  SortDirection,
+  TableCellRenderer,
+  TableCellProps,
+} from 'react-virtualized';
 import toPX from 'to-px';
 
 import * as Icons from 'components/Icons';
@@ -54,40 +59,39 @@ export const renderColumns = ({
       {...(column.name === 'avoid' ? {cellRenderer: renderAvoid} : {})}
       {...(column.name === 'name'
         ? {
-            cellRenderer: renderName.bind(
-              null,
-              dispatchHideFloat,
-              dispatchShowFloat
-            ),
+            cellRenderer: (props) =>
+              renderName(dispatchHideFloat, dispatchShowFloat, props),
           }
         : {})}
       {...(column.name === 'measure'
         ? {
-            cellRenderer: renderMeasure.bind(null, intl),
+            cellRenderer: (props) => renderMeasure(intl, props),
           }
         : {})}
     />
   ));
 };
 
-const renderMeasure = (intl: IntlShape, {cellData}: {cellData?: string}) => {
+const renderMeasure = (intl: IntlShape, {cellData}: TableCellProps) => {
   if (intl.locale !== 'en' && cellData) {
     const chunks = cellData.split(' ');
+
     chunks[1] = intl.formatMessage({
       id: chunks[1],
       defaultMessage: intl.formatMessage({id: 'unit(s)'}),
       // defaultMessage: chunks[1],
     });
+
     return chunks.join(' ');
-  } else {
-    return cellData;
   }
+
+  return cellData;
 };
 
 const renderName = (
   dispatchHideFloat: TableProps['dispatchHideFloat'],
   dispatchShowFloat: TableProps['dispatchShowFloat'],
-  {cellData}: {cellData?: string}
+  {cellData}: TableCellProps
 ) => (
   <div
     onClick={dispatchShowFloat.bind(null, cellData || '')}
