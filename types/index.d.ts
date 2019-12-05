@@ -19,3 +19,10 @@ export interface FoodCache extends Array<Food> {
 }
 
 export type SupportedLanguages = 'en' | 'de';
+
+// Used in TranslationDropdown
+declare global {
+  interface Window {
+    google: any;
+  }
+}

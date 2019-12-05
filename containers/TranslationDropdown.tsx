@@ -17,8 +17,8 @@ export const TranslationDropdown: React.FC = () => {
     // google-translate.js fetches external assets from Google, which
     // may take a while...
     (function waitForGoogleTranslate() {
-      if ((window as any).google.translate.TranslateElement) {
-        new (window as any).google.translate.TranslateElement(
+      if (window.google.translate.TranslateElement) {
+        new window.google.translate.TranslateElement(
           {pageLanguage: 'en'},
           'google_translate_element'
         );
