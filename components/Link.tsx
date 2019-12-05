@@ -15,6 +15,7 @@ export type Props = {
 const StyledA = styled.a`
   color: ${(props: Props) => (props.invert ? theme.primaryLight : 'white')};
   text-decoration: none;
+
   &:hover {
     color: ${(props: Props) => (props.invert ? 'white' : theme.primaryLight)};
     cursor: pointer;

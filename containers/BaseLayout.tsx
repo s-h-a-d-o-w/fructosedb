@@ -38,8 +38,8 @@ const StyledBase = styled.div`
   }
 
   /* 
-		Due to SSR, the following syle is included with initial HTML.
-		But once this has mounted, it should be dismissed because fade in effects  
+		Due to SSR, the following style is included with initial HTML.
+		But once mounted, it should not be used because fade in effects  
 		are only inteded to soften the inital page load.
 	 */
   ${(props: StyledBaseProps) =>

@@ -50,6 +50,7 @@ const filter = memoize((data: Food[], term: string, onlyFruit: boolean) => {
       (el) => el.name.toLowerCase().indexOf(term.toLowerCase()) >= 0
     );
   }
+
   if (onlyFruit) {
     nextData = nextData.filter((el) => el.isFruit);
   }
