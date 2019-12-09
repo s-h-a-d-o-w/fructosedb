@@ -6,11 +6,7 @@ const withSourceMaps = require('@zeit/next-source-maps');
 
 const nextConfig = {
   webpack(config, options) {
-    config.resolve.alias['components'] = path.join(__dirname, 'components');
-    config.resolve.alias['containers'] = path.join(__dirname, 'containers');
-    config.resolve.alias['lib'] = path.join(__dirname, 'lib');
-    config.resolve.alias['static'] = path.join(__dirname, 'static');
-    config.resolve.alias['store'] = path.join(__dirname, 'store');
+    config.resolve.modules = [__dirname, 'node_modules'];
 
     // See: https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/next.config.js
 
@@ -32,9 +28,7 @@ const nextConfig = {
       config.resolve.alias['@sentry/node'] = '@sentry/browser';
     }
 
-    return {
-      ...config,
-    };
+    return config;
   },
 };
 
