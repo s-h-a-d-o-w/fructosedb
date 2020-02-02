@@ -7,15 +7,17 @@ import {Provider} from 'react-redux';
 import {DynamicIntlProvider} from 'containers/DynamicIntlProvider';
 import withReduxStore from '../lib/with-redux-store';
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 // Could expand the functionality of this by uploading source maps after building.
 // Also possibly using _error.js as described here. Workflow seems a bit immature though:
 // https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/pages/_error.js
 Sentry.init({
-  dsn: 'https://25cdec932b684e40b5d132a83958ae49@sentry.io/1771415',
+  dsn: isDev ? undefined : 'https://25cdec932b684e40b5d132a83958ae49@sentry.io/1771415',
 });
 
 if (typeof window !== 'undefined') {
-  if (process.env.NODE_ENV !== 'production') {
+  if (isDev) {
     // const whyDidYouRender = require("@welldone-software/why-did-you-render");
     // whyDidYouRender(React,  {
     // 	collapseGroups: true,

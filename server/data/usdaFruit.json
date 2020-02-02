@@ -1,0 +1,2042 @@
+{
+  "report": {
+    "sr": "1",
+    "groups": [
+      {
+        "id": "0900",
+        "description": "Fruits and Fruit Juices"
+      }
+    ],
+    "subset": "All foods",
+    "end": 135,
+    "start": 0,
+    "total": 135,
+    "foods": [
+      {
+        "ndbno": "09427",
+        "name": "Abiyuch, raw",
+        "weight": 114.0,
+        "measure": "0.5 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.06",
+            "gm": 0.05
+          }
+        ]
+      },
+      {
+        "ndbno": "09400",
+        "name": "Apple juice, canned or bottled, unsweetened, with added ascorbic acid",
+        "weight": 248.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.12",
+            "gm": 1.26
+          }
+        ]
+      },
+      {
+        "ndbno": "09517",
+        "name": "Apple juice, canned or bottled, unsweetened, with added ascorbic acid, calcium, and potassium",
+        "weight": 177.0,
+        "measure": "6.0 fl oz",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.12",
+            "gm": 1.2
+          }
+        ]
+      },
+      {
+        "ndbno": "09016",
+        "name": "Apple juice, canned or bottled, unsweetened, without added ascorbic acid",
+        "weight": 248.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.12",
+            "gm": 1.26
+          }
+        ]
+      },
+      {
+        "ndbno": "09504",
+        "name": "Apples, raw, fuji, with skin (Includes foods for USDA's Food Distribution Program)",
+        "weight": 109.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.41",
+            "gm": 2.21
+          }
+        ]
+      },
+      {
+        "ndbno": "09503",
+        "name": "Apples, raw, gala, with skin (Includes foods for USDA's Food Distribution Program)",
+        "weight": 109.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.03",
+            "gm": 2.78
+          }
+        ]
+      },
+      {
+        "ndbno": "09501",
+        "name": "Apples, raw, golden delicious, with skin",
+        "weight": 109.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.26",
+            "gm": 2.07
+          }
+        ]
+      },
+      {
+        "ndbno": "09502",
+        "name": "Apples, raw, granny smith, with skin (Includes foods for USDA's Food Distribution Program)",
+        "weight": 109.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.10",
+            "gm": 1.93
+          }
+        ]
+      },
+      {
+        "ndbno": "09500",
+        "name": "Apples, raw, red delicious, with skin (Includes foods for USDA's Food Distribution Program)",
+        "weight": 109.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.03",
+            "gm": 1.86
+          }
+        ]
+      },
+      {
+        "ndbno": "09003",
+        "name": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
+        "weight": 125.0,
+        "measure": "1.0 cup, quartered or chopped",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.59",
+            "gm": 2.07
+          }
+        ]
+      },
+      {
+        "ndbno": "09004",
+        "name": "Apples, raw, without skin",
+        "weight": 110.0,
+        "measure": "1.0 cup slices",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.90",
+            "gm": 0.82
+          }
+        ]
+      },
+      {
+        "ndbno": "09020",
+        "name": "Applesauce, canned, sweetened, without salt",
+        "weight": 246.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.46",
+            "gm": 1.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09401",
+        "name": "Applesauce, canned, unsweetened, with added ascorbic acid",
+        "weight": 244.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.76",
+            "gm": 1.13
+          }
+        ]
+      },
+      {
+        "ndbno": "09019",
+        "name": "Applesauce, canned, unsweetened, without added ascorbic acid (Includes foods for USDA's Food Distribution Program)",
+        "weight": 244.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.76",
+            "gm": 1.13
+          }
+        ]
+      },
+      {
+        "ndbno": "09036",
+        "name": "Apricot nectar, canned, with added ascorbic acid",
+        "weight": 266.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "10.93",
+            "gm": 4.11
+          }
+        ]
+      },
+      {
+        "ndbno": "09032",
+        "name": "Apricots, dried, sulfured, uncooked",
+        "weight": 130.0,
+        "measure": "1.0 cup, halves",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "10.26",
+            "gm": 7.89
+          }
+        ]
+      },
+      {
+        "ndbno": "09021",
+        "name": "Apricots, raw",
+        "weight": 155.0,
+        "measure": "1.0 cup, halves",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "9.10",
+            "gm": 5.87
+          }
+        ]
+      },
+      {
+        "ndbno": "09037",
+        "name": "Avocados, raw, all commercial varieties",
+        "weight": 150.0,
+        "measure": "1.0 cup, cubes",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.09",
+            "gm": 0.06
+          }
+        ]
+      },
+      {
+        "ndbno": "09038",
+        "name": "Avocados, raw, California",
+        "weight": 230.0,
+        "measure": "1.0 cup, pureed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.14",
+            "gm": 0.06
+          }
+        ]
+      },
+      {
+        "ndbno": "09039",
+        "name": "Avocados, raw, Florida",
+        "weight": 230.0,
+        "measure": "1.0 cup, pureed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09040",
+        "name": "Bananas, raw",
+        "weight": 225.0,
+        "measure": "1.0 cup, mashed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "5.38",
+            "gm": 2.39
+          }
+        ]
+      },
+      {
+        "ndbno": "09042",
+        "name": "Blackberries, raw",
+        "weight": 144.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.10",
+            "gm": 0.07
+          }
+        ]
+      },
+      {
+        "ndbno": "09352",
+        "name": "Blueberries, canned, light syrup, drained",
+        "weight": 244.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.00",
+            "gm": 0.41
+          }
+        ]
+      },
+      {
+        "ndbno": "09050",
+        "name": "Blueberries, raw",
+        "weight": 148.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.16",
+            "gm": 0.11
+          }
+        ]
+      },
+      {
+        "ndbno": "09353",
+        "name": "Blueberries, wild, canned, heavy syrup, drained",
+        "weight": 319.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.03",
+            "gm": 0.01
+          }
+        ]
+      },
+      {
+        "ndbno": "09053",
+        "name": "Blueberries, wild, frozen (Includes foods for USDA's Food Distribution Program)",
+        "weight": 140.0,
+        "measure": "1.0 cup, frozen",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09062",
+        "name": "Cherimoya, raw",
+        "weight": 160.0,
+        "measure": "1.0 cup, pieces",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.06",
+            "gm": 0.66
+          }
+        ]
+      },
+      {
+        "ndbno": "09362",
+        "name": "Cherries, sour, canned, water pack, drained",
+        "weight": 168.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.02",
+            "gm": 0.01
+          }
+        ]
+      },
+      {
+        "ndbno": "09064",
+        "name": "Cherries, sour, red, canned, water pack, solids and liquids",
+        "weight": 244.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.44",
+            "gm": 1.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09063",
+        "name": "Cherries, sour, red, raw",
+        "weight": 155.0,
+        "measure": "1.0 cup, without pits",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.24",
+            "gm": 0.8
+          }
+        ]
+      },
+      {
+        "ndbno": "09074",
+        "name": "Cherries, sweet, canned, pitted, heavy syrup pack, solids and liquids",
+        "weight": 253.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "5.57",
+            "gm": 2.2
+          }
+        ]
+      },
+      {
+        "ndbno": "09070",
+        "name": "Cherries, sweet, raw",
+        "weight": 138.0,
+        "measure": "1.0 cup, with pits, yields",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.21",
+            "gm": 0.15
+          }
+        ]
+      },
+      {
+        "ndbno": "09546",
+        "name": "Cherry juice, tart",
+        "weight": 269.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09433",
+        "name": "Clementines, raw",
+        "weight": 74.0,
+        "measure": "1.0 fruit",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "4.41",
+            "gm": 5.96
+          }
+        ]
+      },
+      {
+        "ndbno": "09079",
+        "name": "Cranberries, dried, sweetened (Includes foods for USDA's Food Distribution Program)",
+        "weight": 40.0,
+        "measure": "0.25 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "6.33",
+            "gm": 15.83
+          }
+        ]
+      },
+      {
+        "ndbno": "09078",
+        "name": "Cranberries, raw",
+        "weight": 110.0,
+        "measure": "1.0 cup, chopped",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.18",
+            "gm": 0.16
+          }
+        ]
+      },
+      {
+        "ndbno": "09522",
+        "name": "Cranberry juice blend, 100% juice, bottled, with added vitamin C and calcium",
+        "weight": 200.0,
+        "measure": "6.0 fl oz",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.20",
+            "gm": 0.1
+          }
+        ]
+      },
+      {
+        "ndbno": "09081",
+        "name": "Cranberry sauce, canned, sweetened",
+        "weight": 277.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.28",
+            "gm": 0.1
+          }
+        ]
+      },
+      {
+        "ndbno": "09526",
+        "name": "Cranberry sauce, jellied, canned, OCEAN SPRAY",
+        "weight": 70.0,
+        "measure": "0.25 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.07",
+            "gm": 0.1
+          }
+        ]
+      },
+      {
+        "ndbno": "09525",
+        "name": "Cranberry sauce, whole, canned, OCEAN SPRAY",
+        "weight": 70.0,
+        "measure": "0.25 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.07",
+            "gm": 0.1
+          }
+        ]
+      },
+      {
+        "ndbno": "09084",
+        "name": "Currants, red and white, raw",
+        "weight": 112.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.68",
+            "gm": 0.61
+          }
+        ]
+      },
+      {
+        "ndbno": "09085",
+        "name": "Currants, zante, dried",
+        "weight": 144.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09087",
+        "name": "Dates, deglet noor",
+        "weight": 147.0,
+        "measure": "1.0 cup, chopped",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "35.04",
+            "gm": 23.84
+          }
+        ]
+      },
+      {
+        "ndbno": "09421",
+        "name": "Dates, medjool",
+        "weight": 24.0,
+        "measure": "1.0 date, pitted",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.13",
+            "gm": 0.53
+          }
+        ]
+      },
+      {
+        "ndbno": "09334",
+        "name": "Feijoa, raw",
+        "weight": 243.0,
+        "measure": "1.0 cup, pureed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "7.12",
+            "gm": 2.93
+          }
+        ]
+      },
+      {
+        "ndbno": "09094",
+        "name": "Figs, dried, uncooked",
+        "weight": 149.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.10",
+            "gm": 0.07
+          }
+        ]
+      },
+      {
+        "ndbno": "09515",
+        "name": "Fruit juice smoothie, BOLTHOUSE FARMS, GREEN GOODNESS",
+        "weight": 230.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "9.34",
+            "gm": 4.06
+          }
+        ]
+      },
+      {
+        "ndbno": "09516",
+        "name": "Fruit juice smoothie, BOLTHOUSE FARMS, strawberry banana",
+        "weight": 233.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "5.69",
+            "gm": 2.44
+          }
+        ]
+      },
+      {
+        "ndbno": "09508",
+        "name": "Fruit juice smoothie, NAKED JUICE, GREEN MACHINE",
+        "weight": 275.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "7.84",
+            "gm": 2.85
+          }
+        ]
+      },
+      {
+        "ndbno": "09531",
+        "name": "Fruit juice smoothie, NAKED JUICE, strawberry banana",
+        "weight": 228.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "6.45",
+            "gm": 2.83
+          }
+        ]
+      },
+      {
+        "ndbno": "09513",
+        "name": "Fruit juice smoothie, ODWALLA, ORIGINAL SUPERFOOD",
+        "weight": 227.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "8.19",
+            "gm": 3.61
+          }
+        ]
+      },
+      {
+        "ndbno": "09530",
+        "name": "Fruit juice smoothie, ODWALLA, strawberry banana",
+        "weight": 233.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "8.11",
+            "gm": 3.48
+          }
+        ]
+      },
+      {
+        "ndbno": "09130",
+        "name": "Grape juice, canned or bottled, unsweetened, with added ascorbic acid",
+        "weight": 253.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.10",
+            "gm": 0.04
+          }
+        ]
+      },
+      {
+        "ndbno": "09512",
+        "name": "Grape juice, canned or bottled, unsweetened, with added ascorbic acid and calcium",
+        "weight": 253.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.10",
+            "gm": 0.04
+          }
+        ]
+      },
+      {
+        "ndbno": "09135",
+        "name": "Grape juice, canned or bottled, unsweetened, without added ascorbic acid",
+        "weight": 253.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.10",
+            "gm": 0.04
+          }
+        ]
+      },
+      {
+        "ndbno": "09127",
+        "name": "Grapefruit juice, pink or red, with added calcium",
+        "weight": 240.0,
+        "measure": "8.0 fl oz",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "6.10",
+            "gm": 2.54
+          }
+        ]
+      },
+      {
+        "ndbno": "09416",
+        "name": "Grapefruit juice, white, bottled, unsweetened, OCEAN SPRAY",
+        "weight": 251.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.29",
+            "gm": 1.31
+          }
+        ]
+      },
+      {
+        "ndbno": "09123",
+        "name": "Grapefruit juice, white, canned or bottled, unsweetened",
+        "weight": 257.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.32",
+            "gm": 1.29
+          }
+        ]
+      },
+      {
+        "ndbno": "09112",
+        "name": "Grapefruit, raw, pink and red, all areas",
+        "weight": 230.0,
+        "measure": "1.0 cup sections, with juice",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "8.07",
+            "gm": 3.51
+          }
+        ]
+      },
+      {
+        "ndbno": "09129",
+        "name": "Grapes, muscadine, raw",
+        "weight": 6.0,
+        "measure": "1.0 grape",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.03",
+            "gm": 0.57
+          }
+        ]
+      },
+      {
+        "ndbno": "09132",
+        "name": "Grapes, red or green (European type, such as Thompson seedless), raw",
+        "weight": 151.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.23",
+            "gm": 0.15
+          }
+        ]
+      },
+      {
+        "ndbno": "09434",
+        "name": "Guanabana nectar, canned",
+        "weight": 251.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09435",
+        "name": "Guava nectar, canned, with added ascorbic acid",
+        "weight": 251.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.18",
+            "gm": 0.07
+          }
+        ]
+      },
+      {
+        "ndbno": "09144",
+        "name": "Jackfruit, raw",
+        "weight": 165.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.69",
+            "gm": 0.42
+          }
+        ]
+      },
+      {
+        "ndbno": "09443",
+        "name": "Juice, apple and grape blend, with added ascorbic acid",
+        "weight": 250.0,
+        "measure": "8.0 fl oz",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.85",
+            "gm": 0.74
+          }
+        ]
+      },
+      {
+        "ndbno": "09444",
+        "name": "Juice, apple, grape and pear blend, with added ascorbic acid and calcium",
+        "weight": 250.0,
+        "measure": "8.0 fl oz",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.38",
+            "gm": 0.55
+          }
+        ]
+      },
+      {
+        "ndbno": "09148",
+        "name": "Kiwifruit, green, raw",
+        "weight": 180.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.27",
+            "gm": 0.15
+          }
+        ]
+      },
+      {
+        "ndbno": "09520",
+        "name": "Kiwifruit, ZESPRI SunGold, raw",
+        "weight": 81.0,
+        "measure": "1.0 fruit",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.99",
+            "gm": 1.22
+          }
+        ]
+      },
+      {
+        "ndbno": "09523",
+        "name": "Lemon juice from concentrate, bottled, CONCORD",
+        "weight": 15.0,
+        "measure": "1.0 tbsp",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09524",
+        "name": "Lemon juice from concentrate, bottled, REAL LEMON",
+        "weight": 15.0,
+        "measure": "1.0 tbsp",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09153",
+        "name": "Lemon juice from concentrate, canned or bottled",
+        "weight": 15.0,
+        "measure": "1.0 tbsp",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09152",
+        "name": "Lemon juice, raw",
+        "weight": 244.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.05",
+            "gm": 0.43
+          }
+        ]
+      },
+      {
+        "ndbno": "09160",
+        "name": "Lime juice, raw",
+        "weight": 242.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.16",
+            "gm": 0.48
+          }
+        ]
+      },
+      {
+        "ndbno": "09436",
+        "name": "Mango nectar, canned",
+        "weight": 251.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.56",
+            "gm": 1.02
+          }
+        ]
+      },
+      {
+        "ndbno": "09176",
+        "name": "Mangos, raw",
+        "weight": 165.0,
+        "measure": "1.0 cup pieces",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "11.50",
+            "gm": 6.97
+          }
+        ]
+      },
+      {
+        "ndbno": "09181",
+        "name": "Melons, cantaloupe, raw",
+        "weight": 177.0,
+        "measure": "1.0 cup, balls",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "7.70",
+            "gm": 4.35
+          }
+        ]
+      },
+      {
+        "ndbno": "09184",
+        "name": "Melons, honeydew, raw",
+        "weight": 170.0,
+        "measure": "1.0 cup, diced (approx 20 pieces per cup)",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "4.22",
+            "gm": 2.48
+          }
+        ]
+      },
+      {
+        "ndbno": "09448",
+        "name": "Nance, canned, syrup, drained",
+        "weight": 11.1,
+        "measure": "3.0 fruit without pits",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.01",
+            "gm": 0.07
+          }
+        ]
+      },
+      {
+        "ndbno": "09449",
+        "name": "Nance, frozen, unsweetened",
+        "weight": 112.0,
+        "measure": "1.0 cup without pits, thawed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09450",
+        "name": "Naranjilla (lulo) pulp, frozen, unsweetened",
+        "weight": 120.0,
+        "measure": "1.0 cup thawed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.06",
+            "gm": 1.72
+          }
+        ]
+      },
+      {
+        "ndbno": "09191",
+        "name": "Nectarines, raw",
+        "weight": 143.0,
+        "measure": "1.0 cup slices",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "6.96",
+            "gm": 4.87
+          }
+        ]
+      },
+      {
+        "ndbno": "09207",
+        "name": "Orange juice, canned, unsweetened",
+        "weight": 249.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "10.11",
+            "gm": 4.06
+          }
+        ]
+      },
+      {
+        "ndbno": "09209",
+        "name": "Orange juice, chilled, includes from concentrate",
+        "weight": 249.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "9.98",
+            "gm": 4.01
+          }
+        ]
+      },
+      {
+        "ndbno": "09211",
+        "name": "Orange juice, chilled, includes from concentrate, with added calcium",
+        "weight": 249.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "9.98",
+            "gm": 4.01
+          }
+        ]
+      },
+      {
+        "ndbno": "09210",
+        "name": "Orange juice, chilled, includes from concentrate, with added calcium and vitamin D",
+        "weight": 249.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "9.98",
+            "gm": 4.01
+          }
+        ]
+      },
+      {
+        "ndbno": "09506",
+        "name": "Orange juice, chilled, includes from concentrate, with added calcium and vitamins A, D, E",
+        "weight": 249.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "9.98",
+            "gm": 4.01
+          }
+        ]
+      },
+      {
+        "ndbno": "09214",
+        "name": "Orange juice, frozen concentrate, unsweetened, undiluted",
+        "weight": 262.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "40.74",
+            "gm": 15.55
+          }
+        ]
+      },
+      {
+        "ndbno": "09213",
+        "name": "Orange juice, frozen concentrate, unsweetened, undiluted, with added calcium",
+        "weight": 262.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "40.74",
+            "gm": 15.55
+          }
+        ]
+      },
+      {
+        "ndbno": "09202",
+        "name": "Oranges, raw, navels (Includes foods for USDA's Food Distribution Program)",
+        "weight": 165.0,
+        "measure": "1.0 cup sections, without membranes",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "7.06",
+            "gm": 4.28
+          }
+        ]
+      },
+      {
+        "ndbno": "09228",
+        "name": "Papaya, canned, heavy syrup, drained",
+        "weight": 39.0,
+        "measure": "1.0 piece",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "14.96",
+            "gm": 38.37
+          }
+        ]
+      },
+      {
+        "ndbno": "09226",
+        "name": "Papayas, raw",
+        "weight": 145.0,
+        "measure": "1.0 cup 1\" pieces",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09407",
+        "name": "Peach nectar, canned, with added ascorbic acid",
+        "weight": 220.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.21",
+            "gm": 0.55
+          }
+        ]
+      },
+      {
+        "ndbno": "09251",
+        "name": "Peach nectar, canned, with sucralose, without added ascorbic acid",
+        "weight": 258.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.87",
+            "gm": 1.5
+          }
+        ]
+      },
+      {
+        "ndbno": "09370",
+        "name": "Peaches, canned, heavy syrup, drained",
+        "weight": 222.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "8.77",
+            "gm": 3.95
+          }
+        ]
+      },
+      {
+        "ndbno": "09246",
+        "name": "Peaches, dried, sulfured, uncooked",
+        "weight": 160.0,
+        "measure": "1.0 cup, halves",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "24.67",
+            "gm": 15.42
+          }
+        ]
+      },
+      {
+        "ndbno": "09236",
+        "name": "Peaches, yellow, raw",
+        "weight": 154.0,
+        "measure": "1.0 cup slices",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "7.33",
+            "gm": 4.76
+          }
+        ]
+      },
+      {
+        "ndbno": "09257",
+        "name": "Pears, canned, heavy syrup pack, solids and liquids",
+        "weight": 266.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.72",
+            "gm": 1.4
+          }
+        ]
+      },
+      {
+        "ndbno": "09254",
+        "name": "Pears, canned, juice pack, solids and liquids",
+        "weight": 248.0,
+        "measure": "1.0 cup, halves",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.49",
+            "gm": 0.6
+          }
+        ]
+      },
+      {
+        "ndbno": "09256",
+        "name": "Pears, canned, light syrup pack, solids and liquids",
+        "weight": 251.0,
+        "measure": "1.0 cup, halves",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.76",
+            "gm": 1.1
+          }
+        ]
+      },
+      {
+        "ndbno": "09253",
+        "name": "Pears, canned, water pack, solids and liquids",
+        "weight": 244.0,
+        "measure": "1.0 cup, halves",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.73",
+            "gm": 0.3
+          }
+        ]
+      },
+      {
+        "ndbno": "09252",
+        "name": "Pears, raw",
+        "weight": 140.0,
+        "measure": "1.0 cup, slices",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.99",
+            "gm": 0.71
+          }
+        ]
+      },
+      {
+        "ndbno": "09412",
+        "name": "Pears, raw, bartlett (Includes foods for USDA's Food Distribution Program)",
+        "weight": 140.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.60",
+            "gm": 0.43
+          }
+        ]
+      },
+      {
+        "ndbno": "09414",
+        "name": "Pears, raw, bosc (Includes foods for USDA's Food Distribution Program)",
+        "weight": 140.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.95",
+            "gm": 2.11
+          }
+        ]
+      },
+      {
+        "ndbno": "09415",
+        "name": "Pears, raw, green anjou (Includes foods for USDA's Food Distribution Program)",
+        "weight": 140.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.46",
+            "gm": 0.33
+          }
+        ]
+      },
+      {
+        "ndbno": "09413",
+        "name": "Pears, raw, red anjou",
+        "weight": 126.0,
+        "measure": "1.0 small",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.33",
+            "gm": 0.26
+          }
+        ]
+      },
+      {
+        "ndbno": "09263",
+        "name": "Persimmons, japanese, raw",
+        "weight": 168.0,
+        "measure": "1.0 fruit (2-1/2\" dia)",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.59",
+            "gm": 1.54
+          }
+        ]
+      },
+      {
+        "ndbno": "09409",
+        "name": "Pineapple juice, canned or bottled, unsweetened, with added ascorbic acid",
+        "weight": 250.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.83",
+            "gm": 1.53
+          }
+        ]
+      },
+      {
+        "ndbno": "09273",
+        "name": "Pineapple juice, canned or bottled, unsweetened, without added ascorbic acid",
+        "weight": 250.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.83",
+            "gm": 1.53
+          }
+        ]
+      },
+      {
+        "ndbno": "09510",
+        "name": "Pineapple juice, canned, not from concentrate, unsweetened, with added vitamins A, C and E",
+        "weight": 250.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "3.83",
+            "gm": 1.53
+          }
+        ]
+      },
+      {
+        "ndbno": "09270",
+        "name": "Pineapple, canned, heavy syrup pack, solids and liquids",
+        "weight": 254.0,
+        "measure": "1.0 cup, crushed, sliced, or chunks",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "5.59",
+            "gm": 2.2
+          }
+        ]
+      },
+      {
+        "ndbno": "09268",
+        "name": "Pineapple, canned, juice pack, solids and liquids",
+        "weight": 249.0,
+        "measure": "1.0 cup, crushed, sliced, or chunks",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.62",
+            "gm": 0.25
+          }
+        ]
+      },
+      {
+        "ndbno": "09266",
+        "name": "Pineapple, raw, all varieties",
+        "weight": 165.0,
+        "measure": "1.0 cup, chunks",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "9.88",
+            "gm": 5.99
+          }
+        ]
+      },
+      {
+        "ndbno": "09430",
+        "name": "Pineapple, raw, extra sweet variety",
+        "weight": 165.0,
+        "measure": "1.0 cup, chunks",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "10.68",
+            "gm": 6.47
+          }
+        ]
+      },
+      {
+        "ndbno": "09429",
+        "name": "Pineapple, raw, traditional varieties",
+        "weight": 165.0,
+        "measure": "1.0 cup, chunks",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "7.57",
+            "gm": 4.59
+          }
+        ]
+      },
+      {
+        "ndbno": "09543",
+        "name": "Plantains, green, boiled",
+        "weight": 137.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.08",
+            "gm": 1.52
+          }
+        ]
+      },
+      {
+        "ndbno": "09446",
+        "name": "Plantains, green, fried",
+        "weight": 118.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.78",
+            "gm": 2.36
+          }
+        ]
+      },
+      {
+        "ndbno": "09542",
+        "name": "Plantains, green, raw",
+        "weight": 267.0,
+        "measure": "1.0 plantain",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.48",
+            "gm": 0.18
+          }
+        ]
+      },
+      {
+        "ndbno": "09278",
+        "name": "Plantains, yellow, baked",
+        "weight": 139.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "19.07",
+            "gm": 13.72
+          }
+        ]
+      },
+      {
+        "ndbno": "09447",
+        "name": "Plantains, yellow, fried, Latino restaurant",
+        "weight": 169.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "20.16",
+            "gm": 11.93
+          }
+        ]
+      },
+      {
+        "ndbno": "09277",
+        "name": "Plantains, yellow, raw",
+        "weight": 270.0,
+        "measure": "1.0 plantain",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.49",
+            "gm": 0.18
+          }
+        ]
+      },
+      {
+        "ndbno": "09291",
+        "name": "Plums, dried (prunes), uncooked",
+        "weight": 174.0,
+        "measure": "1.0 cup, pitted",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.26",
+            "gm": 0.15
+          }
+        ]
+      },
+      {
+        "ndbno": "09279",
+        "name": "Plums, raw",
+        "weight": 165.0,
+        "measure": "1.0 cup, sliced",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "2.59",
+            "gm": 1.57
+          }
+        ]
+      },
+      {
+        "ndbno": "09442",
+        "name": "Pomegranate juice, bottled",
+        "weight": 249.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09298",
+        "name": "Raisins, dark, seedless (Includes foods for USDA's Food Distribution Program)",
+        "weight": 165.0,
+        "measure": "1.0 cup, packed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09297",
+        "name": "Raisins, golden, seedless",
+        "weight": 165.0,
+        "measure": "1.0 cup, packed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.00",
+            "gm": 0.0
+          }
+        ]
+      },
+      {
+        "ndbno": "09518",
+        "name": "Raspberries, frozen, red, unsweetened",
+        "weight": 140.0,
+        "measure": "1.0 cup, unthawed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.62",
+            "gm": 0.44
+          }
+        ]
+      },
+      {
+        "ndbno": "09302",
+        "name": "Raspberries, raw",
+        "weight": 123.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.25",
+            "gm": 0.2
+          }
+        ]
+      },
+      {
+        "ndbno": "09428",
+        "name": "Rowal, raw",
+        "weight": 114.0,
+        "measure": "0.5 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "14.25",
+            "gm": 12.5
+          }
+        ]
+      },
+      {
+        "ndbno": "09528",
+        "name": "Ruby Red grapefruit juice blend (grapefruit, grape, apple), OCEAN SPRAY, bottled, with added vitamin C",
+        "weight": 248.0,
+        "measure": "8.0 fl oz",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "4.46",
+            "gm": 1.8
+          }
+        ]
+      },
+      {
+        "ndbno": "09314",
+        "name": "Sapote, mamey, raw",
+        "weight": 175.0,
+        "measure": "1.0 cup 1\" pieces",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "7.16",
+            "gm": 4.09
+          }
+        ]
+      },
+      {
+        "ndbno": "09318",
+        "name": "Strawberries, frozen, unsweetened (Includes foods for USDA's Food Distribution Program)",
+        "weight": 221.0,
+        "measure": "1.0 cup, thawed",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.82",
+            "gm": 0.37
+          }
+        ]
+      },
+      {
+        "ndbno": "09316",
+        "name": "Strawberries, raw",
+        "weight": 152.0,
+        "measure": "1.0 cup, halves",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.71",
+            "gm": 0.47
+          }
+        ]
+      },
+      {
+        "ndbno": "09437",
+        "name": "Tamarind nectar, canned",
+        "weight": 251.0,
+        "measure": "1.0 cup",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "0.33",
+            "gm": 0.13
+          }
+        ]
+      },
+      {
+        "ndbno": "09218",
+        "name": "Tangerines, (mandarin oranges), raw",
+        "weight": 195.0,
+        "measure": "1.0 cup, sections",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "11.80",
+            "gm": 6.05
+          }
+        ]
+      },
+      {
+        "ndbno": "09326",
+        "name": "Watermelon, raw",
+        "weight": 154.0,
+        "measure": "1.0 cup, balls",
+        "nutrients": [
+          {
+            "nutrient_id": "210",
+            "nutrient": "Sucrose",
+            "unit": "g",
+            "value": "1.86",
+            "gm": 1.21
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -178,19 +178,27 @@ export const transformData = (
 // ------------------------------------
 
 // Used in dev env or if calls to USDA DB fail.
-function getDataDump() {
+function getCommittedData(filename: string) {
   const fs = require('fs');
   const path = require('path');
 
-  console.log('Using USDA data dump from repo.');
   return JSON.parse(
-    fs.readFileSync(path.join(__dirname, 'data/usdaDataDump.json'), 'utf8')
+    fs.readFileSync(path.join(__dirname, `data/${filename}`), 'utf8')
   );
 }
 
 export async function getFruitIDs(): Promise<string[]> {
   // For food group ID see: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
-  const foods = (await getReport(1500, 0, '0900')).foods;
+  // It'll effectively be: https://api.nal.usda.gov/ndb/nutrients/?api_key=MY_KEY&max=1500&offset=0&fg=0900&nutrients=210
+  let foods: USDAFood[];
+  try {
+    foods = (isDev && !isTest) ? (await getReport(1500, 0, '0900')).foods : getCommittedData('usdaFruit.json').foods;
+  } catch (error) {
+    console.error(error);
+    console.log('Using committed USDA fruit data.');
+    foods = getCommittedData('usdaFruit.json').foods;
+  }
+
   const ids: string[] = [];
   foods.forEach((el) => ids.push(el.ndbno));
   return ids;
@@ -226,7 +234,8 @@ export async function fetchFoodsList(): Promise<Food[]> {
   let data: USDAFood[] = [];
 
   if (isDev && !isTest) {
-    data = getDataDump();
+    console.log('DEV ENV: Using committed USDA data.');
+    data = getCommittedData('usdaData.json');
   } else {
     try {
       // Included food groups.
@@ -249,7 +258,8 @@ export async function fetchFoodsList(): Promise<Food[]> {
       }
     } catch (error) {
       console.error(error);
-      data = getDataDump();
+      console.log('Using committed USDA data.');
+      data = getCommittedData('usdaData.json');
     }
   }
 
