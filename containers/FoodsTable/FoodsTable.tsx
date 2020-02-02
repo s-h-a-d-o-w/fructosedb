@@ -112,7 +112,8 @@ const _FoodsTable: React.FC<Props> = ({
     nextData = Data.sort(nextData, sortBy, sortAsc);
     nextData = Data.filter(nextData, filter, onlyFruit);
 
-    setData(nextData);
+    // If `name` is falsy, it has no translation
+    setData(nextData.filter(el => el.name));
   }
 
   const [debouncedUpdateData] = useDebouncedCallback(updateData, 200);
