@@ -192,11 +192,11 @@ export async function getFruitIDs(): Promise<string[]> {
   // It'll effectively be: https://api.nal.usda.gov/ndb/nutrients/?api_key=MY_KEY&max=1500&offset=0&fg=0900&nutrients=210
   let foods: USDAFood[];
   try {
-    foods = (isDev && !isTest) ? (await getReport(1500, 0, '0900')).foods : getCommittedData('usdaFruit.json').foods;
+    foods = (isDev && !isTest) ? getCommittedData('usdaFruit.json').report.foods : (await getReport(1500, 0, '0900')).foods;
   } catch (error) {
     console.error(error);
     console.log('Using committed USDA fruit data.');
-    foods = getCommittedData('usdaFruit.json').foods;
+    foods = getCommittedData('usdaFruit.json').report.foods;
   }
 
   const ids: string[] = [];
