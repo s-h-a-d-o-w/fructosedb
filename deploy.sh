@@ -10,7 +10,7 @@ yarn start
 
 # TODO: Potentially make --exclude-vcs-ignores work.
 echo "Creating archive out of repo and build artifacts..."
-tar -cvf ./caprover_deployment.tar --exclude=.git --exclude=.idea --exclude=coverage/* --exclude=node_modules/* .
+tar -cf ./caprover_deployment.tar --exclude=.git --exclude=.idea --exclude=coverage/* --exclude=node_modules/* .
 
 echo "Deploying to machine 01..."
 export CAPROVER_URL=$CAPROVER_MACHINE_01
