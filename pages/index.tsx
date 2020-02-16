@@ -1,21 +1,21 @@
+import {CenteredContent} from 'components/CenteredContent';
+import {Loading} from 'components/Loading';
+import {BaseLayout} from 'containers/BaseLayout';
+import {FloatingInfo} from 'containers/FloatingInfo';
+import {FoodsTable} from 'containers/FoodsTable';
+import {FullscreenButton} from 'containers/FullscreenButton';
+import {Options} from 'containers/Options';
+import theme from 'lib/theme';
+import {isEmptyObject} from 'lib/util';
 import * as React from 'react';
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {useIntl} from 'react-intl';
 import {useDispatch} from 'react-redux';
 import screenfull from 'screenfull';
-import styled from 'styled-components';
-
-import {BaseLayout} from 'containers/BaseLayout';
-import {CenteredContent} from 'components/CenteredContent';
-import {Loading} from 'components/Loading';
-import {FloatingInfo} from 'containers/FloatingInfo';
-import {FullscreenButton} from 'containers/FullscreenButton';
-import {Options} from 'containers/Options';
-import {FoodsTable} from 'containers/FoodsTable';
-import theme from 'lib/theme';
-import {isEmptyObject} from 'lib/util';
-import {hideFloat} from 'store/actions';
 import {useTypedSelector} from 'store';
+import {hideFloat} from 'store/actions';
+import styled from 'styled-components';
+import SmallDisplayWarning from 'components/SmallDisplayWarning';
 
 const FullscreenContainer = styled.div`
   /* If background-color isn't set, :-webkit-full-screen (default: white) will be aplied */
@@ -47,7 +47,7 @@ const Index: React.FC = () => {
     if (float && !isEmptyObject(float)) {
       dispatch(hideFloat());
     }
-  }, [dispatch]);
+  }, [dispatch, float]);
 
   return (
     <BaseLayout onClick={dispatchHideFloat} onTouchStart={dispatchHideFloat}>
@@ -69,6 +69,7 @@ const Index: React.FC = () => {
               ''
             )}
             <FloatingInfo />
+            <SmallDisplayWarning />
           </FullscreenContainer>
         ) : (
           <Loading />

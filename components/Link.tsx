@@ -9,6 +9,7 @@ export type Props = {
   href: string;
   onClick?: () => void;
   invert?: boolean;
+  rel?: string;
   target?: string;
 };
 

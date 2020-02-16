@@ -13,7 +13,9 @@ const isDev = process.env.NODE_ENV !== 'production';
 // Also possibly using _error.js as described here. Workflow seems a bit immature though:
 // https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/pages/_error.js
 Sentry.init({
-  dsn: isDev ? undefined : 'https://25cdec932b684e40b5d132a83958ae49@sentry.io/1771415',
+  dsn: isDev
+    ? undefined
+    : 'https://25cdec932b684e40b5d132a83958ae49@sentry.io/1771415',
 });
 
 if (typeof window !== 'undefined') {

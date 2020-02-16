@@ -39,21 +39,21 @@ const StyledNavMobile = styled.nav`
     margin-right: 1rem;
   }
 
-  // ReactCSSTransitionGroup classes
+  /* ReactCSSTransitionGroup classes */
   &.menu-appear {
-    // initial value
+    /* initial value */
     left: -60vw;
   }
 
   &.menu-appear.menu-appear-active {
-    // animation target (see also transition property above)
-    // set briefly after inital value
+    /* animation target (see also transition property above)
+    set briefly after inital value */
     left: 0;
   }
 `;
 
 const StyledNavLayout = styled.div`
-  grid-area: nav;
+  /* grid-area: nav; */
 
   display: grid;
   justify-items: end;
@@ -75,9 +75,6 @@ const StyledNavDesktop = styled.nav`
 export const NavigationContent: React.FC<Props> = ({desktop, onClick}) => {
   const items = (
     <>
-      <Link onClick={onClick} href="/">
-        <FormattedMessage id="navigationHome" />
-      </Link>
       <Link onClick={onClick} href="/sources">
         <FormattedMessage id="navigationCalculate" />
       </Link>
@@ -95,7 +92,7 @@ export const NavigationContent: React.FC<Props> = ({desktop, onClick}) => {
     <ReactCSSTransitionGroup
       transitionName="menu"
       transitionAppear={true}
-      transitionAppearTimeout={20} // Value has no consequence on animation
+      transitionAppearTimeout={20} // Value has no impact on animation
       transitionEnter={false}
       transitionLeave={false}
     >

@@ -29,6 +29,8 @@ export default {
   aboutContactText: `
 Insbesondere MedizinerInnen, die unsere Informationen aus irgendwelchen
 Gründen als mangelhaft einstufen, bitten wir uns zu kontaktieren: `,
+  indexSmallDisplayWarning: 'Bitte das Gerät horizontal halten.',
+  indexSupportUs: '❤️Unterstütze uns',
   navigationAbout: 'Über uns',
   navigationCalculate: 'Wie wir berechnen',
   navigationHome: 'Startseite',
@@ -70,5 +72,14 @@ Der <strong>relative</strong> Gehalt stammt aus dem Vergleich mit Glukose. Er
 hängt also mit dem F/G Verhältnis der Tabelle zusammen. Wenn ein Lebensmittel 
 mehr als 0.5g mehr Fruktose als Glukose enthält, wird es nicht empfohlen. 
 (Saccharose wird ebenfalls berücksichtigt) 
+`,
+  supportThanks: `
+Vielen Dank dafür, dass du es in Erwägung ziehst, uns zu unterstützen und/oder einfach deine Anerkennung zu demonstrieren! 🙂
+`,
+  supportOneTimeDonation: `
+Einmalige Spende
+`,
+  supportSubscription: `
+Monatliche Spende
 `,
 };

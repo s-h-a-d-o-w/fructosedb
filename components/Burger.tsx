@@ -9,6 +9,7 @@ type Props = {
 
 const StyledBurgerContainer = styled.button`
   border: 0;
+
   cursor: pointer; // In case of small window on desktop
   background-color: ${theme.primaryLight};
 

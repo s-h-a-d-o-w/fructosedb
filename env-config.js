@@ -14,7 +14,7 @@ function getLocalIP() {
   Object.keys(interfaces)
     .filter((key) => !inBlacklist(key))
     .some((key) => {
-      let ipv4 = interfaces[key].find((address) => address.family === 'IPv4');
+      const ipv4 = interfaces[key].find((address) => address.family === 'IPv4');
 
       if (ipv4 !== undefined) {
         retval = ipv4.address;

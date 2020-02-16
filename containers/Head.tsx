@@ -3,7 +3,7 @@ import NextHead from 'next/head';
 
 import {useTypedSelector} from 'store';
 
-export const Head = React.memo(() => {
+export const Head = React.memo(function Head() {
   const lang = useTypedSelector((state) => state.lang);
 
   return (
@@ -13,9 +13,9 @@ export const Head = React.memo(() => {
           <title>fructosedb - find low fructose foods</title>
           <meta
             name="Description"
-            content='A list of foods with their fructose and glucose content that allows people
-					suffering from fructose malabsorption (also sometimes referred to as "fructose intolerance" or
-					"DFI") to adjust their diet more easily.'
+            content='A list of foods with their fructose and glucose content that allows people 
+            suffering from fructose malabsorption (also sometimes referred to as "fructose intolerance" or 
+            "DFI") to adjust their diet more easily.'
           />
         </>
       ) : (
@@ -25,9 +25,9 @@ export const Head = React.memo(() => {
           </title>
           <meta
             name="Description"
-            content="Eine Liste an Lebensmitteln mit deren Fruktose und Glukosegehalt, die es Leuten mit
-					Fruktoseintoleranz (die schwerwiegendere Form von Fruktosemalabsorption) ermöglicht
-					herauszufinden welche Lebensmittel für sie geeignet sind."
+            content="Eine Liste an Lebensmitteln mit deren Fruktose und Glukosegehalt, die es Leuten mit 
+            Fruktoseintoleranz (die schwerwiegendere Form von Fruktosemalabsorption) ermöglicht 
+            herauszufinden welche Lebensmittel für sie geeignet sind."
           />
         </>
       )}

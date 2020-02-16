@@ -1,20 +1,27 @@
 import * as React from 'react';
 import {useCallback, useState} from 'react';
 import styled from 'styled-components';
+import {useRouter} from 'next/router';
 
 import {Burger} from 'components/Burger';
-// import {Link} from '../components/Link';
+import {Link} from '../components/Link';
 import {NavigationContent} from 'components/NavigationContent';
+import theme from 'lib/theme';
+import {FormattedMessage} from 'react-intl';
 
-/*
-const StyledSupport = styled.nav`
-	text-align: right;
+const StyledSupport = styled.div`
+  text-align: right;
+  margin-top: 0.3rem;
+  margin-right: 0.4rem;
 
-	${theme.largeDevices} {
-		font-size: 1.5rem;
-	}
+  font-size: 0.9rem;
+
+  ${theme.largeDevices} {
+    margin-right: 1rem;
+
+    font-size: 1.2rem;
+  }
 `;
-*/
 
 const StyledLightbox = styled.div`
   position: absolute;
@@ -28,8 +35,9 @@ const StyledLightbox = styled.div`
   opacity: 0.5;
 `;
 
-export const Navigation = React.memo(() => {
+export const Navigation = React.memo(function Navigation() {
   const [showMenu, setShowMenu] = useState(false);
+  const router = useRouter();
 
   const closeMenu = useCallback(() => setShowMenu(false), []);
   const openMenu = useCallback(() => setShowMenu(true), []);
@@ -37,20 +45,24 @@ export const Navigation = React.memo(() => {
   return (
     <>
       <Burger onClick={openMenu} />
-      {showMenu && (
-        <>
-          <StyledLightbox onClick={closeMenu} />
-          <NavigationContent onClick={closeMenu} desktop={false} />
-        </>
-      )}
-      <NavigationContent desktop={true} />
-      {/*
-				<StyledSupport>
-					<Link target="_blank" href="/support">
-						❤️Support Us
-					</Link>
-				</StyledSupport>
-				*/}
+
+      <div style={{gridArea: 'nav'}}>
+        {showMenu && (
+          <>
+            <StyledLightbox onClick={closeMenu} />
+            <NavigationContent onClick={closeMenu} desktop={false} />
+          </>
+        )}
+        <NavigationContent desktop={true} />
+
+        {router.pathname !== '/support' && (
+          <StyledSupport>
+            <Link href="/support">
+              <FormattedMessage id="indexSupportUs" />
+            </Link>
+          </StyledSupport>
+        )}
+      </div>
     </>
   );
 });

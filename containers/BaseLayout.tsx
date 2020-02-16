@@ -18,10 +18,14 @@ const StyledBase = styled.div`
 
   grid-template-columns: 1fr auto 1fr;
   grid-template-rows: auto 1fr;
-  grid-gap: 0.5rem 1rem;
+  grid-gap: 0.3rem 0.2rem;
   grid-template-areas:
     '. logo nav'
     'content content content';
+
+  ${theme.largeDevices} {
+    grid-gap: 0.5rem 1rem;
+  }
 
   background-color: ${theme.primary};
   color: white;

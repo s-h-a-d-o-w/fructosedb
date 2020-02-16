@@ -1,4 +1,3 @@
-const path = require('path');
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 const withOffline = require('next-offline');
 const withPlugins = require('next-compose-plugins');

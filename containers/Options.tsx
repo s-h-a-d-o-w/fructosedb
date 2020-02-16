@@ -28,9 +28,6 @@ const StyledOptions = styled.div`
   input[type='checkbox'] {
     position: relative;
     top: 1px;
-
-    width: 1.2em;
-    height: 1.2em;
   }
 
   label {
@@ -48,7 +45,7 @@ const StyledTextBox = styled.input`
   }
 `;
 
-export const Options: React.FC = React.memo(() => {
+export const Options: React.FC = React.memo(function Options() {
   const dispatch = useDispatch();
 
   const filter = useTypedSelector((state) => state.filter);

@@ -15,6 +15,8 @@ export default {
   aboutContactText: `
 Especially medical professionals who find our information 
 lacking for any reason are welcome to reach out via`,
+  indexSmallDisplayWarning: 'Please hold your device horizontally.',
+  indexSupportUs: '❤️Support Us',
   navigationAbout: 'About Us',
   navigationCalculate: 'How We Calculate',
   navigationHome: 'Home',
@@ -50,4 +52,13 @@ you eat no other sugar during this meal.`,
 The <strong>relative</strong> content is derived from comparison with glucose. 
 So related to the F/G ratio in the table. If fructose exceeds glucose 
 by 0.5g, the food is not recommended. (Sucrose is factored into this)`,
+  supportThanks: `
+Thank you for considering to help us cover infrastructure costs and/or simply show your appreciation! 🙂
+`,
+  supportOneTimeDonation: `
+One-time donation
+`,
+  supportSubscription: `
+Monthly donation
+`,
 };
