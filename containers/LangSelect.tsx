@@ -66,12 +66,13 @@ export const LangSelect: React.FC = () => {
       if (svgElement !== null) {
         const lang = svgElement.getAttribute('data-key');
         if (lang && (lang === 'de' || lang === 'en')) {
+          // Changing the language will also unmount this Select, resulting in isExpanded
+          // being reset.
           dispatch(changeLanguage(lang));
         }
       }
     }
 
-    setIsExpanded(false);
     document.body.removeEventListener('click', collapse);
   };
 
