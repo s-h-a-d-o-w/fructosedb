@@ -1,7 +1,7 @@
 import * as querystring from 'querystring';
 
 import {fetchJSON} from '../lib/fetch-with-timeout';
-import {Food} from 'types';
+import {Food} from '../types';
 
 const isDev = process.env.NODE_ENV !== 'production';
 const isTest = process.env.NODE_ENV === 'test';
@@ -61,11 +61,11 @@ export const shouldAvoid = (
   glucose: number
 ): boolean => {
   // Fructose should not exceed glucose by more than 0.5/100g
-  let relative = fructose + 0.5 * sucrose - (glucose + 0.5 * sucrose) > 0.5;
+  const relative = fructose + 0.5 * sucrose - (glucose + 0.5 * sucrose) > 0.5;
 
   // No more than 3g per serving (we of course have to estimate based on what
   // the USDA says the serving size is)
-  let absolute =
+  const absolute =
     (servingSize / 100) * fructose + (servingSize / 100) * sucrose * 0.5 > 3;
 
   return relative || absolute;
@@ -107,7 +107,7 @@ export const removeSimilar = (data: Food[]): Food[] => {
   }
 
   // Find similar names among similar ratios
-  let elementsToRemove: null[] = [];
+  const elementsToRemove: null[] = [];
   similar.forEach((el, idx) => {
     if (el.length > 0) {
       const nameBeginning = data[idx].name.substr(0, thresholdName);
@@ -119,7 +119,7 @@ export const removeSimilar = (data: Food[]): Food[] => {
   });
 
   // Actually remove the likely duplicates
-  let countTotal = data.length;
+  const countTotal = data.length;
   let countRemoved = 0;
   for (let i = elementsToRemove.length - 1; i >= 0; i--) {
     if (elementsToRemove[i] === null) {
@@ -192,7 +192,10 @@ export async function getFruitIDs(): Promise<string[]> {
   // It'll effectively be: https://api.nal.usda.gov/ndb/nutrients/?api_key=MY_KEY&max=1500&offset=0&fg=0900&nutrients=210
   let foods: USDAFood[];
   try {
-    foods = (isDev && !isTest) ? getCommittedData('usdaFruit.json').report.foods : (await getReport(1500, 0, '0900')).foods;
+    foods =
+      isDev && !isTest
+        ? getCommittedData('usdaFruit.json').report.foods
+        : (await getReport(1500, 0, '0900')).foods;
   } catch (error) {
     console.error(error);
     console.log('Using committed USDA fruit data.');
@@ -205,12 +208,12 @@ export async function getFruitIDs(): Promise<string[]> {
 }
 
 export async function getReport(
-  max: number = 1,
-  offset: number = 0,
+  max = 1,
+  offset = 0,
   fg: string | string[] = ''
 ): Promise<USDAReport> {
   const query = querystring.stringify({
-    api_key: process.env.USDA_KEY,
+    api_key: process.env.USDA_KEY, // eslint-disable-line
     nutrients: [210, 211, 212],
     max, // number of elements to return. default: 50
     offset,
@@ -242,17 +245,17 @@ export async function fetchFoodsList(): Promise<Food[]> {
       // Only 10 can be specified at once!
       // See also: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
       // prettier-ignore
-      let foodGroups = [
+      const foodGroups = [
 				['3500', '1800', '1300', '1400', '0800', '2000', '0100', '1500', '0900', '1700'],
 				['1600', '2200', '1200', '1000', '0500', '0700', '2500', '0200', '1900', '1100']
 			];
 
-      for (let fg of foodGroups) {
+      for (const fg of foodGroups) {
         // Dummy report fetch gives us total number of foods
-        let total: number = (await getReport(1, 0, fg)).total;
+        const total: number = (await getReport(1, 0, fg)).total;
 
         for (let offset = 0; offset < total; offset += 1500) {
-          let report: USDAReport = await getReport(1500, offset, fg);
+          const report: USDAReport = await getReport(1500, offset, fg);
           data = data.concat(report.foods);
         }
       }

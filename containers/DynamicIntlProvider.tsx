@@ -19,7 +19,7 @@ const DynamicIntlContext = React.createContext<State>({
   messages: {},
 });
 
-class _DynamicIntlProvider extends React.Component<Props, State> {
+class UnconnectedDynamicIntlProvider extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {...props};
@@ -59,6 +59,8 @@ class _DynamicIntlProvider extends React.Component<Props, State> {
 
 const mapStateToProps = ({lang}: ReduxState) => ({lang});
 
-const DynamicIntlProvider = connect(mapStateToProps)(_DynamicIntlProvider);
+const DynamicIntlProvider = connect(mapStateToProps)(
+  UnconnectedDynamicIntlProvider
+);
 
 export {DynamicIntlProvider, DynamicIntlContext};

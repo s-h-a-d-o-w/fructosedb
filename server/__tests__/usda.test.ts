@@ -32,21 +32,21 @@ const usdaData = {
         measure: '1.0 cup',
         nutrients: [
           {
-            nutrient_id: '210',
+            nutrient_id: '210', // eslint-disable-line
             nutrient: 'Sucrose',
             unit: 'g',
             value: '8.19',
             gm: 3.61,
           },
           {
-            nutrient_id: '211',
+            nutrient_id: '211', // eslint-disable-line
             nutrient: 'Glucose (dextrose)',
             unit: 'g',
             value: '5.11',
             gm: 2.25,
           },
           {
-            nutrient_id: '212',
+            nutrient_id: '212', // eslint-disable-line
             nutrient: 'Fructose',
             unit: 'g',
             value: '9.74',
@@ -137,7 +137,7 @@ describe('transformData', function() {
     const invalidFood = usdaData.report.foods.slice();
     (invalidFood[0].nutrients[0].gm as any) = '--';
 
-    var transformedFood = transformData(invalidFood);
+    const transformedFood = transformData(invalidFood);
     expect(transformedFood.length).toEqual(0);
   });
 });

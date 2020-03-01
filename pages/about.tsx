@@ -7,15 +7,16 @@ import {Article} from '../components/Article';
 import {Paragraph} from '../components/Paragraph';
 import {Email} from '../containers/Email';
 
-export default () => (
+const About: React.FC = () => (
   <BaseLayout>
     <CenteredContent>
       <Article>
         <Paragraph>
           <FormattedMessage id="aboutCreator" />:{' '}
           <a
-            target="_blank"
             href="https://www.linkedin.com/in/andreas-opferkuch/"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             Andreas Opferkuch
           </a>
@@ -27,3 +28,5 @@ export default () => (
     </CenteredContent>
   </BaseLayout>
 );
+
+export default About;

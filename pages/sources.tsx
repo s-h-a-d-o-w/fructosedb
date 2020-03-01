@@ -16,32 +16,32 @@ const StyledUSDASymbol = styled.img`
 
 const articleLink = (
   <a
-    target="_blank"
-    rel="noopener noreferrer"
     href="https://www.foodsmatter.com/miscellaneous_articles/sugar_sweeteners/articles/fructose-intol-joneja-09-14.html"
+    rel="noopener noreferrer"
+    target="_blank"
   >
-    "Fructose intolerance, including FODMAPs"
+    &quot;Fructose intolerance, including FODMAPs&quot;
   </a>
 );
 const usdaIcon = (
-  <a target="_blank" rel="noopener noreferrer" href="https://www.usda.gov/">
+  <a href="https://www.usda.gov/" rel="noopener noreferrer" target="_blank">
     <StyledUSDASymbol alt="USDA" src="/static/images/usda-symbol.svg" />
   </a>
 );
 const usdaLink = (
   <a
-    target="_blank"
-    rel="noopener noreferrer"
     href="https://ndb.nal.usda.gov/ndb/search/list?home=true"
+    rel="noopener noreferrer"
+    target="_blank"
   >
     food composition database
   </a>
 );
 const wikipediaLink = (
   <a
-    target="_blank"
-    rel="noopener noreferrer"
     href="https://en.wikipedia.org/wiki/Fructose_malabsorption#Diet"
+    rel="noopener noreferrer"
+    target="_blank"
   >
     Wikipedia
   </a>

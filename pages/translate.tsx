@@ -91,13 +91,15 @@ class Translate extends React.Component<Props, State> {
             .filter((el) => !this.state.translatedKeys.includes(el))
             .sort((a: string, b: string) => a.localeCompare(b))
             .map((el) => {
-              let quotesEscaped = el.replace(/([0-9])"/g, '$1\\"');
+              const quotesEscaped = el.replace(/([0-9])"/g, '$1\\"');
               return (
                 <div key={quotesEscaped}>
                   {'  '}
-                  <span className="notranslate">"{quotesEscaped}" : "</span>
+                  <span className="notranslate">
+                    &quot;{quotesEscaped}&quot; : &quot;
+                  </span>
                   {quotesEscaped}
-                  <span className="notranslate">",</span>
+                  <span className="notranslate">&quot;,</span>
                   <br />
                 </div>
               );
@@ -122,7 +124,7 @@ class Translate extends React.Component<Props, State> {
               Step 3: Paste into a file called &lt;language-code&gt;.json.
               <br />
               Step 4: Replace oddities like \“ or whatever Google makes out of
-              it with the correct \".
+              it with the correct \&quot;.
               <br />
               Step 5: Proofread.
               <br />
@@ -137,8 +139,7 @@ class Translate extends React.Component<Props, State> {
               or send it to us via <Email />.
             </div>
             <br />
-            Missing translations for '{this.props.langTranslate}
-            ':
+            Missing translations for &quot;{this.props.langTranslate}&quot;:
             <br />
           </div>
           {this.state.hasMounted ? (

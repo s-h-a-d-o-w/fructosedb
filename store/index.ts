@@ -8,6 +8,19 @@ import {Action} from './actions';
 import {loadState, saveState} from './local-storage';
 import {SupportedLanguages} from 'types';
 
+export const initialState = {
+  count: 0,
+  filter: '',
+  lastUpdate: 0,
+  lang: 'en' as SupportedLanguages,
+  langTranslate: 'en',
+  light: false,
+  onlyFruit: false,
+  showServingSize: false,
+  sortBy: 'name',
+  sortAsc: true,
+};
+
 export const reducer = (
   state: ReduxState = initialState,
   action: Action
@@ -72,19 +85,6 @@ export type ReduxState = typeof initialState & {
     y: number;
     content: string;
   };
-};
-
-export const initialState = {
-  count: 0,
-  filter: '',
-  lastUpdate: 0,
-  lang: 'en' as SupportedLanguages,
-  langTranslate: 'en',
-  light: false,
-  onlyFruit: false,
-  showServingSize: false,
-  sortBy: 'name',
-  sortAsc: true,
 };
 
 // Locale is needed so that we can set the default language to

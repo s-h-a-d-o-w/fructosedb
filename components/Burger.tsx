@@ -37,10 +37,12 @@ const StyledBurgerLine = styled.div`
   background-color: ${theme.primaryDark};
 `;
 
-export const Burger = React.memo(({onClick}: Props) => (
-  <StyledBurgerContainer onClick={onClick}>
-    <StyledBurgerLine />
-    <StyledBurgerLine />
-    <StyledBurgerLine />
-  </StyledBurgerContainer>
-));
+export const Burger = React.memo(function Burger({onClick}: Props) {
+  return (
+    <StyledBurgerContainer onClick={onClick}>
+      <StyledBurgerLine />
+      <StyledBurgerLine />
+      <StyledBurgerLine />
+    </StyledBurgerContainer>
+  );
+});

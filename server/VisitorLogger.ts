@@ -52,7 +52,7 @@ class VisitorLogger implements Props {
     db.once('open', () => {
       console.log('MongoDB connection succeeded.');
 
-      let VisitorSchema = new mongoose.Schema({
+      const VisitorSchema = new mongoose.Schema({
         time: String,
         country: String,
         region: String,
@@ -106,7 +106,7 @@ class VisitorLogger implements Props {
       if (this.VisitorModel) {
         this.VisitorModel.find((err, visitors) => {
           if (err) {
-            let generalError = 'Error generating visitor report';
+            const generalError = 'Error generating visitor report';
             console.error(generalError, err);
             reject(generalError);
           }

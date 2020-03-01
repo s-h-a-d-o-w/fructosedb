@@ -32,7 +32,7 @@ export const TranslationDropdown: React.FC = () => {
 
       setTimeout(waitForGoogleTranslate, 100);
     })();
-  }, []);
+  }, [dispatch]);
 
   return <div id="google_translate_element" />;
 };

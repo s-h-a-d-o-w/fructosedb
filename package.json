@@ -8,7 +8,7 @@
     "build": "rimraf .next && yarn build:server && next build",
     "build:server": "tsc -p tsconfig.server.json",
     "dev": "rimraf node_modules/.cache .next && concurrently \"yarn build:server --watch\" \"nodemon server/main.js\"",
-    "lint": "npx eslint .",
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "patch-package",
     "start": "cross-env NODE_ENV=production node .",
     "style": "yarn styleguidist server",
