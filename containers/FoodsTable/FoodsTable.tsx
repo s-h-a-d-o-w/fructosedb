@@ -11,11 +11,10 @@ import {connect} from 'react-redux';
 import {AutoSizer, Table, SortDirection} from 'react-virtualized';
 import {Dispatch as ReduxDispatch} from 'redux';
 import toPX from 'to-px';
-import {useDebouncedCallback} from 'use-debounce';
+import {useDebounce} from 'use-debounce';
 
 import {Loading} from 'components/Loading';
 import {fetchJSON} from 'lib/fetch-with-timeout';
-import {isEmptyObject} from 'lib/util';
 import {changeSort, showFloat, hideFloat} from 'store/actions';
 import {ReduxState} from 'store';
 import {Food} from 'types';
@@ -60,6 +59,8 @@ const _FoodsTable: React.FC<Props> = ({
   const [data, setData] = useState<Food[]>([]);
   const [translation, setTranslation] = useState<Translation>({});
 
+  const [debouncedFilter] = useDebounce(filter, 200);
+
   const intl = useIntl();
 
   const tableRef = useRef(null);
@@ -68,30 +69,14 @@ const _FoodsTable: React.FC<Props> = ({
     fetchURL('list', setIsFetchingRawData, setRawData);
   }, []);
 
-  // Debounced data preparation here instead of debouncing the filter input,
-  // since synchronizing local and global state for the input field would be
-  // excessive overhead for a small app like this.
   useEffect(
     function() {
-      debouncedUpdateData();
-    },
-    [filter]
-  );
-
-  useEffect(
-    function() {
-      if (!isFetchingTranslation) {
-        if (lang !== 'en') {
-          fetchURL(
-            `static/lang/${lang}.json`,
-            setIsFetchingTranslation,
-            setTranslation
-          );
-        } else {
-          // 'translation' effect hook won't be triggered,
-          // so we have to trigger the data update here.
-          updateData();
-        }
+      if (lang !== 'en') {
+        fetchURL(
+          `static/lang/${lang}.json`,
+          setIsFetchingTranslation,
+          setTranslation
+        );
       }
     },
     [lang]
@@ -99,24 +84,26 @@ const _FoodsTable: React.FC<Props> = ({
 
   useEffect(
     function() {
-      updateData();
+      if (!isFetchingTranslation) {
+        let nextData: Food[] = Data.translate(rawData, translation, lang);
+        nextData = Data.sort(nextData, sortBy, sortAsc);
+        nextData = Data.filter(nextData, debouncedFilter, onlyFruit);
+
+        // If `name` is falsy, it hasn't been translated yet
+        setData(nextData.filter((el) => el.name));
+      }
     },
-    [rawData, onlyFruit, translation, sortAsc, sortBy]
+    [
+      rawData,
+      onlyFruit,
+      translation,
+      sortAsc,
+      sortBy,
+      lang,
+      debouncedFilter,
+      isFetchingTranslation,
+    ]
   );
-
-  function updateData() {
-    let nextData: Food[] =
-      lang !== 'en' && isEmptyObject(translation)
-        ? [] // in case translation fetch isn't done yet
-        : Data.translate(rawData, translation, lang);
-    nextData = Data.sort(nextData, sortBy, sortAsc);
-    nextData = Data.filter(nextData, filter, onlyFruit);
-
-    // If `name` is falsy, it has no translation
-    setData(nextData.filter(el => el.name));
-  }
-
-  const [debouncedUpdateData] = useDebouncedCallback(updateData, 200);
 
   return isFetchingRawData || isFetchingTranslation ? (
     <Loading />
