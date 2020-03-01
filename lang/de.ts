@@ -45,10 +45,7 @@ entsprechen. Denn wer isst z.B. 1 Tasse Rosinen auf einmal? Leider haben wir nic
 nötige Personal, um selber sinnvolle Portionsgrößen zu definieren.
 `,
   sourcesDescription: `
-Die Daten werden von der {usdaIcon} über ihre {usdaLink} bereitsgestellt und von 
-uns einmal pro Tag abgefragt. (Sollten neue Lebensmittel hinzugefügt werden, 
-werden die Übersetzungen vorerst fehlen, da wir diese per Hand erstellen müssen. 
-Du kannst uns gerne über Fehlende informieren.)
+Datenquelle: {usdaIcon}
 `,
   sourcesFormula: `
 Die Formel, um zu berechnen, ob man ein Lebensmittel meiden sollte, basiert auf dem 

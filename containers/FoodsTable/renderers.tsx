@@ -14,7 +14,7 @@ import * as Data from './data';
 import {Props as TableProps} from './FoodsTable';
 
 const renderAvoid: TableCellRenderer = ({cellData}) =>
-  cellData ? Icons.error : Icons.ok;
+  cellData ? Icons.avoid : Icons.ok;
 
 export const renderColumns = ({
   dispatchHideFloat,

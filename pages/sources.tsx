@@ -17,24 +17,30 @@ const StyledUSDASymbol = styled.img`
 const articleLink = (
   <a
     target="_blank"
+    rel="noopener noreferrer"
     href="https://www.foodsmatter.com/miscellaneous_articles/sugar_sweeteners/articles/fructose-intol-joneja-09-14.html"
   >
     "Fructose intolerance, including FODMAPs"
   </a>
 );
 const usdaIcon = (
-  <a target="_blank" href="https://www.usda.gov/">
-    <StyledUSDASymbol src="/static/images/usda-symbol.svg" />
+  <a target="_blank" rel="noopener noreferrer" href="https://www.usda.gov/">
+    <StyledUSDASymbol alt="USDA" src="/static/images/usda-symbol.svg" />
   </a>
 );
 const usdaLink = (
-  <a target="_blank" href="https://ndb.nal.usda.gov/ndb/search/list?home=true">
+  <a
+    target="_blank"
+    rel="noopener noreferrer"
+    href="https://ndb.nal.usda.gov/ndb/search/list?home=true"
+  >
     food composition database
   </a>
 );
 const wikipediaLink = (
   <a
     target="_blank"
+    rel="noopener noreferrer"
     href="https://en.wikipedia.org/wiki/Fructose_malabsorption#Diet"
   >
     Wikipedia
@@ -45,7 +51,7 @@ const wikipediaLink = (
 // See: https://github.com/formatjs/react-intl/blob/master/docs/Components.md#rich-text-formatting
 const strong = (msg: string) => <strong>{msg}</strong>;
 
-export default () => (
+const Sources: React.FC = () => (
   <BaseLayout>
     <CenteredContent>
       <Article>
@@ -87,3 +93,5 @@ export default () => (
     </CenteredContent>
   </BaseLayout>
 );
+
+export default Sources;

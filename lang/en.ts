@@ -29,9 +29,7 @@ declares to be the serving size (fructose should not exceed more than
 who eats 1 cup of raisins in one sitting? Unfortunately, we don't have 
 the staff to manually define reasonable serving sizes.`,
   sourcesDescription: `
-Data is provided by the {usdaIcon} through their {usdaLink} and updated once a day. 
-(Should new foods be added, translations will lag behind, as they are hand-crafted. 
-Feel free to notify us of missing translations.)`,
+Data source: {usdaIcon}`,
   sourcesFormula: `
 The formula for calculating whether it is recommended to avoid a given 
 food or not was derived from the article {articleLink} 
