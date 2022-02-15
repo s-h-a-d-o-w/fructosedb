@@ -8,7 +8,7 @@ import {
 } from 'react';
 import {useIntl} from 'react-intl';
 import {connect} from 'react-redux';
-import {AutoSizer, Table, SortDirection} from 'react-virtualized';
+import {AutoSizer, Table, SortDirection, Size} from 'react-virtualized';
 import {Dispatch as ReduxDispatch} from 'redux';
 import toPX from 'to-px';
 import {useDebounce} from 'use-debounce';
@@ -110,7 +110,7 @@ const _FoodsTable: React.FC<Props> = ({
   ) : (
     <StyledTable ref={tableRef}>
       <AutoSizer>
-        {({width, height}) => (
+        {({width, height}: Size) => (
           <Table
             // TODO: How would using to-px/browser affect this calculation?
             // Evaluate generally switching to px...

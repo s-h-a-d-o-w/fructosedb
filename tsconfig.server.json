@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "baseUrl": ".",
@@ -8,7 +9,8 @@
     "lib": [
       "dom",
       "es2016"
-    ]
+    ],
+    "types": []
   },
   "include": [
     "lang/**/*",

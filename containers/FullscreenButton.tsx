@@ -66,6 +66,8 @@ export const FullscreenButton = React.memo(function FullscreenButton({
   };
 
   return (
+    // A version conflict between enzyme and the types in this repo, can't be bothered figure this out for a project that won't see any new development
+    // @ts-ignore
     <StyledIcon onClick={toggleFullScreen}>
       {isFullscreen ? (
         <svg width="100%" viewBox="0 0 20 20">

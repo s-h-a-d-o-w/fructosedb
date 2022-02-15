@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+     "types": [],
     "strict": true,
     "noEmit": true,
     "experimentalDecorators": true,

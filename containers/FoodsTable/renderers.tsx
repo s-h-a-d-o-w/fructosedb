@@ -94,7 +94,10 @@ const renderName = (
   {cellData}: TableCellProps
 ) => (
   <div
+    // A version conflict between enzyme and the types in this repo, can't be bothered figure this out for a project that won't see any new development
+    // @ts-ignore
     onClick={dispatchShowFloat.bind(null, cellData || '')}
+    // @ts-ignore
     onMouseOver={dispatchShowFloat.bind(null, cellData || '')}
     onMouseLeave={dispatchHideFloat}
   >
