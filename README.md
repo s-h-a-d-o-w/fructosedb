@@ -10,10 +10,6 @@
 
 ### Environment Variables
 
-#### Required
-
-- `USDA_KEY` - For accessing USDA REST API
-
 #### Optional
 
 - `PORT` - default: `3000`

@@ -190,81 +190,20 @@ function getCommittedData(filename: string) {
 export async function getFruitIDs(): Promise<string[]> {
   // For food group ID see: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
   // It'll effectively be: https://api.nal.usda.gov/ndb/nutrients/?api_key=MY_KEY&max=1500&offset=0&fg=0900&nutrients=210
-  let foods: USDAFood[];
-  try {
-    foods =
-      isDev && !isTest
-        ? getCommittedData('usdaFruit.json').report.foods
-        : (await getReport(1500, 0, '0900')).foods;
-  } catch (error) {
-    console.error(error);
-    console.log('Using committed USDA fruit data.');
-    foods = getCommittedData('usdaFruit.json').report.foods;
-  }
+
+  // I used to fetch data from the usda here
+  const foods: USDAFood[] = getCommittedData('usdaFruit.json').report.foods;
 
   const ids: string[] = [];
   foods.forEach((el) => ids.push(el.ndbno));
   return ids;
 }
 
-export async function getReport(
-  max = 1,
-  offset = 0,
-  fg: string | string[] = ''
-): Promise<USDAReport> {
-  const query = querystring.stringify({
-    api_key: process.env.USDA_KEY, // eslint-disable-line
-    nutrients: [210, 211, 212],
-    max, // number of elements to return. default: 50
-    offset,
-    fg, // food group (used for figuring out which are fruits)
-  });
-  const dbURL = `http://api.nal.usda.gov/ndb/nutrients/?${query}`;
-
-  let response;
-  try {
-    response = await fetchJSON(dbURL);
-  } catch (error) {
-    throw error;
-  }
-
-  return response.report;
-}
-
 // Get full list of foods from the USDA DB.
 // Data rearranged as needed by the frontend. (see transformData())
 export async function fetchFoodsList(): Promise<Food[]> {
-  let data: USDAFood[] = [];
-
-  if (isDev && !isTest) {
-    console.log('DEV ENV: Using committed USDA data.');
-    data = getCommittedData('usdaData.json');
-  } else {
-    try {
-      // Included food groups.
-      // Only 10 can be specified at once!
-      // See also: https://api.nal.usda.gov/ndb/list?format=json&lt=g&sort=n&api_key=DEMO_KEY
-      // prettier-ignore
-      const foodGroups = [
-				['3500', '1800', '1300', '1400', '0800', '2000', '0100', '1500', '0900', '1700'],
-				['1600', '2200', '1200', '1000', '0500', '0700', '2500', '0200', '1900', '1100']
-			];
-
-      for (const fg of foodGroups) {
-        // Dummy report fetch gives us total number of foods
-        const total: number = (await getReport(1, 0, fg)).total;
-
-        for (let offset = 0; offset < total; offset += 1500) {
-          const report: USDAReport = await getReport(1500, offset, fg);
-          data = data.concat(report.foods);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-      console.log('Using committed USDA data.');
-      data = getCommittedData('usdaData.json');
-    }
-  }
+  // I used to fetch data from the usda here
+  const data: USDAFood[] = getCommittedData('usdaData.json');
 
   return removeSimilar(transformData(data, await getFruitIDs()));
 }
