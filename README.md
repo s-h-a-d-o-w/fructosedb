@@ -13,7 +13,6 @@
 #### Required
 
 - `USDA_KEY` - For accessing USDA REST API
-- `MONGODB_PW` - For logging visitors
 
 #### Optional
 

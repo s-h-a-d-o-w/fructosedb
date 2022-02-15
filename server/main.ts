@@ -28,10 +28,6 @@ app.prepare().then(() => {
   server.use(compression());
   server.use(i18n);
 
-  // Make it possible to get visitor's IP for logging - see VisitorLogger.
-  // See: https://stackoverflow.com/a/14631683/5040168
-  server.enable('trust proxy');
-
   setupRoutes(app, server);
   updateFoodCache().then(() => {
     server.listen(port, () => {

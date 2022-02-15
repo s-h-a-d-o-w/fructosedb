@@ -5,7 +5,6 @@ import * as LRUCache from 'lru-cache';
 
 import {FoodCache} from '../types';
 import {fetchFoodsList} from './usda';
-import VisitorLogger from './VisitorLogger';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -100,12 +99,9 @@ CPU Load 15 min: ${os.loadavg(15)}
 // ROUTES
 // ==================================
 const setupRoutes = (nextApp: any, expressServer: Express.Express) => {
-  const visitorLogger = new VisitorLogger();
   const nextHandle = nextApp.getRequestHandler();
 
   expressServer.get('/', (req, res) => {
-    visitorLogger.log(req.ip);
-
     res.set({
       // Push everything that is needed for FMP and avoids FOUT/FOUC.
       Link: [
@@ -136,16 +132,6 @@ const setupRoutes = (nextApp: any, expressServer: Express.Express) => {
 
   expressServer.get('/health', (_, res) => {
     return res.send(renderServerHealth());
-  });
-
-  expressServer.get('/visitors', async (_, res) => {
-    try {
-      const result = await visitorLogger.report();
-      return res.send(result);
-    } catch (err) {
-      console.log(err);
-      return res.send('error while fetching visitor information.');
-    }
   });
 
   expressServer.get('/favicon.ico', (req, res) => {

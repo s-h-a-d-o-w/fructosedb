@@ -3,8 +3,7 @@
   "name": "fructosedb",
   "alias": ["fructosedb.org", "www.fructosedb.org"],
   "env": {
-    "USDA_KEY": "@fructosedb-usda-key",
-    "MONGODB_PW": "@fructosedb-mongodb-pw"
+    "USDA_KEY": "@fructosedb-usda-key"
   },
   "scale": {
     "bru1": {
