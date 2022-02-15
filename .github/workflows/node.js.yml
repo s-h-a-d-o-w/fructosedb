@@ -6,8 +6,6 @@ name: CD
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   deployment:
@@ -23,7 +21,8 @@ jobs:
         cache: 'yarn'
     - run: yarn
     - run: yarn global add caprover
-    - env:
+    - shell: bash
+      env:
         CAPROVER_MACHINE_01: ${{ secrets.CAPROVER_MACHINE_01 }}
         CAPROVER_MACHINE_02: ${{ secrets.CAPROVER_MACHINE_02 }}
         CAPROVER_PASSWORD: ${{ secrets.CAPROVER_PASSWORD }}
