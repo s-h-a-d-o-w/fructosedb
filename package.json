@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "server/main.js",
   "license": "MIT",
+  "engines": {
+    "node": "14"
+  },
   "scripts": {
     "analyze": "cross-env BUNDLE_ANALYZE=browser yarn build",
     "build": "rimraf .next && yarn build:server && next build",
